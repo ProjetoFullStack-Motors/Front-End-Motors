@@ -18,7 +18,6 @@ const StyledProfileSettings = styled.nav<MenuProps>`
   section {
     display: flex;
     justify-content: space-between;
-    width: 150px;
     text-align: center;
 
     p,

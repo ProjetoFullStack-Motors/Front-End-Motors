@@ -1,5 +1,5 @@
 import { forwardRef, ForwardedRef } from "react";
-import { IInputProps } from "../InputsPass/@types";
+import { IInputProps } from "../@types";
 
 const Input = forwardRef(
   (

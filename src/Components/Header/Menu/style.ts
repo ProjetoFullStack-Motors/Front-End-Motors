@@ -18,6 +18,12 @@ const StyledMenu = styled.div`
 
     border: solid 1px transparent;
 
+    p {
+      border-radius: 50%;
+      padding: 4px;
+      background-color: var(--grey-5);
+    }
+
     p,
     span {
       display: none;
