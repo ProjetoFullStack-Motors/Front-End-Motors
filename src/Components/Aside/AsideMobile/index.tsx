@@ -1,37 +1,55 @@
 import { useContext } from "react";
-import ListNav from "../ListNav";
 import { CarContext } from "../../../Providers/CarContext";
-import RangeSlide from "../RangeSlide";
+import { IoMdClose } from "react-icons/io";
+import {
+  HeaderAsideModal,
+  StyledAsideMobile,
+  StyledAsideModal,
+  StyledButtonContainer,
+} from "./style";
+import Button from "../../Buttons";
+import AllFilters from "../AllFilters";
 
 const AsideMobile = () => {
-  const { setFilterModal, handleClearFilter } = useContext(CarContext);
-
-  const clearFilter = () => {
-    setFilterModal(false);
-    handleClearFilter();
-  };
+  const { setFilterModal, handleClearFilter, car } = useContext(CarContext);
 
   return (
-    <div>
-      <div>
-        <div>
+    <StyledAsideMobile>
+      <StyledAsideModal>
+        <HeaderAsideModal>
           <h2>Filtro</h2>
-          <button onClick={() => setFilterModal(false)}>X</button>
-        </div>
-        <ListNav saleKey="brand" name="Marca" />
-        <ListNav saleKey="model" name="Modelo" />
-        <ListNav saleKey="color" name="Cor" />
-        <ListNav saleKey="year" name="Ano" />
-        <ListNav saleKey="engine" name="Combustível" />
-        <RangeSlide title="Preço" stepValue={10} itemKey="price" />
-        <RangeSlide title="Quilometragem" stepValue={10} itemKey="mileage" />
-        <div>
-          <button onClick={() => setFilterModal(false)}>Ver Anúncios</button>
+          <button onClick={() => setFilterModal(false)}>
+            <IoMdClose />
+          </button>
+        </HeaderAsideModal>
+        <AllFilters />
+        <StyledButtonContainer>
+          <Button
+            $background="brand-2"
+            $width={5}
+            onClick={() => setFilterModal(false)}
+          >
+            Realizar Pesquisa
+          </Button>
 
-          <button onClick={clearFilter}>Limpar Filtro</button>
-        </div>
-      </div>
-    </div>
+          {!car.brand &&
+          !car.model &&
+          !car.color &&
+          !car.year &&
+          !car.engine &&
+          !car.mileage &&
+          !car.price ? null : (
+            <Button
+              $background="brand-2"
+              $width={5}
+              onClick={handleClearFilter}
+            >
+              Limpar Filtro
+            </Button>
+          )}
+        </StyledButtonContainer>
+      </StyledAsideModal>
+    </StyledAsideMobile>
   );
 };
 

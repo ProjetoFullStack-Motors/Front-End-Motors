@@ -3,6 +3,7 @@ import { TRangeSlideProps } from "./@types";
 import mock from "../../../Services/mock";
 import { useContext } from "react";
 import { CarContext } from "../../../Providers/CarContext";
+import { StyledSlider } from "./style";
 
 const RangeSlide = ({ title, stepValue, itemKey }: TRangeSlideProps) => {
   const { handleSliderChange, car, cars } = useContext(CarContext);
@@ -17,33 +18,33 @@ const RangeSlide = ({ title, stepValue, itemKey }: TRangeSlideProps) => {
   console.log(cars);
 
   return (
-    <div>
+    <StyledSlider>
       <h2>{title}</h2>
       <div>
         <h3>
           {itemKey == "price" ? `R$ ${minNumber} mil` : `${minNumber} mil km`}
         </h3>
-        <Slider
-          value={Number(sliderValue)}
-          onChange={(event, newValue) => handleSliderChange(newValue, itemKey)}
-          valueLabelDisplay="auto"
-          step={stepValue}
-          min={minNumber}
-          max={maxNumber}
-          sx={{
-            width: 300,
-            color: "#9747FF",
-            "& .MuiSlider-thumb": {
-              width: "12px",
-              height: "12px",
-            },
-          }}
-        />
         <h3>
           {itemKey == "price" ? `R$ ${maxNumber} mil` : `${maxNumber} mil km`}
         </h3>
       </div>
-    </div>
+      <Slider
+        value={Number(sliderValue)}
+        onChange={(event, newValue) => handleSliderChange(newValue, itemKey)}
+        valueLabelDisplay="auto"
+        step={stepValue}
+        min={minNumber}
+        max={maxNumber}
+        sx={{
+          width: "100%",
+          color: "#5126EA",
+          "& .MuiSlider-thumb": {
+            width: "10px",
+            height: "10px",
+          },
+        }}
+      />
+    </StyledSlider>
   );
 };
 

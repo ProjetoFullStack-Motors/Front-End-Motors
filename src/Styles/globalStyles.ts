@@ -47,6 +47,8 @@ export const GlobalStyles = createGlobalStyle`
         --random-11: #5700E3;
         --random-12: #30007D;
 
+        --modal-background: rgba(33, 37, 41, 0.6);
+
         //font-size:
 
         --font-heading-1: 2.75rem; // 44px
