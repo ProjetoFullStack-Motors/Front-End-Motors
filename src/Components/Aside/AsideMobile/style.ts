@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 const StyledAsideMobile = styled.div`
-  width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   position: fixed;
+  top: 0;
   z-index: 3;
   background-color: var(--modal-background);
   display: flex;
@@ -18,6 +19,7 @@ const StyledAsideMobile = styled.div`
 const StyledAsideModal = styled.div`
   background-color: var(--grey-10);
   width: 100%;
+  max-height: 900px;
   overflow-y: auto;
   margin-top: 1rem;
 `;
