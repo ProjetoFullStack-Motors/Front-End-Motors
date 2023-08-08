@@ -1,15 +1,14 @@
 import { useContext } from "react";
-import ListNav from "../ListNav";
 import { CarContext } from "../../../Providers/CarContext";
-import RangeSlide from "../RangeSlide";
+import { IoMdClose } from "react-icons/io";
 import {
   HeaderAsideModal,
   StyledAsideMobile,
   StyledAsideModal,
   StyledButtonContainer,
-  StyledFilters,
 } from "./style";
 import Button from "../../Buttons";
+import AllFilters from "../AllFilters";
 
 const AsideMobile = () => {
   const { setFilterModal, handleClearFilter, car } = useContext(CarContext);
@@ -19,17 +18,11 @@ const AsideMobile = () => {
       <StyledAsideModal>
         <HeaderAsideModal>
           <h2>Filtro</h2>
-          <button onClick={() => setFilterModal(false)}>X</button>
+          <button onClick={() => setFilterModal(false)}>
+            <IoMdClose />
+          </button>
         </HeaderAsideModal>
-        <StyledFilters>
-          <ListNav saleKey="brand" name="Marca" />
-          <ListNav saleKey="model" name="Modelo" />
-          <ListNav saleKey="color" name="Cor" />
-          <ListNav saleKey="year" name="Ano" />
-          <ListNav saleKey="engine" name="Combustível" />
-          <RangeSlide title="Km" stepValue={10} itemKey="mileage" />
-          <RangeSlide title="Preço" stepValue={10} itemKey="price" />
-        </StyledFilters>
+        <AllFilters />
         <StyledButtonContainer>
           <Button
             $background="brand-2"

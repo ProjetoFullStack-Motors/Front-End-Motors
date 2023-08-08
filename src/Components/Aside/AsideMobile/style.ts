@@ -39,25 +39,15 @@ const HeaderAsideModal = styled.div`
     color: var(--grey-4);
     background-color: transparent;
     border: none;
-    font-size: var(--font-body-1);
     width: 20px;
     height: 20px;
-    font-weight: var(--font-semibold);
 
-    :focus {
-      border-radius: 100%;
-      background-color: var(--grey-4);
-      color: var(--grey-1);
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--grey-4);
     }
   }
-`;
-
-const StyledFilters = styled.div`
-  padding: 2rem;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
 `;
 
 const StyledButtonContainer = styled.div`
@@ -78,6 +68,5 @@ export {
   StyledAsideMobile,
   StyledAsideModal,
   HeaderAsideModal,
-  StyledFilters,
   StyledButtonContainer,
 };
