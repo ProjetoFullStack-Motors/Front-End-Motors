@@ -1,15 +1,15 @@
 import { StyledSalesList } from "./style";
-import { Mock } from "../../Services/mock";
 import SalesCard from "./SalesCard";
+import mock from "../../Services/mock";
 
 const SalesList = () => {
-    return (
-        <StyledSalesList>
-            {Mock.map((sale) => (
-                <SalesCard key={sale.id} sale={sale} />
-            ))}
-        </StyledSalesList>
-    );
+  return (
+    <StyledSalesList>
+      {mock.map((sale) => (
+        <SalesCard key={sale.id} sale={sale} />
+      ))}
+    </StyledSalesList>
+  );
 };
 
 export default SalesList;

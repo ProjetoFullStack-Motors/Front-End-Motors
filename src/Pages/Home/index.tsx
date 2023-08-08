@@ -1,15 +1,15 @@
 import AsideDesktop from "../../Components/Aside/AsideDesktop";
+import { Header, SalesList } from "../../Components";
 import AsideMobile from "../../Components/Aside/AsideMobile";
-import ListNav from "../../Components/Aside/ListNav";
 import { StyledHomePage } from "./style";
 
 const Home = () => {
   return (
     <StyledHomePage>
-      <h1>Home</h1>
-
+      <Header />
       <AsideMobile />
       <AsideDesktop />
+      <SalesList />
     </StyledHomePage>
   );
 };
