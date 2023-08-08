@@ -1,5 +1,7 @@
+import { TSaleProps } from "../Providers/CarContext/@types";
+
 /* eslint-disable indent */
-const mock = [
+const mock: TSaleProps[] = [
   {
     id: 1,
     brand: "Fiat",
@@ -17,6 +19,7 @@ const mock = [
     },
     imgUrl:
       "https://storage.googleapis.com/ludopedia-imagens-jogo/1717a_8052.jpg",
+    engine: "flex",
   },
   {
     id: 2,
@@ -35,6 +38,7 @@ const mock = [
     },
     imgUrl:
       "https://ilhacarioca.com/wp-content/uploads/2021/12/Previs%C3%A3o-de-tempo-nublado-e-pancadas-de-chuva-at%C3%A9-sexta-dia-31.jpg",
+    engine: "flex",
   },
   {
     id: 3,
@@ -53,6 +57,7 @@ const mock = [
     },
     imgUrl:
       "https://s2-g1.glbimg.com/1gfWxBCiFD1x-dXXI-drC8Ryzls=/0x0:1280x857/1000x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/v/R/VDITLGTFG7c20nAAwgog/whatsapp-image-2021-12-22-at-13.26.56.jpeg",
+    engine: "híbrido",
   },
   {
     id: 4,
@@ -71,6 +76,7 @@ const mock = [
     },
     imgUrl:
       "https://s2-g1.glbimg.com/1gfWxBCiFD1x-dXXI-drC8Ryzls=/0x0:1280x857/1000x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/v/R/VDITLGTFG7c20nAAwgog/whatsapp-image-2021-12-22-at-13.26.56.jpeg",
+    engine: "flex",
   },
 ];
 
