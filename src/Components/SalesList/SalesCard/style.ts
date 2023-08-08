@@ -6,6 +6,32 @@ export const StyledSalesCard = styled.li`
     gap: 16px;
     width: 19.5rem;
     height: 21.875rem;
+    transition: transform 0.5s;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: opacity 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.15);
+        content: "";
+        opacity: 0;
+        z-index: -1;
+    }
+
+    &:hover,
+    &:focus {
+        transform: scale3d(1.006, 1.006, 1);
+
+        &::after {
+            opacity: 1;
+        }
+    }
 
     .car-img-container {
         width: 19.5rem;
@@ -29,6 +55,13 @@ export const StyledSalesCard = styled.li`
         background-color: var(--sucess-1);
         font-weight: var(--font-base);
         cursor: context-menu;
+    }
+
+    .sales-info-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 0 10px 10px;
     }
 
     .car-title {
