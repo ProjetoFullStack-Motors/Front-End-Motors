@@ -12,7 +12,7 @@ const CarContext = createContext({} as TCarContextProps);
 
 const CarProvider = ({ children }: TCarProvidersProps) => {
   const [filterModal, setFilterModal] = useState(false);
-  let cars: TSaleProps[] = [];
+  const [cars, setCars] = useState<TSaleProps[]>([]);
 
   const carReducer = (state: TCarState, action: TCarAction) => {
     switch (action.type) {
@@ -51,7 +51,11 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     dispatch({ type, payload: value });
   };
 
-  const filterCars = (): TSaleProps[] => {
+  const handleSliderChange = (newValue: number | number[], title: string) => {
+    dispatch({ type: title, payload: newValue as number });
+  };
+
+  const filterCars = (car: TCarState): TSaleProps[] => {
     if (
       !car.brand &&
       !car.model &&
@@ -71,14 +75,14 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         (!car.color || item.color == car.color) &&
         (!car.year || item.year == car.year) &&
         (!car.engine || item.engine == car.engine) &&
-        (!car.mileage || item.mileage == car.mileage) &&
-        (!car.price || item.price == car.price)
+        (!car.mileage || item.mileage <= car.mileage * 1000) &&
+        (!car.price || item.price <= car.price * 1000)
       );
     });
   };
 
   useEffect(() => {
-    cars = filterCars();
+    setCars(filterCars(car));
   }, [car]);
 
   const handleClearFilter = () => {
@@ -99,6 +103,9 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         dispatch,
         handleClick,
         handleClearFilter,
+        cars,
+        handleSliderChange,
+        car,
       }}
     >
       {children}
