@@ -43,6 +43,9 @@ type TCarContextProps = {
   dispatch: React.Dispatch<TCarAction>;
   handleClick: (type: string, value: string | number) => void;
   handleClearFilter: () => void;
+  cars: TSaleProps[];
+  handleSliderChange: (newValue: number | number[], title: string) => void;
+  car: TCarState;
 };
 
 export type {
