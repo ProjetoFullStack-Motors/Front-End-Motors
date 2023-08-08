@@ -3,10 +3,11 @@ import ListNav from "../ListNav";
 import { CarContext } from "../../../Providers/CarContext";
 
 const AsideMobile = () => {
-  const { setFilterModal } = useContext(CarContext);
+  const { setFilterModal, handleClearFilter } = useContext(CarContext);
 
   const clearFilter = () => {
     setFilterModal(false);
+    handleClearFilter();
   };
 
   return (

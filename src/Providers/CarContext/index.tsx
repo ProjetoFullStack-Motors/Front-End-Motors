@@ -12,6 +12,7 @@ const CarContext = createContext({} as TCarContextProps);
 
 const CarProvider = ({ children }: TCarProvidersProps) => {
   const [filterModal, setFilterModal] = useState(false);
+  let cars: TSaleProps[] = [];
 
   const carReducer = (state: TCarState, action: TCarAction) => {
     switch (action.type) {
@@ -50,7 +51,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     dispatch({ type, payload: value });
   };
 
-  const filterCars = (car: TCarState): TSaleProps[] => {
+  const filterCars = (): TSaleProps[] => {
     if (
       !car.brand &&
       !car.model &&
@@ -77,8 +78,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   };
 
   useEffect(() => {
-    const filteredCars = filterCars(car);
-    console.log(filteredCars);
+    cars = filterCars();
   }, [car]);
 
   const handleClearFilter = () => {
