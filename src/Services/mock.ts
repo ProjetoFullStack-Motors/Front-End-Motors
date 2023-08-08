@@ -16,6 +16,7 @@ const mock: TSaleProps[] = [
     seller: {
       firstName: "Roberto",
       lastName: "Alberto",
+      img: "https://storage.googleapis.com/ludopedia-imagens-jogo/1717a_8052.jpg",
     },
     imgUrl:
       "https://storage.googleapis.com/ludopedia-imagens-jogo/1717a_8052.jpg",

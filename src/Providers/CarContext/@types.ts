@@ -17,6 +17,7 @@ type TSaleProps = {
   seller: {
     firstName: string;
     lastName: string;
+    img?: string;
   };
   imgUrl: string;
   engine: string;
