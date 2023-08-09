@@ -7,10 +7,11 @@ interface ButtonProps {
   $border?: boolean;
   $color?: string;
   $background?: string;
+  $display?: boolean;
 }
 
 const Button = styled.button<ButtonProps>`
-  height: var(--button-height-1);
+  min-height: var(--button-height-1);
   border-radius: var(--button-border);
 
   border: ${({ $border }) => ($border ? "var(--border-button-1)" : "none")};
@@ -28,6 +29,10 @@ const Button = styled.button<ButtonProps>`
 
   font-weight: ${({ $weight }) =>
     $weight ? `var(--${$weight})` : "var(--font-semibold)"};
+
+  @media (min-width: 1024px) {
+    display: ${({ $display }) => ($display ? "none" : "block")};
+  }
 `;
 
 export default Button;
