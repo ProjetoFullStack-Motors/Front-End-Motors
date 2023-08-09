@@ -1,12 +1,15 @@
-import AsideDesktop from "../../Components/Aside/AsideDesktop";
-import { Header, SalesList } from "../../Components";
-import AsideMobile from "../../Components/Aside/AsideMobile";
-import { ButtonContainerPosition, StyledHomePage } from "./style";
 import { useContext } from "react";
+import {
+  Header,
+  SalesList,
+  AsideDesktop,
+  AsideMobile,
+  Footer,
+  Button,
+} from "../../Components";
+import { ButtonContainerPosition, StyledHomePage } from "./style";
 import { CarContext } from "../../Providers/CarContext";
 import { createPortal } from "react-dom";
-import Footer from "../../Components/Footer";
-import Button from "../../Components/Buttons";
 
 const Home = () => {
   const { filterModal, setFilterModal } = useContext(CarContext);
