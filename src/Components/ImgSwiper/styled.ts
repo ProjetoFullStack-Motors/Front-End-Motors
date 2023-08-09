@@ -13,4 +13,15 @@ export const StyledSwiper = styled(Swiper)`
         width: 100%;
         height: 100%;
     }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        visibility: hidden;
+        color: var(--brand-1);
+    }
+
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+        font-size: 2rem;
+    }
 `;
