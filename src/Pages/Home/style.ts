@@ -9,7 +9,7 @@ export const StyledHomePage = styled.main`
     display: flex;
     justify-content: space-between;
 
-    max-width: 1280px;
+    /* max-width: 1280px; */
     margin: 0 auto;
   }
 `;

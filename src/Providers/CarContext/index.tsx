@@ -47,7 +47,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
 
   const maxMileage = Math.max(...mileageArr) / 1000;
 
-  const initialState = {
+  const initialState: TCarState = {
     brand: "",
     model: "",
     color: "",
@@ -122,6 +122,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         cars,
         handleSliderChange,
         car,
+        initialState,
       }}
     >
       {children}
