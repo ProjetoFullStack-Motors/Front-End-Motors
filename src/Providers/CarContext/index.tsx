@@ -106,9 +106,9 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     dispatch({ type: "model", payload: "" });
     dispatch({ type: "color", payload: "" });
     dispatch({ type: "year", payload: 0 });
-    dispatch({ type: "price", payload: 0 });
+    dispatch({ type: "price", payload: [minPrice, maxPrice] });
     dispatch({ type: "engine", payload: "" });
-    dispatch({ type: "mileage", payload: 0 });
+    dispatch({ type: "mileage", payload: [minMileage, maxMileage] });
   };
 
   return (
