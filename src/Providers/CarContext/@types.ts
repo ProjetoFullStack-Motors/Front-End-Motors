@@ -47,6 +47,7 @@ type TCarContextProps = {
   cars: TSaleProps[];
   handleSliderChange: (newValue: number | number[], title: string) => void;
   car: TCarState;
+  initialState: TCarState;
 };
 
 export type {

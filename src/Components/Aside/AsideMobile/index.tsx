@@ -13,7 +13,8 @@ import useOutClick from "../../../Hooks/useOutClick";
 import useKeyDown from "../../../Hooks/useKeyDown";
 
 const AsideMobile = () => {
-  const { setFilterModal, handleClearFilter, car } = useContext(CarContext);
+  const { setFilterModal, handleClearFilter, car, initialState } =
+    useContext(CarContext);
 
   const menuRef = useOutClick(() => {
     setFilterModal!(false);
@@ -37,21 +38,25 @@ const AsideMobile = () => {
           <Button
             $background="brand-2"
             $width={5}
-            onClick={() => setFilterModal(false)}>
+            onClick={() => setFilterModal(false)}
+          >
             Realizar Pesquisa
           </Button>
 
-          {!car.brand &&
-          !car.model &&
-          !car.color &&
-          !car.year &&
-          !car.engine &&
-          !car.mileage &&
-          !car.price ? null : (
+          {car.brand == initialState.brand &&
+          car.model == initialState.model &&
+          car.color == initialState.color &&
+          car.year == initialState.year &&
+          car.price[0] == initialState.price[0] &&
+          car.price[1] == initialState.price[1] &&
+          car.engine == initialState.engine &&
+          car.mileage[0] == initialState.mileage[0] &&
+          car.mileage[1] == initialState.mileage[1] ? null : (
             <Button
               $background="brand-2"
               $width={5}
-              onClick={handleClearFilter}>
+              onClick={handleClearFilter}
+            >
               Limpar Filtro
             </Button>
           )}
