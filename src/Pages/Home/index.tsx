@@ -5,22 +5,27 @@ import { StyledHomePage } from "./style";
 import { useContext } from "react";
 import { CarContext } from "../../Providers/CarContext";
 import { createPortal } from "react-dom";
+import Footer from "../../Components/Footer";
 
 const Home = () => {
-    const { filterModal, setFilterModal } = useContext(CarContext);
-    return (
-        <>
-            <StyledHomePage>
-                <Header />
-                <AsideDesktop />
-                <SalesList />
-                <button onClick={() => setFilterModal(true)}>
-                    Abrir modal (teste)
-                </button>
-                {filterModal && createPortal(<AsideMobile />, document.body)}
-            </StyledHomePage>
-        </>
-    );
+  const { filterModal, setFilterModal } = useContext(CarContext);
+  return (
+    <>
+      <StyledHomePage>
+        <Header />
+        <div className="home-container">
+          <AsideDesktop />
+          <SalesList />
+        </div>
+        <button onClick={() => setFilterModal(true)}>
+          Abrir modal (teste)
+        </button>
+        {filterModal && createPortal(<AsideMobile />, document.body)}
+
+        <Footer />
+      </StyledHomePage>
+    </>
+  );
 };
 
 export default Home;

@@ -5,13 +5,13 @@ import { AiOutlineClose } from "react-icons/ai";
 import { FaBars } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import AccessButtons from "./AccessButtons";
-import { Avatar } from "@mui/material";
 import { UserContext } from "../../../Providers/UserContext";
 import { HeaderMenuBackground } from "../style";
+import { UserAvatar } from "../..";
 
 const Menu = () => {
   const [open, setOpen] = useState(false);
-  const { user, stringAvatar } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const location = useLocation();
   const { pathname } = location;
@@ -25,10 +25,7 @@ const Menu = () => {
       {pathname === "/" ? (
         <>
           <div onClick={() => setOpen(true)}>
-            <Avatar
-              className="user-img"
-              {...stringAvatar(`${user.firstName} ${user.lastName}`)}
-            />
+            <UserAvatar username={`${user.firstName} ${user.lastName}`} />
             <span>{`${user.firstName} ${user.lastName}`}</span>
           </div>
           <ProfileSettings open={open} setOpen={setOpen} />

@@ -6,12 +6,6 @@ type TUserProvidersProps = {
 
 type TUserContext = {
   user: TUser;
-  stringAvatar: (name: string) => {
-    sx: {
-      bgcolor: string;
-    };
-    children: string;
-  };
 };
 
 type TUser = {

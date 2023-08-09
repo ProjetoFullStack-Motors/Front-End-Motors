@@ -2,13 +2,13 @@ import { useContext } from "react";
 import { MenuProps } from "../@types";
 import { StyledProfileSettings } from "./style";
 import { UserContext } from "../../../../Providers/UserContext";
-import { Avatar } from "@mui/material";
 import { AiOutlineClose } from "react-icons/ai";
 import useOutClick from "../../../../Hooks/useOutClick";
 import useKeyDown from "../../../../Hooks/useKeyDown";
+import { UserAvatar } from "../../..";
 
 const ProfileSettings = ({ open, setOpen }: MenuProps) => {
-  const { user, stringAvatar } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const menuRef = useOutClick(() => {
     setOpen!(false);
@@ -21,10 +21,7 @@ const ProfileSettings = ({ open, setOpen }: MenuProps) => {
   return (
     <StyledProfileSettings open={open} ref={menuRef}>
       <section>
-        <Avatar
-          className="user-img-mobile"
-          {...stringAvatar(`${user.firstName} ${user.lastName}`)}
-        />
+        <UserAvatar username={`${user.firstName} ${user.lastName}`} />
         <span>{`${user.firstName} ${user.lastName}`}</span>
       </section>
       <span onClick={() => setOpen!(false)} ref={buttonRef}>

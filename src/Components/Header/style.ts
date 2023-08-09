@@ -13,7 +13,7 @@ const StyledHeader = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 100;
 
   h1 {
     margin-left: 16px;
