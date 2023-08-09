@@ -1,5 +1,5 @@
 import { StyledSalesCard } from "./style";
-import { UserAvatar } from "../..";
+import { UserAvatar, ImgSwiper } from "../..";
 
 type TSalesCard = {
     sale: {
@@ -17,7 +17,7 @@ type TSalesCard = {
             lastName: string;
             img?: string;
         };
-        imgUrl: string;
+        imgs: string[];
         engine: string;
     };
 };
@@ -32,7 +32,7 @@ const SalesCard = ({ sale }: TSalesCard) => {
         price,
         description,
         seller,
-        imgUrl,
+        imgs,
     } = sale;
 
     const priceCentsToReal = () => {
@@ -47,17 +47,15 @@ const SalesCard = ({ sale }: TSalesCard) => {
 
     return (
         <StyledSalesCard>
-            <div className="car-img-container">
-                <img className="car-img" src={imgUrl} />
-                {isGoodPrice ? (
-                    <h4
-                        className="good-price-tag"
-                        title="Essa oferta está 5% abaixo da tabela Fipe"
-                    >
-                        $
-                    </h4>
-                ) : null}
-            </div>
+            {isGoodPrice ? (
+                <h4
+                    className="good-price-tag"
+                    title="Essa oferta está 5% abaixo da tabela Fipe"
+                >
+                    $
+                </h4>
+            ) : null}
+            <ImgSwiper imgs={imgs}></ImgSwiper>
             <div className="sales-info-container">
                 <h2 className="car-title">
                     {brand} - {model}

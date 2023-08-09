@@ -7,20 +7,20 @@ import { CarContext } from "../../Providers/CarContext";
 import { createPortal } from "react-dom";
 
 const Home = () => {
-  const { filterModal, setFilterModal } = useContext(CarContext);
-  return (
-    <>
-      <StyledHomePage>
-        <Header />
-        <AsideDesktop />
-        <SalesList />
-        <button onClick={() => setFilterModal(true)}>
-          Abrir modal (teste)
-        </button>
-        {filterModal && createPortal(<AsideMobile />, document.body)}
-      </StyledHomePage>
-    </>
-  );
+    const { filterModal, setFilterModal } = useContext(CarContext);
+    return (
+        <>
+            <StyledHomePage>
+                <Header />
+                <AsideDesktop />
+                <SalesList />
+                <button onClick={() => setFilterModal(true)}>
+                    Abrir modal (teste)
+                </button>
+                {filterModal && createPortal(<AsideMobile />, document.body)}
+            </StyledHomePage>
+        </>
+    );
 };
 
 export default Home;

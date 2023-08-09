@@ -9,6 +9,7 @@ export const StyledSalesCard = styled.li`
     transition: transform 0.5s;
     border-radius: 10px;
     cursor: pointer;
+    position: relative;
 
     &::after {
         position: absolute;
@@ -33,18 +34,6 @@ export const StyledSalesCard = styled.li`
         }
     }
 
-    .car-img-container {
-        width: 19.5rem;
-        height: 9.5rem;
-        background-color: var(--grey-7);
-        position: relative;
-    }
-
-    .car-img {
-        width: 100%;
-        height: 100%;
-    }
-
     .good-price-tag {
         padding: 4px;
         position: absolute;
@@ -55,6 +44,7 @@ export const StyledSalesCard = styled.li`
         background-color: var(--sucess-1);
         font-weight: var(--font-base);
         cursor: context-menu;
+        z-index: 2;
     }
 
     .sales-info-container {
