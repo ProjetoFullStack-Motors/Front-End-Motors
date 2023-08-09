@@ -19,14 +19,14 @@ const StyledMenu = styled.div`
 
     border: solid 1px transparent;
 
-    .user-img {
+    div {
       width: 32px;
       height: 32px;
       padding-top: 8px;
       text-align: center;
     }
 
-    .user-img,
+    div,
     span {
       display: none;
       font-size: var(--font-body-1);
@@ -41,7 +41,7 @@ const StyledMenu = styled.div`
     }
 
     div {
-      .user-img,
+      div,
       span {
         display: block;
       }

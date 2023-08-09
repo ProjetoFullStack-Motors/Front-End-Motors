@@ -9,8 +9,8 @@ export const FooterStyled = styled.footer`
   width: 100%;
   padding: 2rem;
   gap: 2rem;
-  position: fixed;
-  bottom: 0;
+  /* position: fixed;
+  bottom: 0; */
   p {
     color: var(--grey-10);
     font-size: var(--font-body-2);

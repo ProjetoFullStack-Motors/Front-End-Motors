@@ -9,16 +9,26 @@ import {
 } from "./style";
 import Button from "../../Buttons";
 import AllFilters from "../AllFilters";
+import useOutClick from "../../../Hooks/useOutClick";
+import useKeyDown from "../../../Hooks/useKeyDown";
 
 const AsideMobile = () => {
   const { setFilterModal, handleClearFilter, car } = useContext(CarContext);
 
+  const menuRef = useOutClick(() => {
+    setFilterModal!(false);
+  });
+
+  const buttonRef = useKeyDown("Escape", (element: any) => {
+    element.click();
+  });
+
   return (
     <StyledAsideMobile>
-      <StyledAsideModal>
+      <StyledAsideModal ref={menuRef}>
         <HeaderAsideModal>
           <h2>Filtro</h2>
-          <button onClick={() => setFilterModal(false)}>
+          <button onClick={() => setFilterModal(false)} ref={buttonRef}>
             <IoMdClose />
           </button>
         </HeaderAsideModal>
@@ -27,8 +37,7 @@ const AsideMobile = () => {
           <Button
             $background="brand-2"
             $width={5}
-            onClick={() => setFilterModal(false)}
-          >
+            onClick={() => setFilterModal(false)}>
             Realizar Pesquisa
           </Button>
 
@@ -42,8 +51,7 @@ const AsideMobile = () => {
             <Button
               $background="brand-2"
               $width={5}
-              onClick={handleClearFilter}
-            >
+              onClick={handleClearFilter}>
               Limpar Filtro
             </Button>
           )}

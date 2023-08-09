@@ -10,7 +10,7 @@ const StyledProfileSettings = styled.nav<MenuProps>`
   position: fixed;
   top: 80px;
   right: 16px;
-  z-index: 3;
+  z-index: 101;
 
   background-color: var(--grey-8);
   padding: 8px;
@@ -22,14 +22,14 @@ const StyledProfileSettings = styled.nav<MenuProps>`
     gap: 8px;
     text-align: center;
 
-    .user-img-mobile {
+    div {
       width: 32px;
       height: 32px;
       padding-top: 8px;
       text-align: center;
     }
 
-    .user-img-mobile,
+    div,
     span {
       display: block;
       font-size: var(--font-body-1);
@@ -56,7 +56,7 @@ const StyledProfileSettings = styled.nav<MenuProps>`
     right: 60px;
 
     section {
-      .user-img-mobile,
+      div,
       span {
         display: none;
       }
