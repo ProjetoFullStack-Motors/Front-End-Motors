@@ -21,7 +21,7 @@ const StyledAsideModal = styled.div`
   width: 100%;
   max-height: 100vh;
   overflow-y: auto;
-  margin-top: 1rem;
+  margin-top: 90px;
 `;
 
 const HeaderAsideModal = styled.div`
@@ -58,12 +58,7 @@ const StyledButtonContainer = styled.div`
   align-items: center;
   gap: 1rem;
   height: 200px;
-
-  button {
-    :hover {
-      background-color: var(--brand-1);
-    }
-  }
+  margin-bottom: 1rem;
 `;
 
 export {
