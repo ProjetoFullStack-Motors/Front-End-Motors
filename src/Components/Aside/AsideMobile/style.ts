@@ -19,7 +19,7 @@ const StyledAsideMobile = styled.div`
 const StyledAsideModal = styled.div`
   background-color: var(--grey-10);
   width: 100%;
-  max-height: 900px;
+  max-height: 100vh;
   overflow-y: auto;
   margin-top: 1rem;
 `;
