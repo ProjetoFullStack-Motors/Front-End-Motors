@@ -3,6 +3,7 @@ import { CarContext } from "../../../Providers/CarContext";
 import { IoMdClose } from "react-icons/io";
 import {
   HeaderAsideModal,
+  StyledAllFiltersMobile,
   StyledAsideMobile,
   StyledAsideModal,
   StyledButtonContainer,
@@ -33,7 +34,9 @@ const AsideMobile = () => {
             <IoMdClose />
           </button>
         </HeaderAsideModal>
-        <AllFilters />
+        <StyledAllFiltersMobile>
+          <AllFilters />
+        </StyledAllFiltersMobile>
         <StyledButtonContainer>
           <Button
             $background="brand-2"

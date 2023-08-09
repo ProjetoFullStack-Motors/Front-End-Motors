@@ -52,13 +52,18 @@ const HeaderAsideModal = styled.div`
   }
 `;
 
+const StyledAllFiltersMobile = styled.div`
+  padding-inline: 2rem;
+  padding-block: 1rem;
+`;
+
 const StyledButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-block: 2rem;
   gap: 1rem;
-  height: 200px;
-  margin-bottom: 1rem;
+  min-height: 200px;
 `;
 
 export {
@@ -66,4 +71,5 @@ export {
   StyledAsideModal,
   HeaderAsideModal,
   StyledButtonContainer,
+  StyledAllFiltersMobile,
 };

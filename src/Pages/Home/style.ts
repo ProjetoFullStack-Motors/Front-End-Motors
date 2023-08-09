@@ -1,26 +1,28 @@
 import styled from "styled-components";
 
 const StyledHomePage = styled.main`
-  max-height: 100vh;
+  /* max-height: 100vh; */
+  min-height: 100vh;
+  max-height: max-content;
   max-width: 100vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 
   .home-container {
     display: flex;
     justify-content: space-between;
-
-    /* max-width: 1280px; */
-    margin: 0 auto;
+    padding: 2rem;
+    margin-inline: auto;
+    margin-top: 90px;
+    width: 100%;
+    box-sizing: border-box;
   }
-
-  /* @media (max-width: 1023px) {
-    display: flex;
-    flex-direction: column;
-  } */
 `;
 
 const ButtonContainerPosition = styled.div`
   align-self: center;
-  margin-bottom: 1rem;
+  margin-top: 5rem;
 `;
 
 export { StyledHomePage, ButtonContainerPosition };
