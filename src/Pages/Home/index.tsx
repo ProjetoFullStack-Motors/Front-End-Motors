@@ -1,7 +1,7 @@
 import AsideDesktop from "../../Components/Aside/AsideDesktop";
 import { Header, SalesList } from "../../Components";
 import AsideMobile from "../../Components/Aside/AsideMobile";
-import { StyledHomePage } from "./style";
+import { ButtonContainerPosition, StyledHomePage } from "./style";
 import { useContext } from "react";
 import { CarContext } from "../../Providers/CarContext";
 import { createPortal } from "react-dom";
@@ -18,14 +18,17 @@ const Home = () => {
           <AsideDesktop />
           <SalesList />
         </div>
-        <Button
-          $display={true}
-          $width={5}
-          $background="brand-2"
-          onClick={() => setFilterModal(true)}
-        >
-          Filtros
-        </Button>
+        <ButtonContainerPosition>
+          <Button
+            $display={true}
+            $width={5}
+            $background="brand-2"
+            onClick={() => setFilterModal(true)}
+          >
+            Filtros
+          </Button>
+        </ButtonContainerPosition>
+
         {filterModal && createPortal(<AsideMobile />, document.body)}
 
         <Footer />
