@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { CarContext } from "../../../Providers/CarContext";
 import { IoMdClose } from "react-icons/io";
 import {
   HeaderAsideModal,
@@ -12,10 +10,11 @@ import Button from "../../Buttons";
 import AllFilters from "../AllFilters";
 import useOutClick from "../../../Hooks/useOutClick";
 import useKeyDown from "../../../Hooks/useKeyDown";
+import { useCarContext } from "../../../Hooks";
 
 const AsideMobile = () => {
   const { setFilterModal, handleClearFilter, car, initialState } =
-    useContext(CarContext);
+    useCarContext();
 
   const menuRef = useOutClick(() => {
     setFilterModal!(false);
@@ -41,8 +40,7 @@ const AsideMobile = () => {
           <Button
             $background="brand-2"
             $width={5}
-            onClick={() => setFilterModal(false)}
-          >
+            onClick={() => setFilterModal(false)}>
             Realizar Pesquisa
           </Button>
 
@@ -58,8 +56,7 @@ const AsideMobile = () => {
             <Button
               $background="brand-2"
               $width={5}
-              onClick={handleClearFilter}
-            >
+              onClick={handleClearFilter}>
               Limpar Filtro
             </Button>
           )}

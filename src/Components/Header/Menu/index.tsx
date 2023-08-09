@@ -1,17 +1,17 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import ProfileSettings from "./ProfileSettings";
 import { StyledMenu } from "./style";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaBars } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import AccessButtons from "./AccessButtons";
-import { UserContext } from "../../../Providers/UserContext";
 import { HeaderMenuBackground } from "../style";
 import { UserAvatar } from "../..";
+import { useUserContext } from "../../../Hooks";
 
 const Menu = () => {
   const [open, setOpen] = useState(false);
-  const { user } = useContext(UserContext);
+  const { user } = useUserContext();
 
   const location = useLocation();
   const { pathname } = location;

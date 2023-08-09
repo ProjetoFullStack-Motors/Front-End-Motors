@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { TNavItemProps } from "./@types";
-import { CarContext } from "../../../../Providers/CarContext";
 import StyledNavItem from "./style";
+import { useCarContext } from "../../../../Hooks";
 
 const NavItem = ({ title, itemKey }: TNavItemProps) => {
-  const { handleClick } = useContext(CarContext);
+  const { handleClick } = useCarContext();
 
   return (
     <StyledNavItem onClick={() => handleClick(String(itemKey), title)}>
