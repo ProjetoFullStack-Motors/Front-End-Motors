@@ -46,9 +46,6 @@ const StyledMenu = styled.div`
         display: block;
       }
     }
-    button {
-      width: 10rem;
-    }
   }
 `;
 

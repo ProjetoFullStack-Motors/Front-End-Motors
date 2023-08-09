@@ -5,16 +5,17 @@ import { AiOutlineClose } from "react-icons/ai";
 import { FaBars } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import AccessButtons from "./AccessButtons";
-import { HeaderMenuBackground } from "../style";
-import { UserAvatar } from "../..";
-import { useUserContext } from "../../../Hooks";
+import { useOutClick } from "../../../Hooks";
 
 const Menu = () => {
   const [open, setOpen] = useState(false);
-  const { user } = useUserContext();
 
   const location = useLocation();
   const { pathname } = location;
+
+  const menuRef = useOutClick(() => {
+    setOpen!(false);
+  });
 
   return (
     <StyledMenu>
@@ -22,18 +23,11 @@ const Menu = () => {
         {open ? <AiOutlineClose size={30} /> : <FaBars size={25} />}
       </button>
 
-      {pathname === "/" ? (
-        <>
-          <div onClick={() => setOpen(true)}>
-            <UserAvatar username={`${user.firstName} ${user.lastName}`} />
-            <span>{`${user.firstName} ${user.lastName}`}</span>
-          </div>
-          <ProfileSettings open={open} setOpen={setOpen} />
-        </>
+      {pathname === "/profile" ? (
+        <ProfileSettings open={open} setOpen={setOpen} menuRef={menuRef} />
       ) : (
-        <AccessButtons />
+        <AccessButtons open={open} menuRef={menuRef} />
       )}
-      {open && <HeaderMenuBackground />}
     </StyledMenu>
   );
 };

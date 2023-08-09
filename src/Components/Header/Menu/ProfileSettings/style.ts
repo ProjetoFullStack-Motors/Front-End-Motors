@@ -9,12 +9,13 @@ const StyledProfileSettings = styled.nav<MenuProps>`
 
   position: fixed;
   top: 80px;
-  right: 16px;
+  right: 0;
   z-index: 101;
 
-  background-color: var(--grey-8);
+  background-color: var(--grey-10);
   padding: 8px;
   border-radius: var(--button-border);
+  width: 100%;
 
   section {
     display: flex;
@@ -33,18 +34,22 @@ const StyledProfileSettings = styled.nav<MenuProps>`
     span {
       display: block;
       font-size: var(--font-body-1);
+      font-weight: var(--font-semibold);
     }
   }
 
-  span {
+  .menu-close {
     text-align: center;
     display: none;
   }
 
   button {
-    border: none;
     font-size: var(--font-body-1);
     transition: all 0.5s;
+  }
+
+  button:nth-child(3) {
+    width: 100%;
   }
 
   button:hover {
@@ -54,16 +59,21 @@ const StyledProfileSettings = styled.nav<MenuProps>`
 
   @media (min-width: 769px) {
     right: 60px;
+    width: 15rem;
 
     section {
+      position: relative;
       div,
       span {
         display: none;
       }
     }
 
-    span {
+    .menu-close {
       display: block;
+      position: absolute;
+      top: 4px;
+      right: 4px;
     }
   }
 `;
