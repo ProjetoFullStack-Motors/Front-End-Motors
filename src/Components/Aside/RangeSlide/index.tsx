@@ -1,12 +1,11 @@
 import { Slider } from "@mui/material";
 import { TRangeSlideProps } from "./@types";
 import mock from "../../../Services/mock";
-import { useContext } from "react";
-import { CarContext } from "../../../Providers/CarContext";
 import { StyledSlider } from "./style";
+import { useCarContext } from "../../../Hooks";
 
 const RangeSlide = ({ title, stepValue, itemKey }: TRangeSlideProps) => {
-  const { handleSliderChange, car } = useContext(CarContext);
+  const { handleSliderChange, car } = useCarContext();
 
   const numberArr: number[] = mock.map((item) => Number(item[itemKey]));
 

@@ -1,12 +1,11 @@
 import AllFilters from "../AllFilters";
 import { StyledButtonContainer } from "../AsideMobile/style";
-import { useContext } from "react";
-import { CarContext } from "../../../Providers/CarContext";
 import Button from "../../Buttons";
 import { StyledAsideDesktop } from "./style";
+import { useCarContext } from "../../../Hooks";
 
 const AsideDesktop = () => {
-  const { car, handleClearFilter, initialState } = useContext(CarContext);
+  const { car, handleClearFilter, initialState } = useCarContext();
   return (
     <StyledAsideDesktop>
       <AllFilters />

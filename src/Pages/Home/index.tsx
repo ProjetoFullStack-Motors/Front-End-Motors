@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import {
   Header,
   SalesList,
@@ -8,11 +7,11 @@ import {
   Button,
 } from "../../Components";
 import { ButtonContainerPosition, StyledHomePage } from "./style";
-import { CarContext } from "../../Providers/CarContext";
 import { createPortal } from "react-dom";
+import { useCarContext } from "../../Hooks";
 
 const Home = () => {
-  const { filterModal, setFilterModal } = useContext(CarContext);
+  const { filterModal, setFilterModal } = useCarContext();
   return (
     <>
       <StyledHomePage>
@@ -26,8 +25,7 @@ const Home = () => {
             $display={true}
             $width={5}
             $background="brand-2"
-            onClick={() => setFilterModal(true)}
-          >
+            onClick={() => setFilterModal(true)}>
             Filtros
           </Button>
         </ButtonContainerPosition>
