@@ -9,29 +9,28 @@ import Footer from "../../Components/Footer";
 import Button from "../../Components/Buttons";
 
 const Home = () => {
-  const { filterModal, setFilterModal } = useContext(CarContext);
-  return (
-    <>
-      <StyledHomePage>
-        <Header />
-        <div className="home-container">
-          <AsideDesktop />
-          <SalesList />
-        </div>
-        <Button
-          $display={true}
-          $width={5}
-          $background="brand-2"
-          onClick={() => setFilterModal(true)}
-        >
-          Filtros
-        </Button>
-        {filterModal && createPortal(<AsideMobile />, document.body)}
-
-        <Footer />
-      </StyledHomePage>
-    </>
-  );
+    const { filterModal, setFilterModal } = useContext(CarContext);
+    return (
+        <>
+            <StyledHomePage>
+                <Header />
+                <div className="home-container">
+                    <AsideDesktop />
+                    <SalesList />
+                </div>
+                <Button
+                    $display={true}
+                    $width={5}
+                    $background="brand-2"
+                    onClick={() => setFilterModal(true)}
+                >
+                    Filtros
+                </Button>
+                {filterModal && createPortal(<AsideMobile />, document.body)}
+                <Footer />
+            </StyledHomePage>
+        </>
+    );
 };
 
 export default Home;

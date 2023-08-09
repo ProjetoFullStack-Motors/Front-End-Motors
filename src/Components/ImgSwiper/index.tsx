@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { StyledSwiper } from "./styled";
 import { SwiperSlide } from "swiper/react";
 import { Swiper as SwiperCore } from "swiper/types";
+import { Navigation } from "swiper/modules";
 import { v4 as uuidv4 } from "uuid";
 
 type TImgSwiperProps = {
@@ -20,6 +21,8 @@ const ImgSwiper = ({ imgs }: TImgSwiperProps) => {
                 onBeforeInit={(swiper) => {
                     swiperRef.current = swiper;
                 }}
+                modules={[Navigation]}
+                navigation
             >
                 {imgs?.map((img) => (
                     <SwiperSlide key={uuidv4()} className="car-img-container">
