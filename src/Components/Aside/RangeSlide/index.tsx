@@ -6,16 +6,17 @@ import { CarContext } from "../../../Providers/CarContext";
 import { StyledSlider } from "./style";
 
 const RangeSlide = ({ title, stepValue, itemKey }: TRangeSlideProps) => {
-  const { handleSliderChange, car, cars } = useContext(CarContext);
+  const { handleSliderChange, car } = useContext(CarContext);
+
   const numberArr: number[] = mock.map((item) => Number(item[itemKey]));
 
   const minNumber = Math.min(...numberArr) / 1000;
 
   const maxNumber = Math.max(...numberArr) / 1000;
 
-  const sliderValue = car[itemKey] || minNumber;
-
-  console.log(cars);
+  const sliderValue: number[] = Array.isArray(car[itemKey])
+    ? (car[itemKey] as number[])
+    : [minNumber, maxNumber];
 
   return (
     <StyledSlider>
@@ -29,7 +30,7 @@ const RangeSlide = ({ title, stepValue, itemKey }: TRangeSlideProps) => {
         </h3>
       </div>
       <Slider
-        value={Number(sliderValue)}
+        value={sliderValue.map((number: number) => Number(number))}
         onChange={(event, newValue) => handleSliderChange(newValue, itemKey)}
         valueLabelDisplay="auto"
         step={stepValue}
@@ -43,6 +44,9 @@ const RangeSlide = ({ title, stepValue, itemKey }: TRangeSlideProps) => {
             height: "10px",
           },
         }}
+        valueLabelFormat={(value) =>
+          Array.isArray(value) ? `${value[0]} - ${value[1]}` : value
+        }
       />
     </StyledSlider>
   );

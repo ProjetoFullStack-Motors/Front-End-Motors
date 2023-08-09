@@ -19,7 +19,7 @@ type TSaleProps = {
     lastName: string;
     img?: string;
   };
-  imgUrl: string;
+  imgs: string[];
   engine: string;
 };
 
@@ -27,15 +27,15 @@ type TCarState = {
   brand: string;
   model: string;
   year: number;
-  price: number;
+  price: number[];
   color: string;
   engine: string;
-  mileage: number;
+  mileage: number[];
 };
 
 type TCarAction = {
   type: string;
-  payload: string | number;
+  payload: string | number | number[];
 };
 
 type TCarContextProps = {

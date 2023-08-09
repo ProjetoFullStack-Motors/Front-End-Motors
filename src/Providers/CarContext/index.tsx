@@ -25,24 +25,36 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
       case "year":
         return { ...state, year: action.payload as number };
       case "price":
-        return { ...state, price: action.payload as number };
+        return { ...state, price: action.payload as number[] };
       case "engine":
         return { ...state, engine: action.payload as string };
       case "mileage":
-        return { ...state, mileage: action.payload as number };
+        return { ...state, mileage: action.payload as number[] };
       default:
         return state;
     }
   };
+
+  const priceArr: number[] = mock.map((item) => Number(item.price));
+
+  const mileageArr: number[] = mock.map((item) => Number(item.mileage));
+
+  const minPrice = Math.min(...priceArr) / 1000;
+
+  const maxPrice = Math.max(...priceArr) / 1000;
+
+  const minMileage = Math.min(...mileageArr) / 1000;
+
+  const maxMileage = Math.max(...mileageArr) / 1000;
 
   const initialState = {
     brand: "",
     model: "",
     color: "",
     year: 0,
-    price: 0,
+    price: [minPrice, maxPrice],
     engine: "",
-    mileage: 0,
+    mileage: [minMileage, maxMileage],
   };
 
   const [car, dispatch] = useReducer(carReducer, initialState);
@@ -52,7 +64,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   };
 
   const handleSliderChange = (newValue: number | number[], title: string) => {
-    dispatch({ type: title, payload: newValue as number });
+    dispatch({ type: title, payload: newValue as number[] });
   };
 
   const filterCars = (car: TCarState): TSaleProps[] => {
@@ -75,8 +87,12 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         (!car.color || item.color == car.color) &&
         (!car.year || item.year == car.year) &&
         (!car.engine || item.engine == car.engine) &&
-        (!car.mileage || item.mileage <= car.mileage * 1000) &&
-        (!car.price || item.price <= car.price * 1000)
+        (!car.price ||
+          (item.price >= car.price[0] * 1000 &&
+            item.price <= car.price[1] * 1000)) &&
+        (!car.mileage ||
+          (item.mileage >= car.mileage[0] * 1000 &&
+            item.mileage <= car.mileage[1] * 1000))
       );
     });
   };
