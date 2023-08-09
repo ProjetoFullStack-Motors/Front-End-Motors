@@ -1,35 +1,47 @@
 import { useContext } from "react";
-import { MenuProps } from "../@types";
+import { TMenuProps } from "../@types";
 import { StyledProfileSettings } from "./style";
 import { UserContext } from "../../../../Providers/UserContext";
 import { AiOutlineClose } from "react-icons/ai";
-import useOutClick from "../../../../Hooks/useOutClick";
-import useKeyDown from "../../../../Hooks/useKeyDown";
-import { UserAvatar } from "../../..";
+import { Button, UserAvatar } from "../../..";
+import { HeaderMenuBackground } from "../../style";
+import { useKeyDown } from "../../../../Hooks";
 
-const ProfileSettings = ({ open, setOpen }: MenuProps) => {
+const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
   const { user } = useContext(UserContext);
-
-  const menuRef = useOutClick(() => {
-    setOpen!(false);
-  });
 
   const buttonRef = useKeyDown("Escape", (element: any) => {
     element.click();
   });
 
   return (
-    <StyledProfileSettings open={open} ref={menuRef}>
-      <section>
+    <>
+      <div onClick={() => setOpen!(true)}>
         <UserAvatar username={`${user.firstName} ${user.lastName}`} />
         <span>{`${user.firstName} ${user.lastName}`}</span>
-      </section>
-      <span onClick={() => setOpen!(false)} ref={buttonRef}>
-        <AiOutlineClose size={25} />
-      </span>
-      <button>Editar perfil</button>
-      <button>Sair</button>
-    </StyledProfileSettings>
+      </div>
+
+      <StyledProfileSettings open={open} ref={menuRef}>
+        <section>
+          <UserAvatar username={`${user.firstName} ${user.lastName}`} />
+          <span>{`${user.firstName} ${user.lastName}`}</span>
+          <span
+            onClick={() => setOpen!(false)}
+            ref={buttonRef}
+            className="menu-close">
+            <AiOutlineClose size={25} />
+          </span>
+        </section>
+        <Button $background="transparent" $color="1">
+          Editar perfil
+        </Button>
+        <Button $border $color="1" $background="transparent">
+          Sair
+        </Button>
+      </StyledProfileSettings>
+
+      {open && <HeaderMenuBackground />}
+    </>
   );
 };
 

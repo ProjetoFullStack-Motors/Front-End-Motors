@@ -9,6 +9,7 @@ const StyledHeader = styled.header`
   height: 80px;
 
   background-color: var(--grey-10);
+  box-shadow: 0 5px var(--grey-5);
 
   position: fixed;
   top: 0;
