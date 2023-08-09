@@ -1,6 +1,6 @@
 import { forwardRef, ForwardedRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { IInputProps } from "./@types";
+import { IInputProps } from "../@types";
 
 const InputPass = forwardRef(
   (

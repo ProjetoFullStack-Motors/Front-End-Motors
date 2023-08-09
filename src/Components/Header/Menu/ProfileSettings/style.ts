@@ -8,24 +8,37 @@ const StyledProfileSettings = styled.nav<MenuProps>`
   gap: 8px;
 
   position: fixed;
-  top: 60px;
+  top: 80px;
   right: 16px;
+  z-index: 3;
 
   background-color: var(--grey-8);
-  padding: 4px;
+  padding: 8px;
   border-radius: var(--button-border);
 
   section {
     display: flex;
-    justify-content: space-between;
-    width: 150px;
+    align-items: center;
+    gap: 8px;
     text-align: center;
 
-    p,
+    .user-img-mobile {
+      width: 32px;
+      height: 32px;
+      padding-top: 8px;
+      text-align: center;
+    }
+
+    .user-img-mobile,
     span {
       display: block;
       font-size: var(--font-body-1);
     }
+  }
+
+  span {
+    text-align: center;
+    display: none;
   }
 
   button {
@@ -33,7 +46,8 @@ const StyledProfileSettings = styled.nav<MenuProps>`
     font-size: var(--font-body-1);
     transition: all 0.5s;
   }
-  :hover {
+
+  button:hover {
     color: var(--grey-10);
     background-color: var(--grey-3);
   }
@@ -42,13 +56,14 @@ const StyledProfileSettings = styled.nav<MenuProps>`
     right: 60px;
 
     section {
-      display: flex;
-      gap: 8px;
-
-      p,
+      .user-img-mobile,
       span {
         display: none;
       }
+    }
+
+    span {
+      display: block;
     }
   }
 `;

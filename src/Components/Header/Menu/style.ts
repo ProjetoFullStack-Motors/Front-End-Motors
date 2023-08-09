@@ -14,11 +14,19 @@ const StyledMenu = styled.div`
 
   div {
     display: flex;
-    gap: 16px;
+    align-items: center;
+    gap: 8px;
 
     border: solid 1px transparent;
 
-    p,
+    .user-img {
+      width: 32px;
+      height: 32px;
+      padding-top: 8px;
+      text-align: center;
+    }
+
+    .user-img,
     span {
       display: none;
       font-size: var(--font-body-1);
@@ -33,10 +41,13 @@ const StyledMenu = styled.div`
     }
 
     div {
-      p,
+      .user-img,
       span {
         display: block;
       }
+    }
+    button {
+      width: 10rem;
     }
   }
 `;

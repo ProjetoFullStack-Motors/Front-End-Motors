@@ -1,5 +1,5 @@
 import { StyledSalesCard } from "./style";
-import { Avatar } from "@mui/material";
+import { UserAvatar, ImgSwiper } from "../..";
 
 type TSalesCard = {
     sale: {
@@ -15,9 +15,10 @@ type TSalesCard = {
         seller: {
             firstName: string;
             lastName: string;
-            img: string;
+            img?: string;
         };
-        imgUrl: string;
+        imgs: string[];
+        engine: string;
     };
 };
 
@@ -31,37 +32,8 @@ const SalesCard = ({ sale }: TSalesCard) => {
         price,
         description,
         seller,
-        imgUrl,
+        imgs,
     } = sale;
-
-    const stringToColor = (string: string) => {
-        let hash = 0;
-        let i;
-
-        /* eslint-disable no-bitwise */
-        for (i = 0; i < string.length; i += 1) {
-            hash = string.charCodeAt(i) + ((hash << 5) - hash);
-        }
-
-        let color = "#";
-
-        for (i = 0; i < 3; i += 1) {
-            const value = (hash >> (i * 8)) & 0xff;
-            color += `00${value.toString(16)}`.slice(-2);
-        }
-        /* eslint-enable no-bitwise */
-
-        return color;
-    };
-
-    const stringAvatar = (name: string) => {
-        return {
-            sx: {
-                bgcolor: stringToColor(name),
-            },
-            children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
-        };
-    };
 
     const priceCentsToReal = () => {
         const priceDecimalStr = (price / 100).toString().replace(".", ",");
@@ -75,32 +47,25 @@ const SalesCard = ({ sale }: TSalesCard) => {
 
     return (
         <StyledSalesCard>
-            <div className="car-img-container">
-                <img className="car-img" src={imgUrl} />
-                {isGoodPrice ? (
-                    <h4
-                        className="good-price-tag"
-                        title="Essa oferta está 5% abaixo da tabela Fipe"
-                    >
-                        $
-                    </h4>
-                ) : null}
-            </div>
+            {isGoodPrice ? (
+                <h4
+                    className="good-price-tag"
+                    title="Essa oferta está 5% abaixo da tabela Fipe"
+                >
+                    $
+                </h4>
+            ) : null}
+            <ImgSwiper imgs={imgs}></ImgSwiper>
             <div className="sales-info-container">
                 <h2 className="car-title">
                     {brand} - {model}
                 </h2>
                 <p className="car-description">{description}</p>
                 <div className="seller-info-container">
-                    <div className="seller-img-container">
-                        <Avatar
-                            className="seller-img"
-                            src={seller.img}
-                            {...stringAvatar(
-                                `${seller.firstName} ${seller.lastName}`
-                            )}
-                        />
-                    </div>
+                    <UserAvatar
+                        img={seller.img ? seller.img : undefined}
+                        username={`${seller.firstName} ${seller.lastName}`}
+                    />
                     <h3 className="seller-title">
                         {seller.firstName} {seller.lastName}
                     </h3>

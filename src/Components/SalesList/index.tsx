@@ -1,12 +1,13 @@
 import { StyledSalesList } from "./style";
-import { Mock } from "../../Services/mock";
 import SalesCard from "./SalesCard";
+import mock from "../../Services/mock";
+import { v4 as uuidv4 } from "uuid";
 
 const SalesList = () => {
     return (
         <StyledSalesList>
-            {Mock.map((sale) => (
-                <SalesCard key={sale.id} sale={sale} />
+            {mock.map((sale) => (
+                <SalesCard key={uuidv4()} sale={sale} />
             ))}
         </StyledSalesList>
     );

@@ -35,4 +35,20 @@ const StyledHeader = styled.header`
   }
 `;
 
-export { StyledHeader };
+const HeaderMenuBackground = styled.div`
+  width: 100vw;
+  height: 100vh;
+
+  background-color: #0005;
+
+  position: fixed;
+  top: 80px;
+  left: 0;
+
+  z-index: 2;
+  @media (min-width: 769px) {
+    top: 0;
+  }
+`;
+
+export { StyledHeader, HeaderMenuBackground };
