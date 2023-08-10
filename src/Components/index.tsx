@@ -6,3 +6,5 @@ export { default as Footer } from "./Footer";
 export { default as AsideMobile } from "./Aside/AsideMobile";
 export { default as AsideDesktop } from "./Aside/AsideDesktop";
 export { default as Button } from "./Buttons";
+export { default as Banner } from "./Banner";
+export { default as ChangePage } from "./ChangePage";

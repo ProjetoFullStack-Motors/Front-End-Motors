@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const StyledMenu = styled.div`
-  margin-right: 16px;
   cursor: pointer;
 
   button:nth-child(1) {
@@ -34,8 +33,6 @@ const StyledMenu = styled.div`
   }
 
   @media (min-width: 769px) {
-    margin-right: 60px;
-
     button:nth-child(1) {
       display: none;
     }

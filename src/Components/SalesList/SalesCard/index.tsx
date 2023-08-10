@@ -20,7 +20,7 @@ const SalesCard = ({ sale }: TSaleCardProps) => {
   } = sale;
 
   const priceCentsToReal = () => {
-    const priceDecimalStr = (price / 100).toString().replace(".", ",");
+    const priceDecimalStr = price.toString().replace(".", ",");
     const priceFormated = priceDecimalStr.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
     return "R$ " + priceFormated;
@@ -33,8 +33,7 @@ const SalesCard = ({ sale }: TSaleCardProps) => {
       {isGoodPrice ? (
         <h4
           className="good-price-tag"
-          title="Essa oferta está 5% abaixo da tabela Fipe"
-        >
+          title="Essa oferta está 5% abaixo da tabela Fipe">
           $
         </h4>
       ) : null}

@@ -26,7 +26,7 @@ const StyleBanner = styled.div`
     z-index: 1;
   }
 
-  background-image: url("https://live.staticflickr.com/65535/53105793794_89c67519f6_b.jpg");
+  background-image: url("https://live.staticflickr.com/65535/53107150201_3a16dfaff9_b.jpg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;

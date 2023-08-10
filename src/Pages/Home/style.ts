@@ -10,7 +10,7 @@ const StyledHomePage = styled.main`
 
   .home-container {
     display: flex;
-    justify-content: space-between;
+    gap: 10%;
     padding: 2rem;
     margin-inline: auto;
     margin-top: 90px;
@@ -21,11 +21,6 @@ const StyledHomePage = styled.main`
 
 const ButtonContainerPosition = styled.div`
   align-self: center;
-  margin: 5rem 0 15rem 0;
-
-  @media (min-width: 1024px) {
-    margin: 5rem 0;
-  }
 `;
 
 export { StyledHomePage, ButtonContainerPosition };
