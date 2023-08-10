@@ -3,13 +3,12 @@ import styled from "styled-components";
 const StyleBanner = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 16px;
 
   position: relative;
   width: 100%;
-  height: 600px;
+  height: 544px;
   margin-top: 80px;
 
   &::before {
@@ -32,19 +31,31 @@ const StyleBanner = styled.div`
   background-position: center center;
   background-size: contain;
 
-  h1 {
-    font-size: var(--font-heading-1);
-    color: var(--grey-10);
-    text-align: center;
+  color: var(--grey-10);
+  text-align: center;
 
+  h1 {
+    font-size: var(--font-heading-2);
+    margin-top: 100px;
     z-index: 2;
   }
 
   h3 {
-    font-size: var(--font-heading-3);
-    color: var(--grey-10);
-    text-align: center;
+    font-size: var(--font-heading-4);
     z-index: 2;
+  }
+
+  @media (min-width: 769px) {
+    justify-content: center;
+
+    h1 {
+      font-size: var(--font-heading-1);
+      margin: 0;
+    }
+
+    h3 {
+      font-size: var(--font-heading-3);
+    }
   }
 `;
 

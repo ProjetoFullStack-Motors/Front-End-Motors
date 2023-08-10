@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const StyledHomePage = styled.main`
-  /* max-height: 100vh; */
   min-height: 100vh;
   max-height: max-content;
   max-width: 100vw;
