@@ -5,15 +5,11 @@ import { StyledAsideDesktop } from "./style";
 import { useCarContext } from "../../../Hooks";
 
 const AsideDesktop = () => {
-  const { car, handleClearFilter, initialState } = useCarContext();
+  const { car, handleClearFilter, initialState, filterCars } = useCarContext();
   return (
     <StyledAsideDesktop>
       <AllFilters />
       <StyledButtonContainer>
-        <Button $background="brand-2" $width={5}>
-          Realizar Pesquisa
-        </Button>
-
         {car.brand == initialState.brand &&
         car.model == initialState.model &&
         car.color == initialState.color &&
@@ -22,10 +18,24 @@ const AsideDesktop = () => {
         car.price[1] == initialState.price[1] &&
         car.engine == initialState.engine &&
         car.mileage[0] == initialState.mileage[0] &&
-        car.mileage[1] == initialState.mileage[1] ? null : (
-          <Button $background="brand-2" $width={5} onClick={handleClearFilter}>
-            Limpar Filtro
+        car.mileage[1] == initialState.mileage[1] ? (
+          <Button $background="grey-3" $width={5} disabled $disable={true}>
+            Realizar Pesquisa
           </Button>
+        ) : (
+          <>
+            <Button $background="brand-2" $width={5} onClick={filterCars}>
+              Realizar Pesquisa
+            </Button>
+
+            <Button
+              $background="brand-2"
+              $width={5}
+              onClick={handleClearFilter}
+            >
+              Limpar Filtro
+            </Button>
+          </>
         )}
       </StyledButtonContainer>
     </StyledAsideDesktop>

@@ -13,12 +13,17 @@ import useKeyDown from "../../../Hooks/useKeyDown";
 import { useCarContext } from "../../../Hooks";
 
 const AsideMobile = () => {
-  const { setFilterModal, handleClearFilter, car, initialState } =
+  const { setFilterModal, handleClearFilter, car, initialState, filterCars } =
     useCarContext();
 
   const menuRef = useOutClick(() => {
     setFilterModal!(false);
   });
+
+  const submit = () => {
+    filterCars();
+    setFilterModal(false);
+  };
 
   const buttonRef = useKeyDown("Escape", (element: any) => {
     element.click();
@@ -37,13 +42,6 @@ const AsideMobile = () => {
           <AllFilters />
         </StyledAllFiltersMobile>
         <StyledButtonContainer>
-          <Button
-            $background="brand-2"
-            $width={5}
-            onClick={() => setFilterModal(false)}>
-            Realizar Pesquisa
-          </Button>
-
           {car.brand == initialState.brand &&
           car.model == initialState.model &&
           car.color == initialState.color &&
@@ -52,13 +50,24 @@ const AsideMobile = () => {
           car.price[1] == initialState.price[1] &&
           car.engine == initialState.engine &&
           car.mileage[0] == initialState.mileage[0] &&
-          car.mileage[1] == initialState.mileage[1] ? null : (
-            <Button
-              $background="brand-2"
-              $width={5}
-              onClick={handleClearFilter}>
-              Limpar Filtro
+          car.mileage[1] == initialState.mileage[1] ? (
+            <Button $background="grey-3" $width={5} disabled $disable={true}>
+              Realizar Pesquisa
             </Button>
+          ) : (
+            <>
+              <Button $background="brand-2" $width={5} onClick={submit}>
+                Realizar Pesquisa
+              </Button>
+
+              <Button
+                $background="brand-2"
+                $width={5}
+                onClick={handleClearFilter}
+              >
+                Limpar Filtro
+              </Button>
+            </>
           )}
         </StyledButtonContainer>
       </StyledAsideModal>
