@@ -5,10 +5,10 @@ type TCarProvidersProps = {
 };
 
 type TSaleProps = {
-  id: number;
+  id: string;
   brand: string;
   model: string;
-  year: number;
+  year: string;
   mileage: number;
   isGoodPrice: boolean;
   price: number;
@@ -19,14 +19,22 @@ type TSaleProps = {
     lastName: string;
     img?: string;
   };
-  imgs: string[];
+  salesImages: [
+    {
+      id: string;
+      imageUrl: string;
+      principal: boolean;
+      created_at: string;
+    }
+  ];
   engine: string;
+  created_at: string;
 };
 
 type TCarState = {
   brand: string;
   model: string;
-  year: number;
+  year: string;
   price: number[];
   color: string;
   engine: string;
@@ -36,6 +44,26 @@ type TCarState = {
 type TCarAction = {
   type: string;
   payload: string | number | number[];
+};
+
+type TPriceRange = {
+  minPrice: number;
+  maxPrice: number;
+};
+
+type TMileageRange = {
+  minMileage: number;
+  maxMileage: number;
+};
+
+type TFilterSalesAd = {
+  brand?: string | null | undefined;
+  model?: string | null | undefined;
+  color?: string | null | undefined;
+  year?: string | null | undefined;
+  engine?: string | null | undefined;
+  rangePrice?: TPriceRange | null | undefined;
+  rangeMileage?: TMileageRange | null | undefined;
 };
 
 type TCarContextProps = {
@@ -48,6 +76,18 @@ type TCarContextProps = {
   handleSliderChange: (newValue: number | number[], title: string) => void;
   car: TCarState;
   initialState: TCarState;
+  allCars: TSaleProps[];
+  filteredCars: TSaleProps[];
+  filterCars: () => Promise<void>;
+  isSearching: boolean;
+  setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+type TPaginateSalesAdResponse = {
+  prevPage: string | null;
+  nextPage: string | null;
+  count: number;
+  data: TSaleProps[];
 };
 
 export type {
@@ -56,4 +96,6 @@ export type {
   TCarContextProps,
   TCarState,
   TCarAction,
+  TFilterSalesAd,
+  TPaginateSalesAdResponse,
 };

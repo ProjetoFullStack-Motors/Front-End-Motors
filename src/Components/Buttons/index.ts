@@ -8,6 +8,7 @@ interface ButtonProps {
   $color?: string;
   $background?: string;
   $display?: boolean;
+  $disable?: boolean;
 }
 
 const Button = styled.button<ButtonProps>`
@@ -33,6 +34,8 @@ const Button = styled.button<ButtonProps>`
   @media (min-width: 1024px) {
     display: ${({ $display }) => ($display ? "none" : "block")};
   }
+
+  cursor: ${({ $disable }) => ($disable ? "none" : "pointer")};
 `;
 
 export default Button;

@@ -1,16 +1,17 @@
 import { StyledSalesList } from "./style";
 import SalesCard from "./SalesCard";
-import mock from "../../Services/mock";
 import { v4 as uuidv4 } from "uuid";
+import { useCarContext } from "../../Hooks";
 
 const SalesList = () => {
-    return (
-        <StyledSalesList>
-            {mock.map((sale) => (
-                <SalesCard key={uuidv4()} sale={sale} />
-            ))}
-        </StyledSalesList>
-    );
+  const { filteredCars } = useCarContext();
+  return (
+    <StyledSalesList>
+      {filteredCars?.map((sale) => (
+        <SalesCard key={uuidv4()} sale={sale} />
+      ))}
+    </StyledSalesList>
+  );
 };
 
 export default SalesList;

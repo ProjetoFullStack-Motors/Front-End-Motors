@@ -4,15 +4,34 @@ import {
   TCarContextProps,
   TCarProvidersProps,
   TCarState,
+  TFilterSalesAd,
+  TPaginateSalesAdResponse,
   TSaleProps,
 } from "./@types";
-import mock from "../../Services/mock";
+import { api } from "../../Services/api";
+import { toast } from "react-toastify";
 
 const CarContext = createContext({} as TCarContextProps);
 
 const CarProvider = ({ children }: TCarProvidersProps) => {
   const [filterModal, setFilterModal] = useState(false);
   const [cars, setCars] = useState<TSaleProps[]>([]);
+  const [allCars, setAllCars] = useState<TSaleProps[]>([]);
+  const filteredCars = cars.length == 0 ? allCars : cars;
+  const [isSearching, setIsSearching] = useState(false);
+
+  useEffect(() => {
+    const getAllCars = async () => {
+      try {
+        const getCars = await api.get<TPaginateSalesAdResponse>("/salesAd");
+        setAllCars(getCars.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getAllCars();
+  }, []);
 
   const carReducer = (state: TCarState, action: TCarAction) => {
     switch (action.type) {
@@ -23,7 +42,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
       case "color":
         return { ...state, color: action.payload as string };
       case "year":
-        return { ...state, year: action.payload as number };
+        return { ...state, year: action.payload as string };
       case "price":
         return { ...state, price: action.payload as number[] };
       case "engine":
@@ -35,29 +54,19 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     }
   };
 
-  const priceArr: number[] = mock.map((item) => Number(item.price));
-
-  const mileageArr: number[] = mock.map((item) => Number(item.mileage));
-
-  const minPrice = Math.min(...priceArr) / 1000;
-
-  const maxPrice = Math.max(...priceArr) / 1000;
-
-  const minMileage = Math.min(...mileageArr) / 1000;
-
-  const maxMileage = Math.max(...mileageArr) / 1000;
-
   const initialState: TCarState = {
     brand: "",
     model: "",
     color: "",
-    year: 0,
-    price: [minPrice, maxPrice],
+    year: "",
+    price: [10000, 500000],
     engine: "",
-    mileage: [minMileage, maxMileage],
+    mileage: [0, 200000],
   };
 
   const [car, dispatch] = useReducer(carReducer, initialState);
+
+  useEffect(() => {}, [car]);
 
   const handleClick = (type: string, value: string | number) => {
     dispatch({ type, payload: value });
@@ -67,48 +76,57 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     dispatch({ type: title, payload: newValue as number[] });
   };
 
-  const filterCars = (car: TCarState): TSaleProps[] => {
-    if (
-      !car.brand &&
-      !car.model &&
-      !car.color &&
-      !car.year &&
-      !car.engine &&
-      !car.mileage &&
-      !car.price
-    ) {
-      return mock;
-    }
+  const filterCars = async (): Promise<void> => {
+    let carObj: TFilterSalesAd = {
+      brand: car.brand.length > 0 ? car.brand : null,
+      model: car.model.length > 0 ? car.model : null,
+      color: car.color.length > 0 ? car.color : null,
+      year: car.year.length > 0 ? car.year : null,
+      engine: car.engine.length > 0 ? car.engine : null,
+      rangePrice: {
+        minPrice: car.price[0],
+        maxPrice: car.price[1],
+      },
+      rangeMileage: {
+        minMileage: car.mileage[0],
+        maxMileage: car.mileage[1],
+      },
+    };
 
-    return mock.filter((item) => {
-      return (
-        (!car.brand || item.brand == car.brand) &&
-        (!car.model || item.model == car.model) &&
-        (!car.color || item.color == car.color) &&
-        (!car.year || item.year == car.year) &&
-        (!car.engine || item.engine == car.engine) &&
-        (!car.price ||
-          (item.price >= car.price[0] * 1000 &&
-            item.price <= car.price[1] * 1000)) &&
-        (!car.mileage ||
-          (item.mileage >= car.mileage[0] * 1000 &&
-            item.mileage <= car.mileage[1] * 1000))
+    const carArr = Object.entries(carObj).filter((obj) => obj[1] !== null);
+
+    carObj = Object.fromEntries(carArr);
+
+    try {
+      const filterCars = await api.post<TPaginateSalesAdResponse>(
+        "/salesAd/filter",
+        carObj
       );
-    });
-  };
 
-  useEffect(() => {
-    setCars(filterCars(car));
-  }, [car]);
+      if (filterCars.data.data.length == 0) {
+        toast.warning("Não foi encontrado dados para essa busca");
+        setCars([]);
+      } else {
+        setCars(filterCars.data.data);
+        toast.success("Busca encontrada");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleClearFilter = () => {
     dispatch({ type: "brand", payload: "" });
     dispatch({ type: "model", payload: "" });
     dispatch({ type: "color", payload: "" });
-    dispatch({ type: "year", payload: 0 });
-    dispatch({ type: "price", payload: [minPrice, maxPrice] });
+    dispatch({ type: "year", payload: "" });
+    dispatch({ type: "price", payload: [10000, 500000] });
     dispatch({ type: "engine", payload: "" });
-    dispatch({ type: "mileage", payload: [minMileage, maxMileage] });
+    dispatch({ type: "mileage", payload: [0, 200000] });
+
+    setIsSearching(false);
+
+    setCars([]);
   };
 
   return (
@@ -123,6 +141,11 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         handleSliderChange,
         car,
         initialState,
+        allCars,
+        filterCars,
+        filteredCars,
+        isSearching,
+        setIsSearching,
       }}
     >
       {children}

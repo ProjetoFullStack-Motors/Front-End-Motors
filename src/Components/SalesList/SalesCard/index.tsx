@@ -1,85 +1,66 @@
 import { StyledSalesCard } from "./style";
 import { UserAvatar, ImgSwiper } from "../..";
+import { TSaleProps } from "../../../Providers/CarContext/@types";
 
-type TSalesCard = {
-    sale: {
-        id: number;
-        brand: string;
-        model: string;
-        year: number;
-        mileage: number;
-        isGoodPrice: boolean;
-        price: number;
-        color: string;
-        description: string;
-        seller: {
-            firstName: string;
-            lastName: string;
-            img?: string;
-        };
-        imgs: string[];
-        engine: string;
-    };
+type TSaleCardProps = {
+  sale: TSaleProps;
 };
 
-const SalesCard = ({ sale }: TSalesCard) => {
-    const {
-        brand,
-        model,
-        year,
-        mileage,
-        isGoodPrice,
-        price,
-        description,
-        seller,
-        imgs,
-    } = sale;
+const SalesCard = ({ sale }: TSaleCardProps) => {
+  const {
+    brand,
+    model,
+    year,
+    mileage,
+    isGoodPrice,
+    price,
+    description,
+    seller,
+    salesImages,
+  } = sale;
 
-    const priceCentsToReal = () => {
-        const priceDecimalStr = (price / 100).toString().replace(".", ",");
-        const priceFormated = priceDecimalStr.replace(
-            /\B(?=(\d{3})+(?!\d))/g,
-            "."
-        );
+  const priceCentsToReal = () => {
+    const priceDecimalStr = (price / 100).toString().replace(".", ",");
+    const priceFormated = priceDecimalStr.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-        return "R$ " + priceFormated;
-    };
+    return "R$ " + priceFormated;
+  };
 
-    return (
-        <StyledSalesCard>
-            {isGoodPrice ? (
-                <h4
-                    className="good-price-tag"
-                    title="Essa oferta está 5% abaixo da tabela Fipe"
-                >
-                    $
-                </h4>
-            ) : null}
-            <ImgSwiper imgs={imgs}></ImgSwiper>
-            <div className="sales-info-container">
-                <h2 className="car-title">
-                    {brand} - {model}
-                </h2>
-                <p className="car-description">{description}</p>
-                <div className="seller-info-container">
-                    <UserAvatar
-                        img={seller.img ? seller.img : undefined}
-                        username={`${seller.firstName} ${seller.lastName}`}
-                    />
-                    <h3 className="seller-title">
-                        {seller.firstName} {seller.lastName}
-                    </h3>
-                </div>
-                <div className="car-info-container">
-                    <div className="car-info">
-                        <span>{mileage} KM</span>
-                        <span>{year}</span>
-                    </div>
-                    <span className="car-price">{priceCentsToReal()}</span>
-                </div>
-            </div>
-        </StyledSalesCard>
-    );
+  const imgs = salesImages.map((img) => img.imageUrl);
+
+  return (
+    <StyledSalesCard>
+      {isGoodPrice ? (
+        <h4
+          className="good-price-tag"
+          title="Essa oferta está 5% abaixo da tabela Fipe"
+        >
+          $
+        </h4>
+      ) : null}
+      <ImgSwiper imgs={imgs}></ImgSwiper>
+      <div className="sales-info-container">
+        <h2 className="car-title">
+          {brand} - {model}
+        </h2>
+        <p className="car-description">{description}</p>
+        <div className="seller-info-container">
+          <UserAvatar
+            img={seller ? seller.img : undefined}
+            username={`Roberto Alberto`}
+          />
+          <h3 className="seller-title">Roberto Alberto</h3>
+        </div>
+        <div className="car-info-container">
+          <div className="car-info">
+            <span>{mileage} KM</span>
+            <span>{year}</span>
+          </div>
+          <span className="car-price">{priceCentsToReal()}</span>
+        </div>
+      </div>
+    </StyledSalesCard>
+  );
 };
 
 export default SalesCard;
