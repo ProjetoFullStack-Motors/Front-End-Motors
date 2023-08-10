@@ -45,18 +45,6 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     getAllCars();
   }, [currentPage]);
 
-  const nextPage = () => {
-    if (currentPage < numberPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const previusPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
   const carReducer = (state: TCarState, action: TCarAction) => {
     switch (action.type) {
       case "brand":
@@ -124,8 +112,19 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     try {
       const filterCars = await api.post<TPaginateSalesAdResponse>(
         "/salesAd/filter",
-        carObj
+        carObj,
+        {
+          params: {
+            page: currentPage,
+          },
+        }
       );
+
+      const { count } = filterCars.data;
+
+      if (count > 12) {
+        setNumberPages(Math.ceil(count / 12));
+      }
 
       if (filterCars.data.data.length == 0) {
         toast.warning("Não foi encontrado dados para essa busca");
@@ -136,6 +135,18 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const nextPage = () => {
+    if (currentPage < numberPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const previusPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
   };
 
@@ -174,7 +185,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         previusPage,
         currentPage,
         numberPages,
-      }}>
+      }}
+    >
       {children}
     </CarContext.Provider>
   );
