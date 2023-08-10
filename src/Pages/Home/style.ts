@@ -22,7 +22,7 @@ const StyledHomePage = styled.main`
 
 const ButtonContainerPosition = styled.div`
   align-self: center;
-  margin-top: 5rem;
+  margin: 5rem 0 10rem 0;
 `;
 
 export { StyledHomePage, ButtonContainerPosition };
