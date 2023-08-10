@@ -10,6 +10,7 @@ import {
 } from "./@types";
 import { api } from "../../Services/api";
 import { toast } from "react-toastify";
+import axios, { AxiosResponse } from "axios";
 
 const CarContext = createContext({} as TCarContextProps);
 
@@ -19,31 +20,31 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   const [allCars, setAllCars] = useState<TSaleProps[]>([]);
   const filteredCars = cars.length == 0 ? allCars : cars;
   const [isSearching, setIsSearching] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [numberPages, setNumberPages] = useState(1);
+  const [previousPage, setPreviousPage] = useState<string | null>(null);
+  const [nextPage, setNextPage] = useState<string | null>(null);
+  const [pagesAmount, setPagesAmount] = useState(0);
 
   useEffect(() => {
     const getAllCars = async () => {
       try {
-        const getCars = await api.get<TPaginateSalesAdResponse>("/salesAd", {
-          params: {
-            page: currentPage,
-          },
-        });
-        setAllCars(getCars.data.data);
+        const getCars = await api.get<TPaginateSalesAdResponse>("/salesAd");
 
-        const { count } = getCars.data;
+        const { count, prevPage, nextPage, data } = getCars.data;
 
         if (count > 12) {
-          setNumberPages(Math.ceil(count / 12));
+          setPagesAmount(Math.ceil(count / 12));
         }
+
+        setAllCars(data);
+        setPreviousPage(prevPage);
+        setNextPage(nextPage);
       } catch (error) {
         console.log(error);
       }
     };
 
     getAllCars();
-  }, [currentPage]);
+  }, []);
 
   const carReducer = (state: TCarState, action: TCarAction) => {
     switch (action.type) {
@@ -88,7 +89,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     dispatch({ type: title, payload: newValue as number[] });
   };
 
-  const filterCars = async (): Promise<void> => {
+  const filterCars = async (pageUrl?: string): Promise<void> => {
     let carObj: TFilterSalesAd = {
       brand: car.brand.length > 0 ? car.brand : null,
       model: car.model.length > 0 ? car.model : null,
@@ -110,43 +111,34 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     carObj = Object.fromEntries(carArr);
 
     try {
-      const filterCars = await api.post<TPaginateSalesAdResponse>(
-        "/salesAd/filter",
-        carObj,
-        {
-          params: {
-            page: currentPage,
-          },
-        }
-      );
+      let filterCars: AxiosResponse<TPaginateSalesAdResponse, any>;
 
-      const { count } = filterCars.data;
-
-      if (count > 12) {
-        setNumberPages(Math.ceil(count / 12));
+      if (cars.length === 0) {
+        filterCars = await api.post<TPaginateSalesAdResponse>(
+          "/salesAd/filter",
+          carObj
+        );
+      } else {
+        filterCars = await axios.post(pageUrl!, carObj);
       }
 
-      if (filterCars.data.data.length == 0) {
+      const { count, prevPage, nextPage, data } = filterCars.data;
+
+      setPreviousPage(prevPage);
+      setNextPage(nextPage);
+
+      if (count > 12) {
+        setPagesAmount(Math.ceil(count / 12));
+      }
+
+      if (data.length == 0) {
         toast.warning("Não foi encontrado dados para essa busca");
         setCars([]);
       } else {
-        setCars(filterCars.data.data);
-        toast.success("Busca encontrada");
+        setCars(data);
       }
     } catch (error) {
       console.log(error);
-    }
-  };
-
-  const nextPage = () => {
-    if (currentPage < numberPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const previusPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
     }
   };
 
@@ -162,6 +154,22 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     setIsSearching(false);
 
     setCars([]);
+  };
+
+  const getCarsPagination = async (pageUrl: string) => {
+    try {
+      const response = await axios.get<TPaginateSalesAdResponse>(pageUrl);
+
+      const { prevPage, nextPage, data, count } = response.data;
+
+      setAllCars(data);
+      setPreviousPage(prevPage);
+      setNextPage(nextPage);
+
+      if (count > 12) {
+        setPagesAmount(Math.ceil(count / 12));
+      }
+    } catch (error) {}
   };
 
   return (
@@ -181,12 +189,11 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         filteredCars,
         isSearching,
         setIsSearching,
+        previousPage,
         nextPage,
-        previusPage,
-        currentPage,
-        numberPages,
-      }}
-    >
+        getCarsPagination,
+        pagesAmount,
+      }}>
       {children}
     </CarContext.Provider>
   );

@@ -99,6 +99,6 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     .container{
-        max-width: 1550px;
+        max-width: 1600px;
     }
 `;
