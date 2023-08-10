@@ -19,19 +19,43 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   const [allCars, setAllCars] = useState<TSaleProps[]>([]);
   const filteredCars = cars.length == 0 ? allCars : cars;
   const [isSearching, setIsSearching] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [numberPages, setNumberPages] = useState(1);
 
   useEffect(() => {
     const getAllCars = async () => {
       try {
-        const getCars = await api.get<TPaginateSalesAdResponse>("/salesAd");
+        const getCars = await api.get<TPaginateSalesAdResponse>("/salesAd", {
+          params: {
+            page: currentPage,
+          },
+        });
         setAllCars(getCars.data.data);
+
+        const { count } = getCars.data;
+
+        if (count > 12) {
+          setNumberPages(Math.ceil(count / 12));
+        }
       } catch (error) {
         console.log(error);
       }
     };
 
     getAllCars();
-  }, []);
+  }, [currentPage]);
+
+  const nextPage = () => {
+    if (currentPage < numberPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const previusPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   const carReducer = (state: TCarState, action: TCarAction) => {
     switch (action.type) {
@@ -146,8 +170,11 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         filteredCars,
         isSearching,
         setIsSearching,
-      }}
-    >
+        nextPage,
+        previusPage,
+        currentPage,
+        numberPages,
+      }}>
       {children}
     </CarContext.Provider>
   );

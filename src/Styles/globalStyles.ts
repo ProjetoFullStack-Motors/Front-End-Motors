@@ -97,4 +97,8 @@ export const GlobalStyles = createGlobalStyle`
     button {
         cursor: pointer;
     }
+
+    .container{
+        max-width: 1550px;
+    }
 `;

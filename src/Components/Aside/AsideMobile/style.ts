@@ -64,6 +64,10 @@ const StyledButtonContainer = styled.div`
   margin-block: 2rem;
   gap: 1rem;
   min-height: 200px;
+
+  @media (min-width: 1024px) {
+    min-height: 0;
+  }
 `;
 
 export {

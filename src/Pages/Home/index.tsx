@@ -5,11 +5,12 @@ import {
   AsideMobile,
   Footer,
   Button,
+  Banner,
+  ChangePage,
 } from "../../Components";
 import { ButtonContainerPosition, StyledHomePage } from "./style";
 import { createPortal } from "react-dom";
 import { useCarContext } from "../../Hooks";
-import Banner from "../../Components/Banner";
 
 const Home = () => {
   const { filterModal, setFilterModal } = useCarContext();
@@ -18,7 +19,7 @@ const Home = () => {
       <StyledHomePage>
         <Header />
         <Banner />
-        <div className="home-container">
+        <div className="home-container container">
           <AsideDesktop />
           <SalesList />
         </div>
@@ -33,6 +34,8 @@ const Home = () => {
         </ButtonContainerPosition>
 
         {filterModal && createPortal(<AsideMobile />, document.body)}
+
+        <ChangePage />
 
         <Footer />
       </StyledHomePage>

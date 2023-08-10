@@ -81,6 +81,10 @@ type TCarContextProps = {
   filterCars: () => Promise<void>;
   isSearching: boolean;
   setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
+  nextPage: () => void;
+  previusPage: () => void;
+  currentPage: number;
+  numberPages: number;
 };
 
 type TPaginateSalesAdResponse = {
