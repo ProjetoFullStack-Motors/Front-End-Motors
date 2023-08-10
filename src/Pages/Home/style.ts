@@ -23,6 +23,10 @@ const StyledHomePage = styled.main`
 const ButtonContainerPosition = styled.div`
   align-self: center;
   margin: 5rem 0 15rem 0;
+
+  @media (min-width: 1024px) {
+    margin: 5rem 0;
+  }
 `;
 
 export { StyledHomePage, ButtonContainerPosition };
