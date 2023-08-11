@@ -14,15 +14,13 @@ const ChangePage = () => {
   } = useCarContext();
 
   const currentPage = () => {
-    if (previousPage && previousPage[previousPage.length - 2] === "=") {
-      return Number(previousPage[previousPage.length - 1]) + 1;
-    } else if (previousPage && previousPage[previousPage.length - 2] !== "=") {
-      return (
-        Number(
-          previousPage[previousPage.length - 2] +
-            previousPage[previousPage.length - 1]
-        ) + 1
-      );
+    if (previousPage) {
+      const pageNumberIndex = previousPage.indexOf("=") + 1;
+
+      const pageNumber = Number(previousPage.substring(pageNumberIndex));
+      if (Number(pageNumber)) {
+        return pageNumber + 1;
+      }
     } else {
       return 1;
     }
@@ -36,7 +34,8 @@ const ChangePage = () => {
             <Button
               $background="transparent"
               $color="brand-1"
-              onClick={() => getCarsPagination(previousPage)}>
+              onClick={() => getCarsPagination(previousPage)}
+            >
               <MdKeyboardArrowLeft />
               Anterior
             </Button>
@@ -50,7 +49,8 @@ const ChangePage = () => {
             <Button
               $background="transparent"
               onClick={() => getCarsPagination(nextPage)}
-              $color="brand-1">
+              $color="brand-1"
+            >
               Seguinte
               <MdNavigateNext />
             </Button>
@@ -62,7 +62,8 @@ const ChangePage = () => {
             <Button
               $background="transparent"
               $color="brand-1"
-              onClick={() => filterCars(previousPage)}>
+              onClick={() => filterCars(previousPage)}
+            >
               <MdKeyboardArrowLeft />
               Anterior
             </Button>
@@ -77,7 +78,8 @@ const ChangePage = () => {
             <Button
               $background="transparent"
               onClick={() => filterCars(nextPage)}
-              $color="brand-1">
+              $color="brand-1"
+            >
               Seguinte
               <MdNavigateNext />
             </Button>
