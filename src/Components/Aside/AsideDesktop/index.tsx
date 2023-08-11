@@ -6,6 +6,8 @@ import { useCarContext } from "../../../Hooks";
 
 const AsideDesktop = () => {
   const { car, handleClearFilter, initialState, filterCars } = useCarContext();
+
+  console.log(car);
   return (
     <StyledAsideDesktop>
       <AllFilters />
@@ -24,15 +26,17 @@ const AsideDesktop = () => {
           </Button>
         ) : (
           <>
-            <Button $background="brand-2" $width={5} onClick={filterCars}>
+            <Button
+              $background="brand-2"
+              $width={5}
+              onClick={() => filterCars()}>
               Realizar Pesquisa
             </Button>
 
             <Button
               $background="brand-2"
               $width={5}
-              onClick={handleClearFilter}
-            >
+              onClick={handleClearFilter}>
               Limpar Filtro
             </Button>
           </>

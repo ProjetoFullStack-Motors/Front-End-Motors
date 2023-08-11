@@ -21,7 +21,9 @@ const NavItem = forwardRef(
     const click = () => {
       handleClickRef();
 
-      handleClick(String(itemKey), title);
+      !clicked
+        ? handleClick(String(itemKey), title)
+        : handleClick(String(itemKey), "");
 
       setClicked(!clicked);
     };
@@ -37,8 +39,7 @@ const NavItem = forwardRef(
             className="pFalse"
             onClick={() => {
               setIsSearching(true);
-            }}
-          >
+            }}>
             {title}
           </p>
         )}

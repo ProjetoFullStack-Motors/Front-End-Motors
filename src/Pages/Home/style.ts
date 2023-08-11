@@ -15,6 +15,7 @@ const StyledHomePage = styled.main`
     margin-inline: auto;
     margin-top: 90px;
     width: 100%;
+    max-height: 1680px;
     box-sizing: border-box;
   }
 `;
