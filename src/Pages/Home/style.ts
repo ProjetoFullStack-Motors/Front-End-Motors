@@ -17,6 +17,10 @@ const StyledHomePage = styled.main`
     width: 100%;
     height: 1680px;
     box-sizing: border-box;
+
+    @media (max-width: 1023px) {
+      height: auto;
+    }
   }
 `;
 
