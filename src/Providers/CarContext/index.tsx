@@ -23,6 +23,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   const [previousPage, setPreviousPage] = useState<string | null>(null);
   const [nextPage, setNextPage] = useState<string | null>(null);
   const [pagesAmount, setPagesAmount] = useState(0);
+  const [change, setChange] = useState(false);
 
   useEffect(() => {
     const getAllCars = async () => {
@@ -44,7 +45,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     };
 
     getAllCars();
-  }, []);
+  }, [change]);
 
   const carReducer = (state: TCarState, action: TCarAction) => {
     switch (action.type) {
@@ -113,7 +114,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     try {
       let filterCars: AxiosResponse<TPaginateSalesAdResponse, any>;
 
-      if (cars.length === 0) {
+      if (!pageUrl) {
         filterCars = await api.post<TPaginateSalesAdResponse>(
           "/salesAd/filter",
           carObj
@@ -152,6 +153,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     dispatch({ type: "mileage", payload: [0, 200000] });
 
     setIsSearching(false);
+    setChange(!change);
 
     setCars([]);
   };

@@ -31,7 +31,7 @@ const ChangePage = () => {
             {previousPage
               ? Number(previousPage[previousPage.length - 1]) + 1
               : 1}{" "}
-            <span>de {pagesAmount}</span>
+            <span>de {cars.length === 0 && pagesAmount}</span>
           </p>
 
           {nextPage && (
@@ -60,7 +60,7 @@ const ChangePage = () => {
             {previousPage
               ? Number(previousPage[previousPage.length - 1]) + 1
               : 1}{" "}
-            <span>de {pagesAmount}</span>
+            <span>de {nextPage || previousPage ? pagesAmount : 1}</span>
           </p>
 
           {nextPage && (
