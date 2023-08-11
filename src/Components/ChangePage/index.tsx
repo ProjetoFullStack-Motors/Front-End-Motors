@@ -13,6 +13,21 @@ const ChangePage = () => {
     pagesAmount,
   } = useCarContext();
 
+  const currentPage = () => {
+    if (previousPage && previousPage[previousPage.length - 2] === "=") {
+      return Number(previousPage[previousPage.length - 1]) + 1;
+    } else if (previousPage && previousPage[previousPage.length - 2] !== "=") {
+      return (
+        Number(
+          previousPage[previousPage.length - 2] +
+            previousPage[previousPage.length - 1]
+        ) + 1
+      );
+    } else {
+      return 1;
+    }
+  };
+
   return (
     <>
       {cars.length === 0 ? (
@@ -28,10 +43,7 @@ const ChangePage = () => {
           )}
 
           <p>
-            {previousPage
-              ? Number(previousPage[previousPage.length - 1]) + 1
-              : 1}{" "}
-            <span>de {cars.length === 0 && pagesAmount}</span>
+            {currentPage()} <span>de {cars.length === 0 && pagesAmount}</span>
           </p>
 
           {nextPage && (
@@ -57,9 +69,7 @@ const ChangePage = () => {
           )}
 
           <p>
-            {previousPage
-              ? Number(previousPage[previousPage.length - 1]) + 1
-              : 1}{" "}
+            {currentPage()}{" "}
             <span>de {nextPage || previousPage ? pagesAmount : 1}</span>
           </p>
 
