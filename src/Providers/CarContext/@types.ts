@@ -31,6 +31,10 @@ type TSaleProps = {
   created_at: string;
 };
 
+type TAsideValues = {
+  [key: string]: string[];
+};
+
 type TCarState = {
   brand: string;
   model: string;
@@ -85,6 +89,8 @@ type TCarContextProps = {
   nextPage: string | null;
   getCarsPagination: (pageUrl: string) => Promise<void>;
   pagesAmount: number;
+  asideFilter: TAsideValues | null;
+  convertStr: (str: string, itemKey?: string) => string;
 };
 
 type TPaginateSalesAdResponse = {
@@ -102,4 +108,5 @@ export type {
   TCarAction,
   TFilterSalesAd,
   TPaginateSalesAdResponse,
+  TAsideValues,
 };

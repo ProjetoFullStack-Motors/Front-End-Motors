@@ -1,6 +1,7 @@
 import { StyledSalesCard } from "./style";
 import { UserAvatar, ImgSwiper } from "../..";
 import { TSaleProps } from "../../../Providers/CarContext/@types";
+import { useCarContext } from "../../../Hooks";
 
 type TSaleCardProps = {
   sale: TSaleProps;
@@ -28,19 +29,22 @@ const SalesCard = ({ sale }: TSaleCardProps) => {
 
   const imgs = salesImages.map((img) => img.imageUrl);
 
+  const { convertStr } = useCarContext();
+
   return (
     <StyledSalesCard>
       {isGoodPrice ? (
         <h4
           className="good-price-tag"
-          title="Essa oferta está 5% abaixo da tabela Fipe">
+          title="Essa oferta está 5% abaixo da tabela Fipe"
+        >
           $
         </h4>
       ) : null}
       <ImgSwiper imgs={imgs}></ImgSwiper>
       <div className="sales-info-container">
         <h2 className="car-title">
-          {brand} - {model}
+          {convertStr(brand)} - {convertStr(model)}
         </h2>
         <p className="car-description">{description}</p>
         <div className="seller-info-container">
