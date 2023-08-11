@@ -8,7 +8,8 @@ const NavItem = forwardRef(
     { title, itemKey, handleClickRef }: TNavItemProps,
     ref: ForwardedRef<any>
   ) => {
-    const { handleClick, setIsSearching, isSearching } = useCarContext();
+    const { handleClick, setIsSearching, isSearching, convertStr } =
+      useCarContext();
 
     useEffect(() => {
       if (!isSearching) {
@@ -32,15 +33,16 @@ const NavItem = forwardRef(
       <StyledNavItem onClick={click}>
         {clicked ? (
           <p className="pTrue" ref={ref}>
-            {title}
+            {convertStr(title, itemKey)}
           </p>
         ) : (
           <p
             className="pFalse"
             onClick={() => {
               setIsSearching(true);
-            }}>
-            {title}
+            }}
+          >
+            {convertStr(title, itemKey)}
           </p>
         )}
       </StyledNavItem>

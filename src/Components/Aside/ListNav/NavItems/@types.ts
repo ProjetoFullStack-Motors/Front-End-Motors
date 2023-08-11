@@ -1,7 +1,7 @@
 import { TSaleProps } from "../../../../Providers/CarContext/@types";
 
 type TNavItemProps = {
-  title: string | number;
+  title: string;
   itemKey: keyof TSaleProps;
   handleClickRef: () => void;
 };

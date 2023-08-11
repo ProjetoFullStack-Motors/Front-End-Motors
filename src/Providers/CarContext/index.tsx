@@ -1,5 +1,6 @@
 import { createContext, useEffect, useReducer, useState } from "react";
 import {
+  TAsideValues,
   TCarAction,
   TCarContextProps,
   TCarProvidersProps,
@@ -24,6 +25,19 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   const [nextPage, setNextPage] = useState<string | null>(null);
   const [pagesAmount, setPagesAmount] = useState(0);
   const [change, setChange] = useState(false);
+  const [asideFilter, setAsideFilter] = useState<TAsideValues | null>(null);
+
+  useEffect(() => {
+    const asideValues = async () => {
+      try {
+        const asideCars = await api.get<TAsideValues>("/salesAd/values");
+        setAsideFilter(asideCars.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    asideValues();
+  }, []);
 
   useEffect(() => {
     const getAllCars = async () => {
@@ -46,6 +60,14 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
 
     getAllCars();
   }, [change]);
+
+  const convertStr = (str: string, itemKey?: string) => {
+    if (itemKey == "year") {
+      return str;
+    }
+
+    return str[0].toUpperCase() + str.slice(1);
+  };
 
   const carReducer = (state: TCarState, action: TCarAction) => {
     switch (action.type) {
@@ -195,7 +217,10 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         nextPage,
         getCarsPagination,
         pagesAmount,
-      }}>
+        asideFilter,
+        convertStr,
+      }}
+    >
       {children}
     </CarContext.Provider>
   );
