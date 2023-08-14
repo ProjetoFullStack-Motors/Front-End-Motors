@@ -8,3 +8,4 @@ export { default as AsideDesktop } from "./Aside/AsideDesktop";
 export { default as Button } from "./Buttons";
 export { default as Banner } from "./Banner";
 export { default as ChangePage } from "./ChangePage";
+export { default as Modal } from "./Modal";
