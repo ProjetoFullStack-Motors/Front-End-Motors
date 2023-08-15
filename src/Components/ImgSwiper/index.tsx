@@ -1,13 +1,8 @@
 import { StyledSwiper } from "./styled";
 import { SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import { TImgSwiperProps } from "./@types";
 import { v4 as uuidv4 } from "uuid";
-
-type TImgSwiperProps = {
-    imgs: string[];
-    $width?: number;
-    $height?: number;
-};
 
 const ImgSwiper = ({ imgs }: TImgSwiperProps) => {
     return (
