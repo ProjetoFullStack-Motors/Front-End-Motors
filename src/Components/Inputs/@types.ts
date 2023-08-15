@@ -1,7 +1,8 @@
 import { InputHTMLAttributes } from "react";
+import { FieldError } from "react-hook-form";
 
 export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   label?: string;
-  errors?: string;
+  errors?: FieldError;
 }

@@ -25,6 +25,7 @@ const ModalProvider = ({ children }: TModalProviderProps) => {
         const allBrandsKeys = Object.keys(allBrands.data);
 
         setBrands(allBrandsKeys);
+        setSelectedBrand(allBrandsKeys[0]);
       } catch (error) {
         console.log(error);
       }
@@ -36,32 +37,44 @@ const ModalProvider = ({ children }: TModalProviderProps) => {
     try {
       const allModels = await apiFipe.get(`/cars?brand=${brand}`);
       setModels(allModels.data);
-      console.log(allModels);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleBrandSelect = async (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  useEffect(() => {
+    selectedBrand ? getBrandModels(selectedBrand) : null;
+    models.length > 0 ? setModel(models[0]) : null;
+  }, [selectedBrand]);
+
+  const handleBrandSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
+
     setSelectedBrand(selectedValue);
-    await getBrandModels(selectedValue);
   };
 
-  const handleModelSelect = async (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleModelSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
     setSelectedModel(selectedValue);
 
     const findModel: TBrandModel | undefined = models.find(
-      (item) => item.name === selectedModel
+      (item) => item.name === selectedValue
     );
 
     findModel ? setModel(findModel) : null;
   };
+
+  const detectFuel = (fuel: number) => {
+    if (fuel === 1) {
+      return "flex";
+    } else if (fuel === 2) {
+      return "híbrido";
+    } else {
+      return "elétrico";
+    }
+  };
+
+  useEffect(() => {}, [model]);
 
   return (
     <ModalContext.Provider
@@ -75,6 +88,10 @@ const ModalProvider = ({ children }: TModalProviderProps) => {
         setSelectedBrand,
         selectedModel,
         setSelectedModel,
+        handleBrandSelect,
+        handleModelSelect,
+        detectFuel,
+        model,
       }}
     >
       {children}

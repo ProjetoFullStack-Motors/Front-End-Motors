@@ -10,7 +10,7 @@ const Input = forwardRef(
       <fieldset>
         <label htmlFor={id}>{label}</label>
         <input id={id} {...rest} ref={ref} />
-        <span>{errors}</span>
+        {errors ? <span>{errors.message}</span> : null}
       </fieldset>
     );
   }

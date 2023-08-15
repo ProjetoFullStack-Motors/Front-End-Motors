@@ -32,6 +32,10 @@ type TModalContextValues = {
   setSelectedBrand: React.Dispatch<React.SetStateAction<string>>;
   selectedModel: string;
   setSelectedModel: React.Dispatch<React.SetStateAction<string>>;
+  handleBrandSelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleModelSelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  detectFuel: (fuel: number) => "flex" | "híbrido" | "elétrico";
+  model: TBrandModel | null;
 };
 
 export type {
