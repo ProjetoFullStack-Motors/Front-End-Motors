@@ -79,6 +79,7 @@ export const GlobalStyles = createGlobalStyle`
         --button-width-3: 7.875rem; // 126px
         --button-width-4: 12.875rem; // 206px
         --button-width-5: 17.438rem; // 279px
+        --button-width-6: 100%;
 
         //button-height:
 
