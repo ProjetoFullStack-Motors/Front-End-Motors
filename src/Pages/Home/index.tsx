@@ -11,6 +11,7 @@ import {
 import { ButtonContainerPosition, StyledHomePage } from "./style";
 import { createPortal } from "react-dom";
 import { useCarContext } from "../../Hooks";
+import CreateAd from "../../Components/Forms/CreateAdForm";
 
 const Home = () => {
   const { filterModal, setFilterModal } = useCarContext();
@@ -28,7 +29,8 @@ const Home = () => {
             $display={true}
             $width={5}
             $background="brand-2"
-            onClick={() => setFilterModal(true)}>
+            onClick={() => setFilterModal(true)}
+          >
             Filtros
           </Button>
         </ButtonContainerPosition>
@@ -38,6 +40,7 @@ const Home = () => {
         <ChangePage />
 
         <Footer />
+        {createPortal(<CreateAd />, document.body)}
       </StyledHomePage>
     </>
   );
