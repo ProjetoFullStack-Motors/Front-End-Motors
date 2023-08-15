@@ -1,6 +1,13 @@
 import axios from "axios";
 
-export const api = axios.create({
+const api = axios.create({
   baseURL: "http://127.0.0.1:3000",
   timeout: 6000,
 });
+
+const apiFipe = axios.create({
+  baseURL: "https://kenzie-kars.herokuapp.com",
+  timeout: 6000,
+});
+
+export { api, apiFipe };
