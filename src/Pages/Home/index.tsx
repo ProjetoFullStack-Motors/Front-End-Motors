@@ -11,10 +11,10 @@ import {
 import { ButtonContainerPosition, StyledHomePage } from "./style";
 import { createPortal } from "react-dom";
 import { useCarContext } from "../../Hooks";
-import CreateAd from "../../Components/Forms/CreateAdForm";
 
 const Home = () => {
-    const { filterModal, setFilterModal } = useCarContext();
+    const { filterModal, setFilterModal, filteredCars } = useCarContext();
+
     return (
         <>
             <StyledHomePage>
@@ -22,7 +22,7 @@ const Home = () => {
                 <Banner />
                 <div className="home-container container">
                     <AsideDesktop />
-                    <SalesList />
+                    <SalesList sales={filteredCars} owner="all" />
                 </div>
                 <ButtonContainerPosition>
                     <Button
