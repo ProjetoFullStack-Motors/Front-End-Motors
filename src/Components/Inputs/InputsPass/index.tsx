@@ -1,6 +1,7 @@
 import { forwardRef, ForwardedRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IInputProps } from "../@types";
+import { StyledDivPassword } from "./style";
 
 const InputPass = forwardRef(
   (
@@ -20,12 +21,12 @@ const InputPass = forwardRef(
     return (
       <fieldset>
         <label htmlFor={id}>{label}</label>
-        <div>
+        <StyledDivPassword>
           <input id={id} type={typeInput} {...rest} ref={ref} />
           <button type="button" onClick={changeType}>
             {typeInput === "password" ? <FaEye /> : <FaEyeSlash />}
           </button>
-        </div>
+        </StyledDivPassword>
         <span>{errors}</span>
       </fieldset>
     );
