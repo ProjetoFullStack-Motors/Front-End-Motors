@@ -1,4 +1,4 @@
-import { Modal } from "../../Components";
+import { Modal, CreateAdForm } from "../../Components";
 import useModal from "../../Hooks/useModal";
 
 const Dashboard = () => {
@@ -11,7 +11,9 @@ const Dashboard = () => {
                     Criar Anúncio
                 </button>
             </div>
-            <Modal title={"Criar anúncio"}>Formulário</Modal>
+            <Modal title={"Criar anúncio"}>
+                <CreateAdForm />
+            </Modal>
         </>
     );
 };
