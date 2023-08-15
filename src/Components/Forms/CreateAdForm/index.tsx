@@ -27,9 +27,20 @@ const CreateAd = () => {
     resolver: zodResolver(createAdSchema),
   });
 
+  const onSubmitForm = (data: any) => {
+    const adObj = {
+      ...data,
+      brand: selectedBrand,
+      model: model ? model.name : models[0].name,
+      year: model ? model.year : models[0].year,
+      fuel: model ? detectFuel(model.fuel) : detectFuel(models[0].fuel),
+      fipePrice: model ? model.value : models[0].value,
+    };
+  };
+
   return (
     <StyledCreateAd>
-      <form action="">
+      <form onSubmit={handleSubmit(onSubmitForm)}>
         <Select
           arr={brands!}
           id="brand"
@@ -50,18 +61,16 @@ const CreateAd = () => {
           <Input
             id="year"
             label="Ano"
-            {...register("year")}
-            errors={errors.year}
             disabled
             value={model ? model.year : models[0].year}
+            {...register("year")}
           />
           <Input
             id="fuel"
             label="Combustível"
-            {...register("fuel")}
-            errors={errors.fuel}
             value={model ? detectFuel(model.fuel) : detectFuel(models[0].fuel)}
             disabled
+            {...register("fuel")}
           />
         </div>
         <div>
@@ -82,8 +91,6 @@ const CreateAd = () => {
           <Input
             id="fipePrice"
             label="Preço tabela FIPE"
-            {...register("fipePrice")}
-            errors={errors.fipePrice}
             value={
               model
                 ? model.value.toLocaleString("pt-br", {
@@ -96,6 +103,7 @@ const CreateAd = () => {
                   })
             }
             disabled
+            {...register("fipePrice")}
           />
           <Input
             id="price"
@@ -110,6 +118,7 @@ const CreateAd = () => {
           {...register("description")}
           errors={errors.description}
         />
+        <button type="submit">Cadastrar(teste)</button>
       </form>
     </StyledCreateAd>
   );

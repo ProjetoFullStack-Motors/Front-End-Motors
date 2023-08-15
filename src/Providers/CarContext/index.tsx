@@ -42,7 +42,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   useEffect(() => {
     const getAllCars = async () => {
       try {
-        const getCars = await api.get<TPaginateSalesAdResponse>("/salesAd");
+        const getCars = await api.get("/salesAd");
 
         const { count, prevPage, nextPage, data } = getCars.data;
 
