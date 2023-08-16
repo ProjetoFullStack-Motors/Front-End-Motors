@@ -61,11 +61,12 @@ export const StyledSalesCard = styled.li`
     }
 
     .car-title {
+        display: -webkit-box;
         font-size: var(--font-body-1);
         font-weight: var(--font-semibold);
         color: var(--grey-1);
+        line-height: 171%;
         text-overflow: ellipsis;
-        -webkit-line-clamp: 1;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
         overflow: hidden;
