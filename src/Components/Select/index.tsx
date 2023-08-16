@@ -2,6 +2,7 @@ import { TBrandModel } from "../../Providers/ModalContext/@types";
 import Option from "./Option/index";
 import { forwardRef, ForwardedRef } from "react";
 import TSelectProps from "./@types";
+import { StyledSelect } from "./style";
 
 const Select = forwardRef(
   (
@@ -9,7 +10,7 @@ const Select = forwardRef(
     ref: ForwardedRef<HTMLSelectElement>
   ) => {
     return (
-      <fieldset>
+      <StyledSelect>
         <label htmlFor={id}>{title}</label>
 
         <select
@@ -34,7 +35,7 @@ const Select = forwardRef(
               />
             ))}
         </select>
-      </fieldset>
+      </StyledSelect>
     );
   }
 );
