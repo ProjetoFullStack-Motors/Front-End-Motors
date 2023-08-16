@@ -1,12 +1,17 @@
 import Select from "../../Select";
 import useModal from "../../../Hooks/useModal";
-import { StyledCreateAd, StyledInputContainer } from "./style";
+import {
+  StyledCreateAd,
+  StyledDinamicInput,
+  StyledInputContainer,
+} from "./style";
 import Input from "../../Inputs/ Input";
 import Textarea from "../../Textarea";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { TCreateAd, createAdSchema } from "./validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../../Buttons/index";
+import { AiFillDelete } from "react-icons/ai";
 
 const CreateAd = () => {
   const {
@@ -25,8 +30,14 @@ const CreateAd = () => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<TCreateAd>({
     resolver: zodResolver(createAdSchema),
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "imgUrlPlus",
   });
 
   const onSubmitForm = (data: any) => {
@@ -126,21 +137,52 @@ const CreateAd = () => {
         <Input
           id="imgUrl"
           label="Imagem de capa"
-          // errors={errors.price}
+          {...register("imgUrl")}
+          errors={errors.imgUrl}
           placeholder="Ex: https://image.com"
         />
         <Input
           id="imgUrl2"
           label="1ª imagem da galeria"
-          // errors={errors.price}
+          {...register("imgUrl2")}
+          errors={errors.imgUrl2}
           placeholder="Ex: https://image.com"
         />
         <Input
           id="imgUrl3"
           label="2ª imagem da galeria"
-          // errors={errors.price}
+          {...register("imgUrl3")}
+          errors={errors.imgUrl3}
           placeholder="Ex: https://image.com"
         />
+
+        <Button
+          type="button"
+          $background="brand-4"
+          $color="brand-1"
+          $width={5}
+          onClick={() => append({ url: "" })}
+        >
+          Adicionar campo para imagem da galeria
+        </Button>
+
+        {fields.map((field, index) => {
+          return (
+            <StyledDinamicInput key={field.id}>
+              <Input
+                id={`imgUrlPlus-${index}`}
+                label="Imagem extra"
+                {...register(`imgUrlPlus.${index}.url`)}
+                errors={errors.imgUrlPlus?.[index]?.root!}
+                placeholder="Ex: https://image.com"
+              />
+
+              <button type="button" onClick={() => remove(index)}>
+                <AiFillDelete />
+              </button>
+            </StyledDinamicInput>
+          );
+        })}
 
         <StyledInputContainer>
           <Button

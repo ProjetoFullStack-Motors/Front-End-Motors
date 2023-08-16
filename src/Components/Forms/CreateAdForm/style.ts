@@ -60,4 +60,26 @@ const StyledInputContainer = styled.div`
   }
 `;
 
-export { StyledCreateAd, StyledInputContainer };
+const StyledDinamicInput = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  button {
+    align-self: end;
+    background-color: transparent;
+    border: none;
+
+    svg {
+      fill: var(--brand-3);
+      width: 1.5rem;
+      height: 1.5rem;
+
+      :hover {
+        fill: var(--brand-1);
+      }
+    }
+  }
+`;
+
+export { StyledCreateAd, StyledInputContainer, StyledDinamicInput };
