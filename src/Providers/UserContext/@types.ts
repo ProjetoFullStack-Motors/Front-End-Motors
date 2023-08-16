@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { TLoginData } from "../../Components/Forms/LoginForm/validator";
 
 type TUserProvidersProps = {
   children: ReactNode;
@@ -6,6 +7,7 @@ type TUserProvidersProps = {
 
 type TUserContext = {
   user: TUser;
+  userLogin: (data: TLoginData) => void;
 };
 
 type TUser = {
@@ -13,4 +15,12 @@ type TUser = {
   lastName: string;
 };
 
-export type { TUserProvidersProps, TUserContext };
+type TUserDataToken = {
+  role: "seller" | "buyer";
+  exp: number;
+  iat: number;
+  userId: string;
+  sub: number; // id do user.
+}
+
+export type { TUserProvidersProps, TUserContext, TUserDataToken };
