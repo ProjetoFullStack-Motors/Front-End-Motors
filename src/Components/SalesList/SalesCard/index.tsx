@@ -4,6 +4,8 @@ import { TSaleCardProps } from "./@types";
 import { useCarContext } from "../../../Hooks";
 
 const SalesCard = ({ sale }: TSaleCardProps) => {
+    const { convertStr } = useCarContext();
+
     const {
         brand,
         model,
@@ -12,23 +14,11 @@ const SalesCard = ({ sale }: TSaleCardProps) => {
         isGoodPrice,
         price,
         description,
-        seller,
         salesImages,
+        user,
     } = sale;
 
-    const priceCentsToReal = () => {
-        const priceDecimalStr = price.toString().replace(".", ",");
-        const priceFormated = priceDecimalStr.replace(
-            /\B(?=(\d{3})+(?!\d))/g,
-            "."
-        );
-
-        return "R$ " + priceFormated;
-    };
-
     const imgs = salesImages.map((img) => img.imageUrl);
-
-    const { convertStr } = useCarContext();
 
     return (
         <StyledSalesCard>
@@ -48,17 +38,22 @@ const SalesCard = ({ sale }: TSaleCardProps) => {
                 <p className="car-description">{description}</p>
                 <div className="seller-info-container">
                     <UserAvatar
-                        img={seller ? seller.img : undefined}
-                        username={`Roberto Alberto`}
+                        img={user ? user.userImage : undefined}
+                        username={`${user.firstName} ${user.lastName}`}
                     />
-                    <h3 className="seller-title">Roberto Alberto</h3>
+                    <h3 className="seller-title">{`${user.firstName} ${user.lastName}`}</h3>
                 </div>
                 <div className="car-info-container">
                     <div className="car-info">
                         <span>{mileage} KM</span>
                         <span>{year}</span>
                     </div>
-                    <span className="car-price">{priceCentsToReal()}</span>
+                    <span className="car-price">
+                        {price.toLocaleString("pt-BR", {
+                            style: "currency",
+                            currency: "BRL",
+                        })}
+                    </span>
                 </div>
             </div>
         </StyledSalesCard>
