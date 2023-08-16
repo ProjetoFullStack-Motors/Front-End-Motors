@@ -18,7 +18,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("desafioM6:token");
+    const token = localStorage.getItem("frontEndMotors:token");
 
     if (!token) {
       return;
