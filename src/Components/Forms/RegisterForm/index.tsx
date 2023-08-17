@@ -11,18 +11,19 @@ const FormRegister = () => {
   const { userRegister } = useUserContext();
 
   const { register, handleSubmit } = useForm<TUserRegisterData>({
-    resolver: zodResolver(userSchema),
+    // resolver: zodResolver(userSchema),
   });
 
   const submit: SubmitHandler<TUserRegisterData> = async (data) => {
-    userRegister(data);
+    console.log(data);
+    // userRegister(data);
   };
   return (
     <>
       <StyledDiv>
         <h2>Cadastro</h2>
         <p>Informações pessoais</p>
-        <form>
+        <form onSubmit={handleSubmit(submit)}>
           <Input
             id="firstName"
             label="Nome"
@@ -114,18 +115,29 @@ const FormRegister = () => {
           <p>Tipo de conta</p>
 
           <div className="btnRole">
-            <Button $background="brand-2" $width={4} type="button">
-              Comprador
-            </Button>
-            <Button
-              $background="grey-8"
-              $width={4}
-              $border
-              $color="grey-0"
-              type="button"
-            >
-              Anunciante
-            </Button>
+            <div className="button">
+              <input
+                type="radio"
+                id="a25"
+                value="seller"
+                {...register("role")}
+              />
+              <label className="btn btn-default" htmlFor="a25">
+                Vendedor
+              </label>
+            </div>
+
+            <div className="button">
+              <input
+                type="radio"
+                id="a25"
+                value="buyer"
+                {...register("role")}
+              />
+              <label className="btn btn-default" htmlFor="a25">
+                Comprador
+              </label>
+            </div>
           </div>
 
           <InputPass
