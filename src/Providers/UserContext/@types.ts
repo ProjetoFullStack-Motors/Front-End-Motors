@@ -10,8 +10,14 @@ type TUserProvidersProps = {
 type TUserContext = {
     user: TUser;
     userLogin: (data: TLoginData) => void;
+    logoutUser: () => void;
+    recoverPassword: (data: TUserMail) => Promise<void>;
     userRegister: (data: TUserRegisterData) => void;
 };
+
+type TUserMail = {
+    email: string;
+}
 
 type TUserName = {
     firstName: string;
@@ -58,4 +64,5 @@ export type {
     TUserDataToken,
     TUserName,
     TErrorResponse,
+    TUserMail,
 };

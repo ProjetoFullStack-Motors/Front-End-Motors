@@ -9,6 +9,10 @@ const StyledDiv = styled.div`
 
   fieldset {
     border: none;
+
+    button {
+      top: 35%;
+    }
   }
 
   h2 {

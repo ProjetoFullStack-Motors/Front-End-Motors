@@ -8,9 +8,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import { UserContext } from "../../../Providers";
 import { useNavigate } from "react-router-dom";
+import { useModal } from "../../../Hooks";
 
 const LoginForm = () => {
   const { userLogin } = useContext(UserContext);
+  const { setModal } = useModal();
 
   const { register, handleSubmit, formState: { errors }, } = useForm<TLoginData>({
     resolver: zodResolver(schema),
@@ -46,12 +48,12 @@ const LoginForm = () => {
             {...register("password")}
             errors={errors.password}
           />
-            
-        <StyledDivPassword>
-          <button>
-            Esqueci minha senha
-          </button>
-        </StyledDivPassword>
+
+          <StyledDivPassword>
+            <button onClick={() => setModal("Recuperar senha")}>
+              Esqueci minha senha
+            </button>
+          </StyledDivPassword>
   
           <Button 
             className="btnEntrar"
