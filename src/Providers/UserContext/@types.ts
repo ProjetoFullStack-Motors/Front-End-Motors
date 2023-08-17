@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { TLoginData } from "../../Components/Forms/LoginForm/validator";
+import { TUserRegisterData } from "../../Components/Forms/RegisterForm/validator";
 import { TSaleUserSeller } from "../CarContext/@types";
 
 type TUserProvidersProps = {
@@ -7,11 +8,11 @@ type TUserProvidersProps = {
 };
 
 type TUserContext = {
-    user: TUser | null;
-    userName: TUserName | null;
+    user: TUser;
     userLogin: (data: TLoginData) => void;
     logoutUser: () => void;
     recoverPassword: (data: TUserMail) => Promise<void>;
+    userRegister: (data: TUserRegisterData) => void;
 };
 
 type TUserMail = {

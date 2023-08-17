@@ -15,6 +15,7 @@ import { api } from "../../Services/api";
 import jwt_decode from "jwt-decode";
 import { AxiosError } from "axios";
 import { useModal } from "../../Hooks";
+import { TUserRegisterData } from "../../Components/Forms/RegisterForm/validator";
 
 const UserContext = createContext({} as TUserContext);
 
@@ -41,6 +42,21 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
             console.log(error);
         }
     };
+  
+    const userRegister = async (data: TUserRegisterData) => {
+      try {
+        await api.post("/users", data);
+        const token = localStorage.getItem("frontEndMotors:token");
+
+        api.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+        toast.success("Usuário cadastrado com sucesso!");
+        navigate("dashboard");
+      } catch (error) {
+        toast.error("Cadastro inválido!");
+        console.log(error);
+      }
+  };
 
     const logoutUser = () => {
         localStorage.removeItem("desafioM6:token");
@@ -93,6 +109,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
                 userLogin,
                 logoutUser,
                 recoverPassword,
+                userRegister,
             }}
         >
             {children}
