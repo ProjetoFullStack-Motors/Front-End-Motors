@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { TLoginData } from "../../Components/Forms/LoginForm/validator";
+import { TUserRegisterData } from "../../Components/Forms/RegisterForm/validator";
 import { TSaleUserSeller } from "../CarContext/@types";
 
 type TUserProvidersProps = {
@@ -8,10 +9,15 @@ type TUserProvidersProps = {
 
 type TUserContext = {
   user: TUser | null;
-  userName: TUserName | null;
+  setUser: React.Dispatch<React.SetStateAction<TUser | null>>;
   userLogin: (data: TLoginData) => void;
   logoutUser: () => void;
-  setUser: React.Dispatch<React.SetStateAction<TUser | null>>;
+  recoverPassword: (data: TUserMail) => Promise<void>;
+  userRegister: (data: TUserRegisterData) => void;
+};
+
+type TUserMail = {
+  email: string;
 };
 
 type TUserName = {
@@ -59,4 +65,5 @@ export type {
   TUserDataToken,
   TUserName,
   TErrorResponse,
+  TUserMail,
 };

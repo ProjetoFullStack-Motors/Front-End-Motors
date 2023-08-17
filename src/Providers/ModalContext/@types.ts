@@ -6,6 +6,7 @@ type TModalProviderProps = {
 
 type TModalOptions =
   | null
+  | "Recuperar senha"
   | "Criar anúncio"
   | "Editar anúncio"
   | "Excluir anúncio"

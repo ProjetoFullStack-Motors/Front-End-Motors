@@ -6,6 +6,7 @@ import {
   TUser,
   TUserProvidersProps,
   TErrorResponse,
+  TUserMail,
 } from "./@types";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +14,8 @@ import { TLoginData } from "../../Components/Forms/LoginForm/validator";
 import { api } from "../../Services/api";
 import jwt_decode from "jwt-decode";
 import { AxiosError } from "axios";
+import { useModal } from "../../Hooks";
+import { TUserRegisterData } from "../../Components/Forms/RegisterForm/validator";
 
 const UserContext = createContext({} as TUserContext);
 
@@ -22,6 +25,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
   const [user, setUser] = useState<TUser | null>(null);
   const token = localStorage.getItem("frontEndMotors:token") || null;
   const userData = token ? jwt_decode<TUserDataToken>(token) : null;
+  const { setModal } = useModal();
 
   const userLogin = async (data: TLoginData) => {
     try {
@@ -35,6 +39,21 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
       role === "seller" ? navigate("dashboard") : navigate("");
     } catch (error) {
       toast.error("E-mail ou senha inválido(s)!");
+      console.log(error);
+    }
+  };
+
+  const userRegister = async (data: TUserRegisterData) => {
+    try {
+      await api.post("/users", data);
+      const token = localStorage.getItem("frontEndMotors:token");
+
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+      toast.success("Usuário cadastrado com sucesso!");
+      navigate("dashboard");
+    } catch (error) {
+      toast.error("Cadastro inválido!");
       console.log(error);
     }
   };
@@ -59,6 +78,19 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     }
   };
 
+  const recoverPassword = async (data: TUserMail) => {
+    try {
+      await api.post("/recoverPass", data);
+      setModal(null);
+      navigate("/login");
+      toast.success("Senha enviado por e-mail");
+    } catch (error) {
+      const currentError = error as AxiosError<TErrorResponse>;
+      toast.error(currentError.response?.data.message);
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (!userData) {
       return;
@@ -74,7 +106,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
         user,
         userLogin,
         logoutUser,
-        setUser,
+        recoverPassword,
+        userRegister,
       }}
     >
       {children}
