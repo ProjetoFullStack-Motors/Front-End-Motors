@@ -111,8 +111,7 @@ const FormRegister = () => {
             </Button>
           </div>
 
-          <InputPass
-            className="inputPass" 
+          <InputPass 
             id="password" 
             label="Senha"
             placeholder="Digite sua senha..."
