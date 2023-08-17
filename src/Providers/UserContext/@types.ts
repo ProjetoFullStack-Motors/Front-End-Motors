@@ -12,17 +12,49 @@ type TUserContext = {
   userRegister: (data: TUserRegisterData) => void;
 };
 
+type TUserName = {
+  firstName: string;
+  lastName: string;
+};
+
+type TErrorResponse = {
+  message: string;
+};
+
+type TAddress = {
+  addressComplement: string;
+  addressNumber: number;
+  cep: string;
+  city: string;
+  state: string;
+  street: string;
+};
+
 type TUser = {
   firstName: string;
   lastName: string;
+  cellphone: string;
+  cpf: string;
+  description: string;
+  role: "seller" | "buyer";
+  userImage?: string;
+  address: TAddress;
+  sales?: TSaleUserSeller[];
+  created_at: string;
 };
 
 type TUserDataToken = {
   role: "seller" | "buyer";
   exp: number;
   iat: number;
-  userId: string;
-  sub: number; // id do user.
+  sub: string; // id do user.
 };
 
-export type { TUserProvidersProps, TUserContext, TUserDataToken };
+export type {
+  TUser,
+  TUserProvidersProps,
+  TUserContext,
+  TUserDataToken,
+  TUserName,
+  TErrorResponse,
+};

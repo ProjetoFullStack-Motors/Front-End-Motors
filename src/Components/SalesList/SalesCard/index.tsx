@@ -1,9 +1,11 @@
 import { StyledSalesCard } from "./style";
 import { UserAvatar, ImgSwiper } from "../..";
 import { TSaleCardProps } from "./@types";
-import { useCarContext } from "../../../Hooks";
+import { useCarContext, useModal } from "../../../Hooks";
 
 const SalesCard = ({ sale }: TSaleCardProps) => {
+    const { convertStr } = useCarContext();
+    const { setModal } = useModal();
     const {
         brand,
         model,
@@ -12,23 +14,11 @@ const SalesCard = ({ sale }: TSaleCardProps) => {
         isGoodPrice,
         price,
         description,
-        seller,
         salesImages,
+        user,
     } = sale;
 
-    const priceCentsToReal = () => {
-        const priceDecimalStr = price.toString().replace(".", ",");
-        const priceFormated = priceDecimalStr.replace(
-            /\B(?=(\d{3})+(?!\d))/g,
-            "."
-        );
-
-        return "R$ " + priceFormated;
-    };
-
-    const imgs = salesImages.map((img) => img.imageUrl);
-
-    const { convertStr } = useCarContext();
+    const imgs = salesImages?.map((img) => img.imageUrl);
 
     return (
         <StyledSalesCard>
@@ -46,20 +36,37 @@ const SalesCard = ({ sale }: TSaleCardProps) => {
                     {convertStr(brand)} - {convertStr(model)}
                 </h2>
                 <p className="car-description">{description}</p>
-                <div className="seller-info-container">
-                    <UserAvatar
-                        img={seller ? seller.img : undefined}
-                        username={`Roberto Alberto`}
-                    />
-                    <h3 className="seller-title">Roberto Alberto</h3>
-                </div>
+                {user ? (
+                    <div className="seller-info-container">
+                        <UserAvatar
+                            img={user.userImage}
+                            username={`${user.firstName} ${user.lastName}`}
+                        />
+                        <h3 className="seller-title">{`${user.firstName} ${user.lastName}`}</h3>
+                    </div>
+                ) : null}
                 <div className="car-info-container">
                     <div className="car-info">
                         <span>{mileage} KM</span>
                         <span>{year}</span>
                     </div>
-                    <span className="car-price">{priceCentsToReal()}</span>
+                    <span className="car-price">
+                        {price.toLocaleString("pt-BR", {
+                            style: "currency",
+                            currency: "BRL",
+                        })}
+                    </span>
                 </div>
+                {!user ? (
+                    <div className="sales-buttons-container">
+                        <button onClick={() => setModal("Editar anúncio")}>
+                            Editar
+                        </button>
+                        <button className="details-sale-button">
+                            Ver Detalhes
+                        </button>
+                    </div>
+                ) : null}
             </div>
         </StyledSalesCard>
     );

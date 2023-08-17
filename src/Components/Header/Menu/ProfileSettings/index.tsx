@@ -8,7 +8,7 @@ import { HeaderMenuBackground } from "../../style";
 import { useKeyDown } from "../../../../Hooks";
 
 const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
-  const { user } = useContext(UserContext);
+  const { userName, logoutUser } = useContext(UserContext);
 
   const buttonRef = useKeyDown("Escape", (element: any) => {
     element.click();
@@ -17,14 +17,14 @@ const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
   return (
     <>
       <div onClick={() => setOpen!(true)}>
-        <UserAvatar username={`${user.firstName} ${user.lastName}`} />
-        <span>{`${user.firstName} ${user.lastName}`}</span>
+        <UserAvatar username={`${userName!.firstName} ${userName!.lastName}`} />
+        <span>{`${userName!.firstName} ${userName!.lastName}`}</span>
       </div>
 
       <StyledProfileSettings open={open} ref={menuRef}>
         <section>
-          <UserAvatar username={`${user.firstName} ${user.lastName}`} />
-          <span>{`${user.firstName} ${user.lastName}`}</span>
+          <UserAvatar username={`${userName!.firstName} ${userName!.lastName}`} />
+          <span>{`${userName!.firstName} ${userName!.lastName}`}</span>
           <span
             onClick={() => setOpen!(false)}
             ref={buttonRef}
@@ -35,7 +35,12 @@ const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
         <Button $background="transparent" $color="1">
           Editar perfil
         </Button>
-        <Button $border $color="1" $background="transparent">
+        <Button 
+          $border 
+          $color="1" 
+          $background="transparent"
+          onClick={() => logoutUser()}
+        >
           Sair
         </Button>
       </StyledProfileSettings>

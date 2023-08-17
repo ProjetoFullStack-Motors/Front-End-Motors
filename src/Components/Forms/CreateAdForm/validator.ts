@@ -5,11 +5,23 @@ export const createAdSchema = z.object({
   color: z.string().nonempty("Campo obrigatório"),
   price: z.string().nonempty("Campo obrigatório"),
   description: z.string().nonempty("Campo obrigatório"),
-  brand: z.string().optional(),
-  model: z.string().optional(),
-  year: z.string().optional(),
-  fuel: z.string().optional(),
-  fipePrice: z.string().optional(),
+  imgUrl: z
+    .string()
+    .nonempty("Campo obrigatório")
+    .url("O dado necessita ser uma url"),
+  imgUrl2: z
+    .string()
+    .nonempty("Campo obrigatório")
+    .url("O dado necessita ser uma url"),
+  imgUrl3: z
+    .string()
+    .nonempty("Campo obrigatório")
+    .url("O dado necessita ser uma url"),
+  imgUrlPlus: z
+    .object({
+      url: z.string().url("O dado necessita ser uma url").optional(),
+    })
+    .array(),
 });
 
 export type TCreateAd = z.infer<typeof createAdSchema>;

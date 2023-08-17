@@ -19,6 +19,7 @@ export const StyledModal = styled.div`
     width: 100vw;
     height: 100vh;
     top: 0;
+    z-index: 2;
 
     background: var(--modal-background);
 
@@ -28,6 +29,7 @@ export const StyledModal = styled.div`
         flex-direction: column;
         width: 100%;
         max-width: 500px;
+        max-height: 100vh;
         padding: 15px;
         gap: 10px;
         border-radius: 8px;

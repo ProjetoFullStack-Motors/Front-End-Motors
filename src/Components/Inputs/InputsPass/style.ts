@@ -6,8 +6,9 @@ export const StyledDivPassword = styled.div`
 
     button {
         position: absolute;
-        top: 35%;
+        top: 50%;
         right: 10px;
         border: none;
+        background-color: transparent;
     }
 `

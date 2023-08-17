@@ -70,6 +70,7 @@ export const GlobalStyles = createGlobalStyle`
         //border-radius:
 
         --button-border: 2px;
+        --input-border: 4px;
 
         //button-width:
 
@@ -80,6 +81,7 @@ export const GlobalStyles = createGlobalStyle`
         --button-width-4: 12.875rem; // 206px
         --button-width-5: 17.438rem; // 279px
         --button-width-6: 100%;
+        --button-width-7: 48%;
 
         //button-height:
 

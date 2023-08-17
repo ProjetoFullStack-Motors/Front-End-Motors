@@ -3,9 +3,10 @@ import { Avatar } from "@mui/material";
 type TUserAvatarProps = {
     img?: string;
     username: string;
+    size?: "big";
 };
 
-const UserAvatar = ({ img, username }: TUserAvatarProps) => {
+const UserAvatar = ({ img, username, size }: TUserAvatarProps) => {
     const stringToColor = (string: string) => {
         let hash = 0;
         let i;
@@ -32,7 +33,13 @@ const UserAvatar = ({ img, username }: TUserAvatarProps) => {
             children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
         };
     };
-    return <Avatar src={img} {...stringAvatar(username)} />;
+    return (
+        <Avatar
+            src={img}
+            {...stringAvatar(username)}
+            sx={size === "big" ? { width: 104, height: 104 } : null}
+        />
+    );
 };
 
 export default UserAvatar;
