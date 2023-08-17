@@ -1,17 +1,20 @@
 import { createContext, useEffect, useReducer, useState } from "react";
 import {
   TAsideValues,
+  TBrandModel,
   TCarAction,
   TCarContextProps,
   TCarProvidersProps,
   TCarState,
+  TCreateSaleAdRegister,
   TFilterSalesAd,
   TPaginateSalesAdResponse,
   TSaleProps,
 } from "./@types";
-import { api } from "../../Services/api";
+import { api, apiFipe } from "../../Services/api";
 import { toast } from "react-toastify";
 import axios, { AxiosResponse } from "axios";
+import { useUserContext } from "../../Hooks";
 
 const CarContext = createContext({} as TCarContextProps);
 
@@ -26,6 +29,13 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   const [pagesAmount, setPagesAmount] = useState(0);
   const [change, setChange] = useState(false);
   const [asideFilter, setAsideFilter] = useState<TAsideValues | null>(null);
+  const [brands, setBrands] = useState<string[] | []>([]);
+  const [models, setModels] = useState<TBrandModel[] | []>([]);
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+  const [model, setModel] = useState<TBrandModel | null>(null);
+
+  const { user, setUser } = useUserContext();
 
   useEffect(() => {
     const asideValues = async () => {
@@ -196,6 +206,95 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     } catch (error) {}
   };
 
+  useEffect(() => {
+    const getAllBrands = async () => {
+      try {
+        const allBrands = await apiFipe.get("/cars");
+
+        const allBrandsKeys = Object.keys(allBrands.data);
+
+        setBrands(allBrandsKeys);
+        setSelectedBrand(allBrandsKeys[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllBrands();
+  }, []);
+
+  const getBrandModels = async (brand: string) => {
+    try {
+      const allModels = await apiFipe.get(`/cars?brand=${brand}`);
+      setModels(allModels.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    selectedBrand ? getBrandModels(selectedBrand) : null;
+    models.length > 0 ? setModel(models[0]) : null;
+  }, [selectedBrand]);
+
+  const handleBrandSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+
+    setSelectedBrand(selectedValue);
+  };
+
+  const handleModelSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+    setSelectedModel(selectedValue);
+
+    const findModel: TBrandModel | undefined = models.find(
+      (item) => item.name === selectedValue
+    );
+
+    findModel ? setModel(findModel) : null;
+  };
+
+  const detectFuel = (fuel: number) => {
+    if (fuel === 1) {
+      return "flex";
+    } else if (fuel === 2) {
+      return "híbrido";
+    } else {
+      return "elétrico";
+    }
+  };
+
+  useEffect(() => {}, [model]);
+
+  const createSalesAd = async (data: TCreateSaleAdRegister) => {
+    const token = localStorage.getItem("frontEndMotors:token");
+
+    try {
+      const salesAd = await api.post("/salesAd", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      toast.success("Anúncio criado com sucesso");
+
+      setUser({
+        ...user!,
+        sales: [...user!.sales!, salesAd.data],
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Nào foi possível criar um novo anúncio");
+    }
+  };
+
+  const isGoodPrice = (price: number, fipePrice: number) => {
+    if (fipePrice * 0.95 <= price) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <CarContext.Provider
       value={{
@@ -219,6 +318,19 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         pagesAmount,
         asideFilter,
         convertStr,
+        brands,
+        models,
+        getBrandModels,
+        selectedBrand,
+        selectedModel,
+        setSelectedModel,
+        setSelectedBrand,
+        handleBrandSelect,
+        handleModelSelect,
+        model,
+        detectFuel,
+        createSalesAd,
+        isGoodPrice,
       }}
     >
       {children}
