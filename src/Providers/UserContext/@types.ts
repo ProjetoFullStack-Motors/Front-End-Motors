@@ -14,6 +14,7 @@ type TUserContext = {
   logoutUser: () => void;
   recoverPassword: (data: TUserMail) => Promise<void>;
   userRegister: (data: TUserRegisterData) => void;
+  userName: TUserName | null;
 };
 
 type TUserMail = {

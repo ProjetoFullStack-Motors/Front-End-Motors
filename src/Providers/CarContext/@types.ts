@@ -135,7 +135,7 @@ type TCreateSaleAdRegister = {
   isGoodPrice: boolean;
   price: number;
   description: string;
-  images: TImageSalesAd[];
+  salesImages: TImageSalesAd[];
 };
 
 export type {

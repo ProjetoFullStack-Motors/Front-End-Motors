@@ -257,9 +257,9 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     if (fuel === 1) {
       return "flex";
     } else if (fuel === 2) {
-      return "híbrido";
+      return "hybrid";
     } else {
-      return "elétrico";
+      return "electric";
     }
   };
 

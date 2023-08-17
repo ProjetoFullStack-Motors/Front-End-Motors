@@ -13,7 +13,7 @@ type TFormData = {
   isGoodPrice: boolean;
   price: number;
   mileage: number;
-  images: {
+  salesImages: {
     imageUrl: string;
   }[];
 } & TCreateAdWithoutPriceAndMileage;
