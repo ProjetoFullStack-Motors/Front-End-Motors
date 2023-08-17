@@ -27,25 +27,21 @@ const RecoverForm = () => {
     <>
       <StyledDiv>
         <form onSubmit={handleSubmit(searchSubmit)}>
-          <Input 
-            id="email" 
+          <Input
+            id="email"
             label="Email"
             type="email"
             placeholder="Digite seu e-mail..."
             {...register("email")}
             errors={errors.email}
           />
-          
-          <Button 
-            className="btnEntrar"
-            $background="brand-2"
-            $width={6}
-          >
+
+          <Button className="btnEntrar" $background="brand-2" $width={6}>
             Enviar
           </Button>
         </form>
-      </StyledDiv>  
-    </>     
+      </StyledDiv>
+    </>
   );
 };
 

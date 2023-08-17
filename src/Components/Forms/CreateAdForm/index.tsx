@@ -12,9 +12,14 @@ import { TCreateAd, createAdSchema } from "./validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../../Buttons/index";
 import { AiFillDelete } from "react-icons/ai";
+import { useCarContext } from "../../../Hooks";
+import TFormData from "./@types";
 
 const CreateAd = () => {
+  const { setModal } = useModal();
+
   const {
+    createSalesAd,
     brands,
     models,
     selectedBrand,
@@ -23,8 +28,8 @@ const CreateAd = () => {
     handleModelSelect,
     model,
     detectFuel,
-    setModal,
-  } = useModal();
+    isGoodPrice,
+  } = useCarContext();
 
   const {
     register,
@@ -40,17 +45,44 @@ const CreateAd = () => {
     name: "imgUrlPlus",
   });
 
-  const onSubmitForm = (data: any) => {
-    const adObj = {
-      ...data,
+  const onSubmitForm = (data: TCreateAd) => {
+    const fipePrice: number = model ? model.value : models[0].value;
+    const { imgUrl, imgUrl2, imgUrl3, imgUrlPlus, ...rest } = data;
+    let adObj: TFormData = {
+      ...rest,
       brand: selectedBrand,
       model: model ? model.name : models[0].name,
       year: model ? model.year : models[0].year,
-      fuel: model ? detectFuel(model.fuel) : detectFuel(models[0].fuel),
-      fipePrice: model ? model.value : models[0].value,
+      isGoodPrice: isGoodPrice(Number(data.price), fipePrice),
+      images: [],
+      engine: model ? detectFuel(model.fuel) : detectFuel(models[0].fuel),
+      price: Number(data.price),
+      mileage: Number(data.mileage),
     };
 
-    console.log(adObj);
+    let initialArrayData = [imgUrl, imgUrl2, imgUrl3];
+
+    const strImgUrlPlusArray: string[] =
+      imgUrlPlus?.map((img) => img.url!) || null;
+
+    if (strImgUrlPlusArray) {
+      initialArrayData = [...initialArrayData, ...strImgUrlPlusArray];
+    }
+
+    const imgArray = initialArrayData.map((img) => {
+      return {
+        imageUrl: img,
+      };
+    });
+
+    adObj = {
+      ...adObj,
+      images: imgArray,
+    };
+
+    createSalesAd(adObj);
+
+    setModal(null);
   };
 
   return (
@@ -80,7 +112,7 @@ const CreateAd = () => {
             value={model ? model.year : models[0].year}
           />
           <Input
-            id="fuel"
+            id="engine"
             label="Combustível"
             value={model ? detectFuel(model.fuel) : detectFuel(models[0].fuel)}
             disabled
