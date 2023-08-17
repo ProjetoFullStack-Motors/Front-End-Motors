@@ -1,5 +1,5 @@
 import { StyledSalesCard } from "./style";
-import { UserAvatar, ImgSwiper, Button } from "../..";
+import { UserAvatar, ImgSwiper } from "../..";
 import { TSaleCardProps } from "./@types";
 import { useCarContext, useModal } from "../../../Hooks";
 
