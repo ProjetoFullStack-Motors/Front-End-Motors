@@ -54,7 +54,7 @@ const CreateAd = () => {
       model: model ? model.name : models[0].name,
       year: model ? model.year : models[0].year,
       isGoodPrice: isGoodPrice(Number(data.price), fipePrice),
-      images: [],
+      salesImages: [],
       engine: model ? detectFuel(model.fuel) : detectFuel(models[0].fuel),
       price: Number(data.price),
       mileage: Number(data.mileage),
@@ -77,7 +77,7 @@ const CreateAd = () => {
 
     adObj = {
       ...adObj,
-      images: imgArray,
+      salesImages: imgArray,
     };
 
     createSalesAd(adObj);

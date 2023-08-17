@@ -108,6 +108,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
         logoutUser,
         recoverPassword,
         userRegister,
+        setUser,
       }}
     >
       {children}
