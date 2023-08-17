@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { MenuProps } from "../@types";
+import { TMenuProps } from "../@types";
 
-const StyledProfileSettings = styled.nav<MenuProps>`
+const StyledProfileSettings = styled.nav<TMenuProps>`
   display: ${({ open }) => (open ? "flex" : "none")};
   flex-direction: column;
   justify-content: center;
@@ -46,10 +46,12 @@ const StyledProfileSettings = styled.nav<MenuProps>`
   button {
     font-size: var(--font-body-1);
     transition: all 0.5s;
+    width: 100%;
+    text-align: left;
   }
 
-  button:nth-child(3) {
-    width: 100%;
+  button:nth-child(5) {
+    text-align: center;
   }
 
   button:hover {
