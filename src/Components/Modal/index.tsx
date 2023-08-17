@@ -6,9 +6,16 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const Modal = ({ children, title }: TModalProps) => {
     const { modal, setModal } = useModal();
+
+    const closeModal = () => {
+        setModal(null);
+        document.body.style.overflow = "unset";
+    };
+
     if (modal === title) {
+        document.body.style.overflow = "hidden";
         return ReactDOM.createPortal(
-            <StyledModal onClick={() => setModal(null)}>
+            <StyledModal onClick={() => closeModal()}>
                 <div
                     className="modal-container"
                     onClick={(event) => event.stopPropagation()}
@@ -17,7 +24,7 @@ const Modal = ({ children, title }: TModalProps) => {
                         <h2>{title}</h2>
                         <button
                             className="modal-close-button"
-                            onClick={() => setModal(null)}
+                            onClick={() => closeModal()}
                             title="Fechar janela"
                         >
                             <CloseRoundedIcon />

@@ -20,7 +20,6 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState<TUserName | null>(null);
     const [user, setUser] = useState<TUser | null>(null);
-
     const token = localStorage.getItem("frontEndMotors:token") || null;
     const userData = token ? jwt_decode<TUserDataToken>(token) : null;
 
