@@ -27,7 +27,7 @@ const InputPass = forwardRef(
             {typeInput === "password" ? <FaEye /> : <FaEyeSlash />}
           </button>
         </StyledDivPassword>
-        <span>{errors}</span>
+        {errors ? <span>{errors.message}</span> : null}
       </fieldset>
     );
   }

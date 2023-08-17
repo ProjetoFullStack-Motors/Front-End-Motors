@@ -6,9 +6,19 @@ type TUserProvidersProps = {
 };
 
 type TUserContext = {
-    user: TUser;
+    userName: TUserName | null;
     userLogin: (data: TLoginData) => void;
+    logoutUser: () => void; 
 };
+
+type TUserName = {
+    firstName: string;
+    lastName: string;
+}
+
+type TErrorResponse = {
+    message: string;
+}
 
 type TUser = {
     firstName: string;
@@ -29,4 +39,11 @@ type TUserDataToken = {
     sub: number; // id do user.
 };
 
-export type { TUser, TUserProvidersProps, TUserContext, TUserDataToken };
+export type { 
+    TUser, 
+    TUserProvidersProps, 
+    TUserContext, 
+    TUserDataToken,  
+    TUserName,
+    TErrorResponse,
+};

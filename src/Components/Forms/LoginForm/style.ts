@@ -15,6 +15,12 @@ const StyledDiv = styled.div`
 
   fieldset {
     border: none;
+    padding-bottom: 24px;
+
+    span {
+      font-size: var(--font-body-2);
+      color: var(--grey-2);
+    }
   }
 
   h2 {
@@ -37,7 +43,6 @@ const StyledDiv = styled.div`
     display: flex;
     height: 48px;
     margin-top: 12px;
-    margin-bottom: 24px;
     padding-left: 15px;
   }
 
@@ -49,16 +54,17 @@ const StyledDiv = styled.div`
   }
 `
 
-const StyledBtnPassword = styled.button`
-  background-color: transparent;
-  color: var(--grey-2);
-  font-size: var(--font-body-2);
-  font-weight: var(--font-medium);
-  position: absolute;
-  top: 300px;
-  right: 2rem;
-  border: none;
-  
+const StyledDivPassword = styled.div`
+  display: flex;
+  justify-content: right;
+
+  button {
+    background-color: transparent;
+    color: var(--grey-2);
+    font-size: var(--font-body-2);
+    font-weight: var(--font-medium);
+    border: none;
+  }
 `;
 
-export { StyledDiv, StyledBtnPassword };
+export { StyledDiv, StyledDivPassword };
