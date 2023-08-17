@@ -1,61 +1,60 @@
 import { ReactNode } from "react";
 import { TLoginData } from "../../Components/Forms/LoginForm/validator";
-import { TSaleUserSeller } from "../CarContext/@types";
+import { TUserRegisterData } from "../../Components/Forms/RegisterForm/validator";
 
 type TUserProvidersProps = {
-    children: ReactNode;
+  children: ReactNode;
 };
 
 type TUserContext = {
-    user: TUser | null;
-    userName: TUserName | null;
-    userLogin: (data: TLoginData) => void;
-    logoutUser: () => void;
+  user: TUser;
+  userLogin: (data: TLoginData) => void;
+  userRegister: (data: TUserRegisterData) => void;
 };
 
 type TUserName = {
-    firstName: string;
-    lastName: string;
+  firstName: string;
+  lastName: string;
 };
 
 type TErrorResponse = {
-    message: string;
+  message: string;
 };
 
 type TAddress = {
-    addressComplement: string;
-    addressNumber: number;
-    cep: string;
-    city: string;
-    state: string;
-    street: string;
+  addressComplement: string;
+  addressNumber: number;
+  cep: string;
+  city: string;
+  state: string;
+  street: string;
 };
 
 type TUser = {
-    firstName: string;
-    lastName: string;
-    cellphone: string;
-    cpf: string;
-    description: string;
-    role: "seller" | "buyer";
-    userImage?: string;
-    address: TAddress;
-    sales?: TSaleUserSeller[];
-    created_at: string;
+  firstName: string;
+  lastName: string;
+  cellphone: string;
+  cpf: string;
+  description: string;
+  role: "seller" | "buyer";
+  userImage?: string;
+  address: TAddress;
+  sales?: TSaleUserSeller[];
+  created_at: string;
 };
 
 type TUserDataToken = {
-    role: "seller" | "buyer";
-    exp: number;
-    iat: number;
-    sub: string; // id do user.
+  role: "seller" | "buyer";
+  exp: number;
+  iat: number;
+  sub: string; // id do user.
 };
 
 export type {
-    TUser,
-    TUserProvidersProps,
-    TUserContext,
-    TUserDataToken,
-    TUserName,
-    TErrorResponse,
+  TUser,
+  TUserProvidersProps,
+  TUserContext,
+  TUserDataToken,
+  TUserName,
+  TErrorResponse,
 };
