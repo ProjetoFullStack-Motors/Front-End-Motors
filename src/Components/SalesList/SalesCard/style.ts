@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const StyledSalesCard = styled.li`
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: 16px;
     width: 19.5rem;
     height: 21.875rem;
@@ -56,7 +55,7 @@ export const StyledSalesCard = styled.li`
     .sales-info-container {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
         padding: 0 10px 10px;
     }
 
@@ -111,6 +110,7 @@ export const StyledSalesCard = styled.li`
     .car-info-container {
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
     .car-info-container > div {
@@ -134,5 +134,24 @@ export const StyledSalesCard = styled.li`
         color: var(--grey-1);
         font-size: var(--font-body-1);
         font-weight: var(--font-medium);
+    }
+
+    .sales-buttons-container {
+        display: flex;
+        gap: 20px;
+    }
+
+    .sales-buttons-container > button {
+        padding: 10px 15px;
+        /* font-family: "Lexend", "sans-serif"; */
+        background-color: transparent;
+        font-weight: var(--font-bold);
+        border: 2px solid var(--grey-0);
+        border-radius: 5px;
+    }
+
+    .sales-buttons-container > button:hover {
+        background-color: var(--grey-0);
+        color: var(--white);
     }
 `;

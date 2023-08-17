@@ -15,7 +15,7 @@ type TSaleProps = {
     price: number;
     color: string;
     description: string;
-    user: TUser;
+    user?: TUser;
     salesImages: [
         {
             id: string;
@@ -27,6 +27,8 @@ type TSaleProps = {
     engine: string;
     created_at: string;
 };
+
+type TSaleUserSeller = Omit<TSaleProps, "user">;
 
 type TAsideValues = {
     [key: string]: string[];
@@ -100,6 +102,7 @@ type TPaginateSalesAdResponse = {
 export type {
     TCarProvidersProps,
     TSaleProps,
+    TSaleUserSeller,
     TCarContextProps,
     TCarState,
     TCarAction,

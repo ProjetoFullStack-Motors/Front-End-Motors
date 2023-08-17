@@ -2,7 +2,7 @@ import { TSaleProps } from "../../Providers/CarContext/@types";
 
 type TSalesListProps = {
     sales: TSaleProps[];
-    owner: "all" | "seller";
+    owner: "buyer" | "seller" | "all";
 };
 
 export type { TSalesListProps };
