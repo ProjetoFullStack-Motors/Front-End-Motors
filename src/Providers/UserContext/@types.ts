@@ -11,7 +11,12 @@ type TUserContext = {
     userName: TUserName | null;
     userLogin: (data: TLoginData) => void;
     logoutUser: () => void;
+    recoverPassword: (data: TUserMail) => Promise<void>;
 };
+
+type TUserMail = {
+    email: string;
+}
 
 type TUserName = {
     firstName: string;
@@ -58,4 +63,5 @@ export type {
     TUserDataToken,
     TUserName,
     TErrorResponse,
+    TUserMail,
 };
