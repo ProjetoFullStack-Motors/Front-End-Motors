@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { TLoginData } from "../../Components/Forms/LoginForm/validator";
 import { api } from "../../Services/api";
 import jwt_decode from "jwt-decode";
+import { TUserRegisterData } from "../../Components/Forms/RegisterForm/validator";
 
 const UserContext = createContext({} as TUserContext);
 
@@ -45,12 +46,29 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     }
   };
 
+  const userRegister = async (data: TUserRegisterData) => {
+    try {
+      await api.post("/users", data);
+      const token = localStorage.getItem("frontEndMotors:token");
+
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+      toast.success("Usuário cadastrado com sucesso!");
+      navigate("dashboard");
+    } catch (error) {
+      toast.error("Cadastro inválido!");
+      console.log(error);
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
         user,
         userLogin,
-      }}>
+        userRegister,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
