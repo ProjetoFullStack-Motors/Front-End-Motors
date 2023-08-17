@@ -1,5 +1,5 @@
 import Input from "../../Inputs/ Input";
-import { StyledDiv, StyledBtnPassword } from "./style";
+import { StyledDiv, StyledDivPassword } from "./style";
 import Button from "../../Buttons";
 import InputPass from "../../Inputs/InputsPass";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -7,16 +7,23 @@ import schema, { TLoginData } from "./validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import { UserContext } from "../../../Providers";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const { userLogin } = useContext(UserContext);
 
-  const { register, handleSubmit } = useForm<TLoginData>({
+  const { register, handleSubmit, formState: { errors }, } = useForm<TLoginData>({
     resolver: zodResolver(schema),
   });
 
   const submit: SubmitHandler<TLoginData> = async (data) => {
     userLogin(data);
+  };
+
+  const navigate = useNavigate();
+  
+  const BtnSignup = () => {
+    navigate("/register");
   };
 
   return (
@@ -30,18 +37,21 @@ const LoginForm = () => {
             type="email"
             placeholder="Digite seu e-mail..."
             {...register("email")}
+            errors={errors.email}
           />
           <InputPass 
             id="password" 
             label="Senha"
             placeholder="Digite sua senha..."
             {...register("password")}
+            errors={errors.password}
           />
             
-          <StyledBtnPassword
-        >
-          Esqueci minha senha
-        </StyledBtnPassword>
+        <StyledDivPassword>
+          <button>
+            Esqueci minha senha
+          </button>
+        </StyledDivPassword>
   
           <Button 
             className="btnEntrar"
@@ -58,6 +68,7 @@ const LoginForm = () => {
           $width={6}
           $color="grey-0"
           $border
+          onClick={() => BtnSignup()}
         >
           Cadastrar
         </Button>
