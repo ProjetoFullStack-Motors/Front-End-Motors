@@ -7,6 +7,7 @@ import {
   TUserProvidersProps,
   TErrorResponse,
   TUserMail,
+  TJwtDecode,
 } from "./@types";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -23,20 +24,21 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState<TUserName | null>(null);
   const [user, setUser] = useState<TUser | null>(null);
-  const token = localStorage.getItem("frontEndMotors:token") || null;
-  const userData = token ? jwt_decode<TUserDataToken>(token) : null;
+
   const { setModal } = useModal();
 
   const userLogin = async (data: TLoginData) => {
     try {
       const response = await api.post("/users/login", data);
-      const { token, role } = response.data;
+      const { token } = response.data;
+
+      const tokenDecoded: TJwtDecode = jwt_decode(token);
 
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       localStorage.setItem("frontEndMotors:token", token);
       toast.success("Login realizado com sucesso!");
-      role === "seller" ? navigate("dashboard") : navigate("");
+      tokenDecoded.role === "seller" ? navigate("/dashboard") : navigate("/");
     } catch (error) {
       toast.error("E-mail ou senha inválido(s)!");
       console.log(error);
@@ -59,8 +61,9 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
   };
 
   const logoutUser = () => {
-    localStorage.removeItem("desafioM6:token");
+    localStorage.removeItem("frontEndMotors:token");
     navigate("/");
+    setUser(null);
   };
 
   const retrieveUser = async (id: string) => {
@@ -74,6 +77,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     } catch (error) {
       const currentError = error as AxiosError<TErrorResponse>;
       toast.error(currentError.response?.data.message);
+      logoutUser();
       console.log(error);
     }
   };
@@ -92,6 +96,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("frontEndMotors:token") || null;
+    const userData = token ? jwt_decode<TUserDataToken>(token) : null;
     if (!userData) {
       return;
     }
@@ -109,6 +115,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
         recoverPassword,
         userRegister,
         setUser,
+        retrieveUser,
       }}
     >
       {children}

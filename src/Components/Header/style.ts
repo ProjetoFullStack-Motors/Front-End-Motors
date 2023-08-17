@@ -40,10 +40,6 @@ const StyledHeader = styled.header`
       h1 {
         font-size: var(--font-heading-1);
       }
-
-      span {
-        font-size: var(--font-heading-3);
-      }
     }
   }
 `;

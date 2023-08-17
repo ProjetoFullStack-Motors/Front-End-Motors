@@ -5,13 +5,15 @@ import { AiOutlineClose } from "react-icons/ai";
 import { FaBars } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import AccessButtons from "./AccessButtons";
-import { useOutClick } from "../../../Hooks";
+import { useOutClick, useUserContext } from "../../../Hooks";
 
 const Menu = () => {
   const [open, setOpen] = useState(false);
 
   const location = useLocation();
   const { pathname } = location;
+
+  const { user } = useUserContext();
 
   const menuRef = useOutClick(() => {
     setOpen!(false);
@@ -23,7 +25,7 @@ const Menu = () => {
         {open ? <AiOutlineClose size={30} /> : <FaBars size={25} />}
       </button>
 
-      {pathname === "/profile" ? (
+      {user ? (
         <ProfileSettings open={open} setOpen={setOpen} menuRef={menuRef} />
       ) : (
         <AccessButtons open={open} menuRef={menuRef} />

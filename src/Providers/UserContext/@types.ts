@@ -15,6 +15,7 @@ type TUserContext = {
   recoverPassword: (data: TUserMail) => Promise<void>;
   userRegister: (data: TUserRegisterData) => void;
   userName: TUserName | null;
+  retrieveUser: (id: string) => Promise<void>;
 };
 
 type TUserMail = {
@@ -59,6 +60,11 @@ type TUserDataToken = {
   sub: string; // id do user.
 };
 
+type TJwtDecode = {
+  userId: string;
+  role: string;
+};
+
 export type {
   TUser,
   TUserProvidersProps,
@@ -67,4 +73,5 @@ export type {
   TUserName,
   TErrorResponse,
   TUserMail,
+  TJwtDecode,
 };
