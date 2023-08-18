@@ -80,9 +80,11 @@ const CreateAd = () => {
       salesImages: imgArray,
     };
 
-    createSalesAd(adObj);
+    console.log(adObj);
 
-    setModal(null);
+    // createSalesAd(adObj);
+
+    // setModal(null);
   };
 
   return (
@@ -100,7 +102,7 @@ const CreateAd = () => {
           arr={models!}
           id="model"
           title="Modelo"
-          selectValue={selectedModel}
+          selectValue={model ? model.name : models[0].name}
           itemKey="name"
           callback={handleModelSelect}
         />
@@ -192,7 +194,7 @@ const CreateAd = () => {
           type="button"
           $background="brand-4"
           $color="brand-1"
-          $width={5}
+          $width={8}
           onClick={() => append({ url: "" })}
         >
           Adicionar campo para imagem da galeria
@@ -227,7 +229,7 @@ const CreateAd = () => {
           </Button>
           <Button
             type="submit"
-            $background="brand-3"
+            $background="brand-1"
             $color="grey-9"
             $width={7}
           >

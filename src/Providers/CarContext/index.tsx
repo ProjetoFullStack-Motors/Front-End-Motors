@@ -206,6 +206,15 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     } catch (error) {}
   };
 
+  const getBrandModels = async (brand: string) => {
+    try {
+      const allModels = await apiFipe.get(`/cars?brand=${brand}`);
+      setModels(allModels.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const getAllBrands = async () => {
       try {
@@ -219,21 +228,18 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         console.log(error);
       }
     };
+
     getAllBrands();
   }, []);
 
-  const getBrandModels = async (brand: string) => {
-    try {
-      const allModels = await apiFipe.get(`/cars?brand=${brand}`);
-      setModels(allModels.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    selectedBrand ? getBrandModels(selectedBrand) : null;
-    models.length > 0 ? setModel(models[0]) : null;
+    const getAllBrandModels = async () => {
+      selectedBrand
+        ? await getBrandModels(selectedBrand)
+        : await getBrandModels(brands[0]);
+      models.length > 0 ? setModel(models[0]) : null;
+    };
+    getAllBrandModels();
   }, [selectedBrand]);
 
   const handleBrandSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -331,6 +337,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         detectFuel,
         createSalesAd,
         isGoodPrice,
+        setModel,
       }}
     >
       {children}

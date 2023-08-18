@@ -17,7 +17,7 @@ export const StyledModal = styled.div`
   justify-content: center;
 
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   top: 0;
   z-index: 101;
 

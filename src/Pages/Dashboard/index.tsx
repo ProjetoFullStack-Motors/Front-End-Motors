@@ -11,6 +11,7 @@ import { StyledDashboardPage } from "./style";
 import jwt_decode from "jwt-decode";
 import { useEffect } from "react";
 import { TJwtDecode } from "../../Providers/UserContext/@types";
+import { createPortal } from "react-dom";
 
 const Dashboard = () => {
   const { setModal } = useModal();
@@ -30,6 +31,7 @@ const Dashboard = () => {
     <StyledDashboardPage>
       <Header />
       <div className="dashboard-container">
+        <div className="dashboard-header-purple"></div>
         <div className="user-info-container">
           <UserAvatar
             img={user?.userImage}
@@ -56,11 +58,18 @@ const Dashboard = () => {
           ) : null}
         </div>
 
-        <SalesList owner={user?.role!} sales={user?.sales!} />
+        <div className="sales-container">
+          <h2>Anúncios</h2>
+          <SalesList owner={user?.role!} sales={user?.sales!} />
+        </div>
       </div>
-      <Modal title={"Criar anúncio"}>
-        <CreateAdForm />
-      </Modal>
+      {createPortal(
+        <Modal title={"Criar anúncio"}>
+          <CreateAdForm />
+        </Modal>,
+        document.body
+      )}
+
       <Modal title={"Editar anúncio"}>Formulário de editar anúncio</Modal>
       <Footer />
     </StyledDashboardPage>
