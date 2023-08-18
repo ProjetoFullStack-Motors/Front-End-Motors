@@ -35,11 +35,26 @@ const UserAvatar = ({ img, username, size }: TUserAvatarProps) => {
     };
   };
 
+  let avatarSize = {};
+
+  if (size === "big") {
+    avatarSize = {
+      width: 104,
+      height: 104,
+      fontSize: 36,
+    };
+  } else {
+    avatarSize = {
+      width: 32,
+      height: 32,
+    };
+  }
+
   return (
     <Avatar
       src={img}
       {...stringAvatar(username)}
-      sx={{ width: 104, height: 104, fontSize: 36, bgcolor: "var(--brand-2)" }}
+      sx={{ ...avatarSize, bgcolor: "var(--brand-2)" }}
     />
   );
 };
