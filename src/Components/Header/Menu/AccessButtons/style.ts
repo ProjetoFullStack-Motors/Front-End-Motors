@@ -27,7 +27,10 @@ const StyleAccessButtons = styled.div<TMenuStyleProps>`
 `;
 
 const StyleAccessButtonsMobile = styled.nav<TMenuStyleProps>`
-  display: ${({ open }) => (open ? "flex" : "none")};
+  display: flex;
+
+  transform: ${({ open }) => (open ? "translateX(0)" : "translateX(1000px)")};
+  transition: all 0.7s;
 
   flex-direction: column;
   gap: 32px;

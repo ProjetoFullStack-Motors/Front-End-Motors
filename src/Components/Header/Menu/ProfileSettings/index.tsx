@@ -5,12 +5,14 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Button, UserAvatar } from "../../..";
 import { HeaderMenuBackground } from "../../style";
 import { useKeyDown, useUserContext } from "../../../../Hooks";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
   const { userName, logoutUser, user } = useUserContext();
 
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const buttonRef = useKeyDown("Escape", (element: any) => {
     element.click();
@@ -42,19 +44,22 @@ const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
         <Button $background="transparent" $color="1">
           Editar endereço
         </Button>
-        {user && user?.role === "seller" && (
-          <Button
-            $background="transparent"
-            $color="1"
-            onClick={() => navigate("/dashboard")}>
-            Meus anúncios
-          </Button>
-        )}
+        {user &&
+          user?.role === "seller" &&
+          location.pathname !== "/dashboard" && (
+            <Button
+              $background="transparent"
+              $color="1"
+              onClick={() => navigate("/dashboard")}>
+              Meus anúncios
+            </Button>
+          )}
 
         <Button
           $border
           $color="1"
           $background="transparent"
+          className="logout"
           onClick={() => logoutUser()}>
           Sair
         </Button>
