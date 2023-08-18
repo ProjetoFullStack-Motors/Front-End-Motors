@@ -108,10 +108,11 @@ type TCarContextProps = {
   setSelectedModel: React.Dispatch<React.SetStateAction<string>>;
   handleBrandSelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleModelSelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  detectFuel: (fuel: number) => "flex" | "híbrido" | "elétrico";
+  detectFuel: (fuel: number) => "flex" | "hybrid" | "electric";
   model: TBrandModel | null;
   createSalesAd: (data: TCreateSaleAdRegister) => Promise<void>;
   isGoodPrice: (price: number, fipePrice: number) => boolean;
+  setModel: React.Dispatch<React.SetStateAction<TBrandModel | null>>;
 };
 
 type TPaginateSalesAdResponse = {
