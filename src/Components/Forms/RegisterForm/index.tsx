@@ -108,7 +108,8 @@ const FormRegister = () => {
             id="state"
             label="Estado"
             type="text"
-            placeholder="Digitar Estado"
+            placeholder="Digite a sigla do seu Estado"
+            maxlength="2"
             {...register("address.state")}
             errors={errors.address?.state}
           />
@@ -117,7 +118,7 @@ const FormRegister = () => {
             id="city"
             label="Cidade"
             type="text"
-            placeholder="Digitar Cidade"
+            placeholder="Digite sua Cidade"
             {...register("address.city")}
             errors={errors.address?.city}
           />
@@ -134,7 +135,7 @@ const FormRegister = () => {
             <Input
               id="addressNumber"
               label="Número"
-              placeholder="Digitar número"
+              placeholder="Digite o número"
               type="number"
               {...register("address.addressNumber")}
               errors={errors.address?.addressNumber}
@@ -153,19 +154,7 @@ const FormRegister = () => {
           <p>Tipo de conta</p>
 
           <div className="btnRole">
-            <div className="button">
-              <input
-                type="radio"
-                id="a25"
-                value="seller"
-                {...register("role")}
-              />
-              <label className="btn btn-default" htmlFor="a25">
-                Vendedor
-              </label>
-            </div>
-
-            <div className="button">
+            <div className="button buyerBtn">
               <input
                 type="radio"
                 id="a25"
@@ -174,6 +163,18 @@ const FormRegister = () => {
               />
               <label className="btn btn-default" htmlFor="a25">
                 Comprador
+              </label>
+            </div>
+
+            <div className="button sellerBtn">
+              <input
+                type="radio"
+                id="a25"
+                value="seller"
+                {...register("role")}
+              />
+              <label className="btn btn-default" htmlFor="a25">
+                Anunciante
               </label>
             </div>
           </div>
