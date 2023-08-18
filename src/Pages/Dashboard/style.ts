@@ -102,6 +102,12 @@ const StyledDashboardPage = styled.main`
       align-self: center;
       min-height: 1800px;
       margin-bottom: 2rem;
+
+      .sales-list-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
     }
   }
 `;
