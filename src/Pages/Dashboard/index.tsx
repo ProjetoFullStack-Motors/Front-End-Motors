@@ -60,7 +60,9 @@ const Dashboard = () => {
 
         <div className="sales-container">
           <h2>Anúncios</h2>
-          <SalesList owner={user?.role!} sales={user?.sales!} />
+          <div className="sales-list-container">
+            <SalesList owner={user?.role!} sales={user?.sales!} />
+          </div>
         </div>
       </div>
       {createPortal(

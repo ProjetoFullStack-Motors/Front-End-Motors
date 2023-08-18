@@ -12,7 +12,7 @@ export const StyledSalesList = styled.ul`
     flex-wrap: wrap;
     overflow: auto;
     max-width: 90%;
+    width: 90%;
     height: 100%;
-    align-self: center;
   }
 `;
