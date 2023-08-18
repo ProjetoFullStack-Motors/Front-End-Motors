@@ -48,42 +48,69 @@ const StyledDiv = styled.div`
     margin-bottom: 28px;
   }
 
-  @media (min-width: 769px) {
-    width: 411px;
-    height: auto;
-    border: 1px solid var(--grey-10);
-    background-color: var(--grey-10);
-    margin-top: 100px;
-  }
-
   .button {
     float: left;
     margin: 0 5px 0 0;
-    width: 100px;
+    width: var(--button-width-6);
     height: 40px;
     position: relative;
+    cursor: pointer;
   }
   .button label,
   .button input {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
   }
+
   .button input[type="radio"] {
     opacity: 0.011;
     z-index: 100;
+    cursor: pointer;
   }
+
   .button input[type="radio"]:checked + label {
-    background: #20b8be;
-    border-radius: 4px;
+    color: var(--grey-10);
+    background-color: var(--brand-1);
+    border-radius: var(--button-border);
+    border: none;
+    cursor: pointer;
   }
+
   .button label {
     cursor: pointer;
     z-index: 90;
     line-height: 1.8em;
+    cursor: pointer;
+    color: var(--grey-1);
+    border: 2px solid var(--grey-3);
+    border-radius: var(--button-border);
+  }
+
+  /* .buyerBtn {
+    color: var(--grey-10);
+    background-color: var(--brand-1);
+    border-radius: var(--button-border);
+    cursor: pointer;
+  }
+
+  .sellerBtn {
+    color: var(--grey-1);
+    border: 2px solid var(--grey-3);
+    border-radius: var(--button-border);
+  } */
+
+  @media (min-width: 769px) {
+    width: 411px;
+    height: auto;
+    border: 1px solid var(--grey-10);
+    background-color: var(--grey-10);
+    margin-top: 100px;
   }
 `;
 
