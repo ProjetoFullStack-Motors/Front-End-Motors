@@ -2,11 +2,13 @@ import styled from "styled-components";
 import { TMenuProps } from "../@types";
 
 const StyledProfileSettings = styled.nav<TMenuProps>`
-  display: ${({ open }) => (open ? "flex" : "none")};
+  display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 8px;
 
+  transition: all 0.7s;
+  transform: ${({ open }) => (open ? "translateX(0)" : "translateX(2000px)")};
   position: fixed;
   top: 80px;
   right: 0;
@@ -46,12 +48,14 @@ const StyledProfileSettings = styled.nav<TMenuProps>`
   button {
     font-size: var(--font-body-1);
     transition: all 0.5s;
-    width: 100%;
+    width: 90%;
     text-align: left;
+    padding: 8px;
   }
 
-  button:nth-child(5) {
+  .logout {
     text-align: center;
+    width: 100%;
   }
 
   button:hover {
@@ -74,8 +78,8 @@ const StyledProfileSettings = styled.nav<TMenuProps>`
     .menu-close {
       display: block;
       position: absolute;
-      top: 4px;
-      right: 4px;
+      top: 0;
+      right: 0;
     }
   }
 `;
