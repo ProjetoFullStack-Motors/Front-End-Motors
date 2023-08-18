@@ -10,13 +10,25 @@ import { TUserRegisterData, userSchema } from "./validator";
 const FormRegister = () => {
   const { userRegister } = useUserContext();
 
-  const { register, handleSubmit } = useForm<TUserRegisterData>({
-    // resolver: zodResolver(userSchema),
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TUserRegisterData>({
+    resolver: zodResolver(userSchema),
   });
 
   const submit: SubmitHandler<TUserRegisterData> = async (data) => {
-    console.log(data);
-    // userRegister(data);
+    const newData = {
+      ...data,
+      address: {
+        ...data.address,
+        addressNumber: Number(data.address.addressNumber),
+      },
+    };
+
+    console.log(newData);
+    userRegister(newData);
   };
   return (
     <>
@@ -26,17 +38,19 @@ const FormRegister = () => {
         <form onSubmit={handleSubmit(submit)}>
           <Input
             id="firstName"
-            label="Nome"
+            label="Primeiro Nome"
             type="text"
             placeholder="Digite seu primeiro nome..."
             {...register("firstName")}
+            errors={errors.firstName}
           />
           <Input
             id="lastName"
-            label="Nome"
+            label="Último Nome"
             type="text"
             placeholder="Digite seu último nome..."
             {...register("lastName")}
+            errors={errors.lastName}
           />
           <Input
             id="email"
@@ -44,6 +58,7 @@ const FormRegister = () => {
             type="email"
             placeholder="Digite seu e-mail..."
             {...register("email")}
+            errors={errors.email}
           />
           <Input
             id="cpf"
@@ -51,6 +66,7 @@ const FormRegister = () => {
             type="number"
             placeholder="000.000.000-00"
             {...register("cpf")}
+            errors={errors.cpf}
           />
           <Input
             id="cellphone"
@@ -58,12 +74,15 @@ const FormRegister = () => {
             type="tel"
             placeholder="(DDD) 90000-0000"
             {...register("cellphone")}
+            errors={errors.cellphone}
           />
           <Input
             id="birthdate"
             label="Data de Nascimento"
             type="date"
             placeholder="00/00/00"
+            {...register("birthdate")}
+            errors={errors.birthdate}
           />
           <Input
             id="description"
@@ -71,18 +90,27 @@ const FormRegister = () => {
             type="text"
             placeholder="Digite descrição..."
             {...register("description")}
+            errors={errors.description}
           />
 
           <p>Informações de endereço</p>
 
-          <Input id="cep" label="CEP" type="number" placeholder="00000.000" />
+          <Input
+            id="cep"
+            label="CEP"
+            type="number"
+            placeholder="00000.000"
+            {...register("address.cep")}
+            errors={errors.address?.cep}
+          />
 
           <Input
             id="state"
             label="Estado"
             type="text"
             placeholder="Digitar Estado"
-            {...register("address")}
+            {...register("address.state")}
+            errors={errors.address?.state}
           />
 
           <Input
@@ -91,16 +119,25 @@ const FormRegister = () => {
             type="text"
             placeholder="Digitar Cidade"
             {...register("address.city")}
+            errors={errors.address?.city}
           />
 
-          <Input id="street" label="Rua" placeholder="Endereço..." />
+          <Input
+            id="street"
+            label="Rua"
+            placeholder="Endereço..."
+            {...register("address.street")}
+            errors={errors.address?.street}
+          />
 
           <div className="address">
             <Input
               id="addressNumber"
               label="Número"
               placeholder="Digitar número"
+              type="number"
               {...register("address.addressNumber")}
+              errors={errors.address?.addressNumber}
             />
 
             <Input
@@ -109,6 +146,7 @@ const FormRegister = () => {
               type="text"
               placeholder="Ex: apart 307"
               {...register("address.addressComplement")}
+              errors={errors.address?.addressComplement}
             />
           </div>
 
@@ -145,12 +183,15 @@ const FormRegister = () => {
             label="Senha"
             placeholder="Digite sua senha..."
             {...register("password")}
+            errors={errors.password}
           />
 
           <InputPass
             id="confirmPass"
             label="Confirmar Senha"
             placeholder="Confirme sua senha..."
+            {...register("confirmPass")}
+            errors={errors.confirmPass}
           />
 
           <Button $background="brand-2" $width={6} type="submit">

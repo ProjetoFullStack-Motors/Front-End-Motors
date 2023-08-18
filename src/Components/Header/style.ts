@@ -22,16 +22,22 @@ const StyledHeader = styled.header`
     height: 100%;
     padding-inline: 2rem;
 
-    h1 {
-      font-size: var(--font-heading-3);
-      background-image: linear-gradient(to left, var(--brand-1), var(--grey-0));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+    a {
+      h1 {
+        font-size: var(--font-heading-3);
+        background-image: linear-gradient(
+          to left,
+          var(--brand-1),
+          var(--grey-0)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
 
-    span {
-      font-size: var(--font-heading-6);
+      span {
+        font-size: var(--font-heading-6);
+      }
     }
   }
 

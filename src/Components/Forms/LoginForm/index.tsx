@@ -14,7 +14,11 @@ const LoginForm = () => {
   const { userLogin } = useContext(UserContext);
   const { setModal } = useModal();
 
-  const { register, handleSubmit, formState: { errors }, } = useForm<TLoginData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TLoginData>({
     resolver: zodResolver(schema),
   });
 
@@ -23,7 +27,7 @@ const LoginForm = () => {
   };
 
   const navigate = useNavigate();
-  
+
   const BtnSignup = () => {
     navigate("/register");
   };
@@ -33,16 +37,16 @@ const LoginForm = () => {
       <StyledDiv>
         <h2>Login</h2>
         <form onSubmit={handleSubmit(submit)}>
-          <Input 
-            id="email" 
+          <Input
+            id="email"
             label="Email"
             type="email"
             placeholder="Digite seu e-mail..."
             {...register("email")}
             errors={errors.email}
           />
-          <InputPass 
-            id="password" 
+          <InputPass
+            id="password"
             label="Senha"
             placeholder="Digite sua senha..."
             {...register("password")}
@@ -50,28 +54,27 @@ const LoginForm = () => {
           />
 
           <StyledDivPassword>
-            <button onClick={() => setModal("Recuperar senha")}>
+            <button type="button" onClick={() => setModal("Recuperar senha")}>
               Esqueci minha senha
             </button>
           </StyledDivPassword>
-  
-          <Button 
+
+          <Button
             className="btnEntrar"
             $background="brand-2"
             $width={6}
-          >
+            type="submit">
             Entrar
           </Button>
         </form>
 
         <p>Ainda não possui conta?</p>
-        <Button 
+        <Button
           $background="white"
           $width={6}
           $color="grey-0"
           $border
-          onClick={() => BtnSignup()}
-        >
+          onClick={() => BtnSignup()}>
           Cadastrar
         </Button>
       </StyledDiv>

@@ -5,9 +5,12 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Button, UserAvatar } from "../../..";
 import { HeaderMenuBackground } from "../../style";
 import { useKeyDown, useUserContext } from "../../../../Hooks";
+import { useNavigate } from "react-router-dom";
 
 const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
   const { userName, logoutUser, user } = useUserContext();
+
+  const navigate = useNavigate();
 
   const buttonRef = useKeyDown("Escape", (element: any) => {
     element.click();
@@ -29,8 +32,7 @@ const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
           <span
             onClick={() => setOpen!(false)}
             ref={buttonRef}
-            className="menu-close"
-          >
+            className="menu-close">
             <AiOutlineClose size={25} />
           </span>
         </section>
@@ -41,7 +43,10 @@ const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
           Editar endereço
         </Button>
         {user && user?.role === "seller" && (
-          <Button $background="transparent" $color="1">
+          <Button
+            $background="transparent"
+            $color="1"
+            onClick={() => navigate("/dashboard")}>
             Meus anúncios
           </Button>
         )}
@@ -50,8 +55,7 @@ const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
           $border
           $color="1"
           $background="transparent"
-          onClick={() => logoutUser()}
-        >
+          onClick={() => logoutUser()}>
           Sair
         </Button>
       </StyledProfileSettings>
