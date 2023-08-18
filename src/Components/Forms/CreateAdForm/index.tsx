@@ -80,11 +80,9 @@ const CreateAd = () => {
       salesImages: imgArray,
     };
 
-    console.log(adObj);
+    createSalesAd(adObj);
 
-    // createSalesAd(adObj);
-
-    // setModal(null);
+    setModal(null);
   };
 
   return (
