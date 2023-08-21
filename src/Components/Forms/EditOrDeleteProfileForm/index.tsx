@@ -17,9 +17,9 @@ const EditOrDeleteProfileForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<TEditProfile>({
-    // resolver: zodResolver(editProfileSchema),
+    resolver: zodResolver(editProfileSchema),
     defaultValues: {
-      birthdate: user!.birthdate,
+      birthdate: String(user!.birthdate),
     },
   });
 
@@ -27,8 +27,6 @@ const EditOrDeleteProfileForm = () => {
     const cleanedData = Object.fromEntries(
       Object.entries(data).filter(([key, value]) => value !== "")
     );
-
-    console.log(data);
   };
 
   return (
@@ -40,36 +38,42 @@ const EditOrDeleteProfileForm = () => {
           label="Nome"
           {...register("name")}
           placeholder={`${user?.firstName} ${user?.lastName}`}
+          errors={errors.name}
         />
         <Input
           id="email"
           label="Email"
           {...register("email")}
           placeholder={user?.email}
+          errors={errors.email}
         />
         <Input
           id="cpf"
           label="CPF"
           {...register("cpf")}
           placeholder={user?.cpf}
+          errors={errors.cpf}
         />
         <Input
           id="cellphone"
           label="Celular"
           {...register("cellphone")}
           placeholder={user?.cellphone}
+          errors={errors.cellphone}
         />
         <Input
           id="birthdate"
           label="Data de nascimento"
           type="date"
           {...register("birthdate")}
+          errors={errors.birthdate}
         />
         <Textarea
           id="description"
           label="Descrição"
           {...register("description")}
           placeholder={user?.description}
+          errors={errors.description}
         />
         <StyledButtonsContainer>
           <Button
