@@ -142,6 +142,7 @@ type TCreateSaleAdRegister = {
 interface ISale extends TCreateSaleAdRegister {
   id: string;
   created_at: Date;
+  user: TUser;
 }
 
 export type {
