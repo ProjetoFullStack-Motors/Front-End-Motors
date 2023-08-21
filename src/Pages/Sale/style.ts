@@ -14,7 +14,7 @@ const StyleSalePageContainer = styled.section`
     align-items: center;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1200px) {
     flex-direction: row;
     max-width: 1200px;
   }

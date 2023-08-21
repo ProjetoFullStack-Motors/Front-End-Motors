@@ -62,7 +62,7 @@ const StyleSwiper = styled(Swiper)`
   .swiper-button-prev:after {
     font-size: 2rem;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 1200px) {
     width: 752px;
   }
 `;
