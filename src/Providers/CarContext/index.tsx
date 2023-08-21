@@ -1,5 +1,6 @@
 import { createContext, useEffect, useReducer, useState } from "react";
 import {
+  ISale,
   TAsideValues,
   TBrandModel,
   TCarAction,
@@ -15,6 +16,7 @@ import { api, apiFipe } from "../../Services/api";
 import { toast } from "react-toastify";
 import axios, { AxiosResponse } from "axios";
 import { useUserContext } from "../../Hooks";
+import { useNavigate } from "react-router-dom";
 
 const CarContext = createContext({} as TCarContextProps);
 
@@ -338,8 +340,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         createSalesAd,
         isGoodPrice,
         setModel,
-      }}
-    >
+      }}>
       {children}
     </CarContext.Provider>
   );

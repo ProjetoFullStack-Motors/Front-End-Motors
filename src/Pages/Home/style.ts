@@ -16,7 +16,6 @@ const StyledHomePage = styled.main`
     margin-top: 90px;
     width: 100%;
     height: auto;
-    max-height: 1680px;
     box-sizing: border-box;
 
     @media (max-width: 1023px) {
