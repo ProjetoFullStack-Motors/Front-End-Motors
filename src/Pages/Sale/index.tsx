@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { api } from "../../Services/api";
 import { useParams } from "react-router-dom";
 import { ISale } from "../../Providers/CarContext/@types";
-import { Footer, Header } from "../../Components";
+import { Header } from "../../Components";
+import { StyleSalePageContainer } from "./style";
+import SaleContainer from "../../Components/SaleContainer";
+import ListImages from "../../Components/SaleContainer/ListImages";
+import SaleUserContainer from "../../Components/SaleContainer/SaleUserContainer";
 
 const Sale = () => {
   const { id } = useParams();
@@ -27,20 +31,14 @@ const Sale = () => {
       <Header />
 
       {saleFounded && (
-        <section>
-          <div>
-            <img src={saleFounded.salesImages[0].imageUrl} alt="" />
+        <StyleSalePageContainer>
+          <SaleContainer saleFounded={saleFounded} />
+          <div className="sale__images--user">
+            <ListImages saleFounded={saleFounded} />
+            <SaleUserContainer saleFounded={saleFounded} />
           </div>
-          <ul>
-            {saleFounded.salesImages.map((img) => (
-              <li key={img.imageUrl}>
-                <img src={img.imageUrl} alt="" />
-              </li>
-            ))}
-          </ul>
-        </section>
+        </StyleSalePageContainer>
       )}
-      <Footer />
     </>
   );
 };
