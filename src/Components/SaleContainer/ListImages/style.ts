@@ -5,7 +5,7 @@ const StyleListImages = styled.div`
   flex-direction: column;
   gap: 16px;
 
-  width: 440px;
+  width: 100%;
   height: 400px;
   padding: 16px;
 
@@ -36,6 +36,10 @@ const StyleListImages = styled.div`
         height: 54px;
       }
     }
+  }
+
+  @media (min-width: 1024px) {
+    width: 440px;
   }
 `;
 
