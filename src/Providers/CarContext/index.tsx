@@ -338,8 +338,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         createSalesAd,
         isGoodPrice,
         setModel,
-      }}
-    >
+      }}>
       {children}
     </CarContext.Provider>
   );
