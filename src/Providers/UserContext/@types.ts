@@ -45,7 +45,9 @@ type TUser = {
   lastName: string;
   cellphone: string;
   cpf: string;
+  email: string;
   description: string;
+  birthdate: Date;
   role: "seller" | "buyer";
   userImage?: string;
   address: TAddress;

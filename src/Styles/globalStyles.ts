@@ -83,6 +83,8 @@ export const GlobalStyles = createGlobalStyle`
         --button-width-6: 100%;
         --button-width-7: 48%;
         --button-width-8: 80%;
+        --button-width-9: 9.375rem; //150px
+        --button-width-10: 10.313rem; //165px
 
         //button-height:
 

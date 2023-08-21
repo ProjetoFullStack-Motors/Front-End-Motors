@@ -23,7 +23,6 @@ const CreateAd = () => {
     brands,
     models,
     selectedBrand,
-    selectedModel,
     handleBrandSelect,
     handleModelSelect,
     model,

@@ -4,11 +4,13 @@ import { StyledProfileSettings } from "./style";
 import { AiOutlineClose } from "react-icons/ai";
 import { Button, UserAvatar } from "../../..";
 import { HeaderMenuBackground } from "../../style";
-import { useKeyDown, useUserContext } from "../../../../Hooks";
+import { useKeyDown, useModal, useUserContext } from "../../../../Hooks";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
   const { userName, logoutUser, user } = useUserContext();
+
+  const { setModal } = useModal();
 
   const navigate = useNavigate();
 
@@ -34,14 +36,23 @@ const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
           <span
             onClick={() => setOpen!(false)}
             ref={buttonRef}
-            className="menu-close">
+            className="menu-close"
+          >
             <AiOutlineClose size={25} />
           </span>
         </section>
-        <Button $background="transparent" $color="1">
+        <Button
+          $background="transparent"
+          $color="1"
+          onClick={() => setModal("Editar perfil")}
+        >
           Editar perfil
         </Button>
-        <Button $background="transparent" $color="1">
+        <Button
+          $background="transparent"
+          $color="1"
+          onClick={() => setModal("Editar endereço")}
+        >
           Editar endereço
         </Button>
         {user &&
@@ -50,7 +61,8 @@ const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
             <Button
               $background="transparent"
               $color="1"
-              onClick={() => navigate("/dashboard")}>
+              onClick={() => navigate("/dashboard")}
+            >
               Meus anúncios
             </Button>
           )}
@@ -60,7 +72,8 @@ const ProfileSettings = ({ open, setOpen, menuRef }: TMenuProps) => {
           $color="1"
           $background="transparent"
           className="logout"
-          onClick={() => logoutUser()}>
+          onClick={() => logoutUser()}
+        >
           Sair
         </Button>
       </StyledProfileSettings>
