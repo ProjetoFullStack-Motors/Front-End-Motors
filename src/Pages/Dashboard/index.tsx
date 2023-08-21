@@ -12,9 +12,10 @@ import jwt_decode from "jwt-decode";
 import { useEffect } from "react";
 import { TJwtDecode } from "../../Providers/UserContext/@types";
 import { createPortal } from "react-dom";
+import EditOrDeleteProfileForm from "../../Components/Forms/EditOrDeleteProfileForm";
 
 const Dashboard = () => {
-  const { setModal } = useModal();
+  const { setModal, modal } = useModal();
 
   const { user, retrieveUser } = useUserContext();
   useEffect(() => {
@@ -74,6 +75,16 @@ const Dashboard = () => {
 
       <Modal title={"Editar anúncio"}>Formulário de editar anúncio</Modal>
       <Footer />
+
+      {modal && modal == "Editar perfil"
+        ? createPortal(
+            <Modal title="Editar perfil">
+              {" "}
+              <EditOrDeleteProfileForm />
+            </Modal>,
+            document.body
+          )
+        : null}
     </StyledDashboardPage>
   );
 };

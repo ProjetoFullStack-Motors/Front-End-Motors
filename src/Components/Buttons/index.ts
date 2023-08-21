@@ -9,6 +9,8 @@ interface ButtonProps {
   $background?: string;
   $display?: boolean;
   $disable?: boolean;
+  $minWidth?: number;
+  $maxWidth?: number;
 }
 
 const Button = styled.button<ButtonProps>`
@@ -19,6 +21,12 @@ const Button = styled.button<ButtonProps>`
 
   width: ${({ $width }) =>
     $width ? `var(--button-width-${$width})` : "var(--button-width-1)"};
+
+  min-width: ${({ $minWidth }) =>
+    $minWidth ? `var(--button-width-${$minWidth})` : "none"};
+
+  max-width: ${({ $maxWidth }) =>
+    $maxWidth ? `var(--button-width-${$maxWidth})` : "none"};
 
   background-color: ${({ $background }) =>
     $background ? `var(--${$background})` : "var(--brand-1)"};
