@@ -30,6 +30,8 @@ const StyleListImages = styled.div`
       width: 108px;
       height: 108px;
 
+      cursor: pointer;
+
       background-color: white;
       img {
         width: 94px;

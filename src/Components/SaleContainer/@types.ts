@@ -4,4 +4,8 @@ type TSaleContainerProps = {
   saleFounded: ISale;
 };
 
-export type { TSaleContainerProps };
+type TModalImage = {
+  url: string;
+};
+
+export type { TSaleContainerProps, TModalImage };
