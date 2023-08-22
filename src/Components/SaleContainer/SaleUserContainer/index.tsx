@@ -3,6 +3,7 @@ import { UserAvatar } from "../..";
 import { Button } from "@mui/material";
 
 const SaleUserContainer = ({ saleFounded }: TSaleContainerProps) => {
+  console.log();
   return (
     <div>
       <UserAvatar
