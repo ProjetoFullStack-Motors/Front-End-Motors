@@ -18,6 +18,7 @@ type TModalOptions =
 type TModalContextValues = {
   modal: TModalOptions;
   setModal: React.Dispatch<React.SetStateAction<TModalOptions>>;
+  closeModal: any;
 };
 
 export type { TModalProviderProps, TModalOptions, TModalContextValues };

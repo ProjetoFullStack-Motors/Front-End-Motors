@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const EditAddressForm = () => {
   const { user } = useUserContext();
-  const { setModal } = useModal();
+  const { closeModal } = useModal();
 
   const {
     register,
@@ -85,7 +85,7 @@ const EditAddressForm = () => {
             $background="grey-5"
             $color="grey-2"
             type="button"
-            onClick={() => setModal(null)}
+            onClick={closeModal}
             $width={9}
             $maxWidth={10}
           >
