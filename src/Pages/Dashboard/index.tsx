@@ -12,11 +12,9 @@ import jwt_decode from "jwt-decode";
 import { useEffect } from "react";
 import { TJwtDecode } from "../../Providers/UserContext/@types";
 import { createPortal } from "react-dom";
-import EditOrDeleteProfileForm from "../../Components/Forms/EditOrDeleteProfileForm";
-import EditAddressForm from "../../Components/Forms/EditAddressForm";
 
 const Dashboard = () => {
-  const { setModal, modal } = useModal();
+  const { setModal } = useModal();
 
   const { user, retrieveUser } = useUserContext();
   useEffect(() => {
@@ -32,25 +30,7 @@ const Dashboard = () => {
   return (
     <StyledDashboardPage>
       <Header />
-      {modal && modal == "Editar perfil"
-        ? createPortal(
-            <Modal title="Editar perfil">
-              {" "}
-              <EditOrDeleteProfileForm />
-            </Modal>,
-            document.body
-          )
-        : null}
 
-      {modal && modal == "Editar endereço"
-        ? createPortal(
-            <Modal title="Editar endereço">
-              {" "}
-              <EditAddressForm />
-            </Modal>,
-            document.body
-          )
-        : null}
       <div className="dashboard-container">
         <div className="dashboard-header-purple"></div>
         <div className="user-info-container">

@@ -7,17 +7,13 @@ import {
   Button,
   Banner,
   ChangePage,
-  Modal,
 } from "../../Components";
 import { ButtonContainerPosition, StyledHomePage } from "./style";
 import { createPortal } from "react-dom";
-import { useCarContext, useModal } from "../../Hooks";
-import EditOrDeleteProfileForm from "../../Components/Forms/EditOrDeleteProfileForm";
-import EditAddressForm from "../../Components/Forms/EditAddressForm";
+import { useCarContext } from "../../Hooks";
 
 const Home = () => {
   const { filterModal, setFilterModal, filteredCars } = useCarContext();
-  const { modal } = useModal();
 
   return (
     <>
@@ -40,24 +36,6 @@ const Home = () => {
         </ButtonContainerPosition>
 
         {filterModal && createPortal(<AsideMobile />, document.body)}
-        {modal && modal == "Editar perfil"
-          ? createPortal(
-              <Modal title="Editar perfil">
-                {" "}
-                <EditOrDeleteProfileForm />
-              </Modal>,
-              document.body
-            )
-          : null}
-        {modal && modal == "Editar endereço"
-          ? createPortal(
-              <Modal title="Editar endereço">
-                {" "}
-                <EditAddressForm />
-              </Modal>,
-              document.body
-            )
-          : null}
 
         <ChangePage />
 

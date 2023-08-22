@@ -2,8 +2,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { GlobalStyles } from "./Styles/globalStyles";
 import AppRoutes from "./Routes";
 import { ToastContainer } from "react-toastify";
+import Modal from "./Components/Modal/index";
+import { createPortal } from "react-dom";
+import EditAddressForm from "./Components/Forms/EditAddressForm";
+import EditOrDeleteProfileForm from "./Components/Forms/EditOrDeleteProfileForm";
+import { useModal } from "./Hooks";
 
 function App() {
+  const { modal } = useModal();
   return (
     <>
       <ToastContainer
@@ -20,6 +26,25 @@ function App() {
       />
       <GlobalStyles />
       <AppRoutes />
+
+      {modal && modal == "Editar perfil"
+        ? createPortal(
+            <Modal title="Editar perfil">
+              {" "}
+              <EditOrDeleteProfileForm />
+            </Modal>,
+            document.body
+          )
+        : null}
+      {modal && modal == "Editar endereço"
+        ? createPortal(
+            <Modal title="Editar endereço">
+              {" "}
+              <EditAddressForm />
+            </Modal>,
+            document.body
+          )
+        : null}
     </>
   );
 }
