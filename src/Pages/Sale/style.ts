@@ -12,5 +12,12 @@ const StyledMainContainer = styled.main`
     padding-right: 180px;
     background: linear-gradient(0deg, var(--grey-8) 75%, var(--brand-1) 25%);
   }
+
+  @media (min-width: 1441px) {
+    padding-left: 21.48%; 
+    padding-right: 21.48%; 
+  }
+
+
 `
 export default StyledMainContainer;
