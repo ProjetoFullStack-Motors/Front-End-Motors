@@ -6,6 +6,7 @@ import { TEditProfile, editProfileSchema } from "./validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useModal, useUserContext } from "../../../Hooks";
 import { StyledButtonsContainer, StyledEditProfileForm } from "./style";
+import InputPass from "../../Inputs/InputsPass";
 
 const EditOrDeleteProfileForm = () => {
   const { user } = useUserContext();
@@ -46,6 +47,13 @@ const EditOrDeleteProfileForm = () => {
           {...register("email")}
           placeholder={user?.email}
           errors={errors.email}
+        />
+        <InputPass
+          id="password"
+          label="Mudar senha"
+          {...register("password")}
+          placeholder="Digite sua nova senha"
+          errors={errors.password}
         />
         <Input
           id="cpf"
