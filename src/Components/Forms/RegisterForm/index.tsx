@@ -6,6 +6,9 @@ import StyledDiv from "./style";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TUserRegisterData, userSchema } from "./validator";
+import { apiLocal } from "../../../Services/api";
+import { AiOutlineSearch } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 const FormRegister = () => {
   const { userRegister } = useUserContext();
@@ -14,9 +17,33 @@ const FormRegister = () => {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
+    setValue,
   } = useForm<TUserRegisterData>({
     resolver: zodResolver(userSchema),
+    defaultValues: {
+      address: {
+        city: "",
+        street: "",
+        state: "",
+      },
+    },
+
+    mode: "onChange",
   });
+
+  const findLocal = async (cepData: string) => {
+    try {
+      const { data } = await apiLocal.get(`${cepData}/json/`);
+
+      setValue("address.city", data.localidade);
+      setValue("address.street", data.logradouro);
+      setValue("address.state", data.uf);
+    } catch (error) {
+      console.log(error);
+      toast.error("CEP não encontrado");
+    }
+  };
 
   const submit: SubmitHandler<TUserRegisterData> = async (data) => {
     const newData = {
@@ -27,9 +54,9 @@ const FormRegister = () => {
       },
     };
 
-    console.log(newData);
     userRegister(newData);
   };
+
   return (
     <>
       <StyledDiv>
@@ -95,15 +122,26 @@ const FormRegister = () => {
 
           <p>Informações de endereço</p>
 
-          <Input
-            id="cep"
-            label="CEP"
-            type="number"
-            placeholder="00000.000"
-            {...register("address.cep")}
-            errors={errors.address?.cep}
-          />
+          <div className="input__cep--container">
+            <Input
+              id="cep"
+              label="CEP"
+              type="number"
+              placeholder="00000.000"
+              {...register("address.cep")}
+              errors={errors.address?.cep}
+            />
 
+            <Button
+              type="button"
+              onClick={() => findLocal(getValues("address.cep"))}
+              $background="transparent"
+              $color="gray-5"
+              $border
+              className="button__cep">
+              <AiOutlineSearch size={30} />
+            </Button>
+          </div>
           <Input
             id="state"
             label="Estado"

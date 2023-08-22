@@ -9,6 +9,12 @@ const StyledDiv = styled.div`
 
   fieldset {
     border: none;
+    padding-bottom: 24px;
+
+    span {
+      font-size: var(--font-body-2);
+      color: var(--grey-2);
+    }
 
     button {
       top: 35%;
@@ -33,7 +39,6 @@ const StyledDiv = styled.div`
     display: flex;
     height: 48px;
     margin-top: 12px;
-    margin-bottom: 24px;
     padding-left: 15px;
   }
 
@@ -90,6 +95,30 @@ const StyledDiv = styled.div`
     color: var(--grey-1);
     border: 2px solid var(--grey-3);
     border-radius: var(--button-border);
+  }
+
+  .input__cep--container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    fieldset {
+      width: 80%;
+      height: auto;
+
+      input {
+        height: 48px;
+        margin: 0;
+      }
+    }
+
+    button {
+      width: 20%;
+      height: 48px;
+
+      padding: 0;
+      height: auto;
+    }
   }
 
   /* .buyerBtn {

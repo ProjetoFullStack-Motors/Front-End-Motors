@@ -4,7 +4,7 @@ const StyledDiv = styled.div`
   width: 91.46%;
   height: 542px;
   padding-inline: 2rem;
-  margin: 80px auto; 
+  margin: 80px auto;
   position: relative;
   border: 1px solid var(--grey-10);
   background-color: var(--grey-10);
@@ -52,7 +52,7 @@ const StyledDiv = styled.div`
     background-color: var(--grey-10);
     margin-top: 100px;
   }
-`
+`;
 
 const StyledDivPassword = styled.div`
   display: flex;
