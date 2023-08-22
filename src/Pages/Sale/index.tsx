@@ -3,11 +3,8 @@ import { api } from "../../Services/api";
 import { useParams } from "react-router-dom";
 import { ISale } from "../../Providers/CarContext/@types";
 import { Header } from "../../Components";
-import { StyleSalePageContainer } from "./style";
-import { SalesComments } from "../../Components";
-import SaleContainer from "../../Components/SaleContainer";
-import ListImages from "../../Components/SaleContainer/ListImages";
-import SaleUserContainer from "../../Components/SaleContainer/SaleUserContainer";
+import StyledMainContainer from "./style";
+import DetailsProduct from "../../Components/DetailsProduct";
 
 const Sale = () => {
     const { id } = useParams();
@@ -33,14 +30,9 @@ const Sale = () => {
 
             {saleFounded && (
                 <>
-                    <StyleSalePageContainer>
-                        <SaleContainer saleFounded={saleFounded} />
-                        <div className="sale__images--user">
-                            <ListImages saleFounded={saleFounded} />
-                            <SaleUserContainer saleFounded={saleFounded} />
-                        </div>
-                    </StyleSalePageContainer>
-                    <SalesComments />
+                    <StyledMainContainer>
+                        <DetailsProduct saleFounded={saleFounded}/>
+                    </StyledMainContainer>
                 </>
             )}
         </>
