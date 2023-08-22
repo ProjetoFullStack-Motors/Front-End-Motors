@@ -24,7 +24,7 @@ const SalesCard = ({ sale }: TSaleCardProps) => {
   const imgs = salesImages?.map((img) => img.imageUrl);
 
   return (
-    <StyledSalesCard onClick={() => navigate(`/sale/${sale.id}`)}>
+    <StyledSalesCard>
       {isGoodPrice ? (
         <h4
           className="good-price-tag"
@@ -33,7 +33,9 @@ const SalesCard = ({ sale }: TSaleCardProps) => {
         </h4>
       ) : null}
       <ImgSwiper imgs={imgs}></ImgSwiper>
-      <div className="sales-info-container">
+      <div
+        className="sales-info-container"
+        onClick={() => navigate(`/sale/${sale.id}`)}>
         <h2 className="car-title">
           {convertStr(brand)} - {convertStr(model)}
         </h2>
