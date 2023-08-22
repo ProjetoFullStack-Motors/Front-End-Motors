@@ -215,6 +215,26 @@ const StyledDivContainer = styled.div `
       }
     }
   }
+
+  @media (min-width: 1441px) {
+    gap: 2%;
+
+    > div {
+      .boxImgCar {
+        width: 902px;
+      }
+
+      .boxInfoCar {
+        width: 902px;
+      }
+    }
+
+    .detailsSection {
+      .detailsPhotoCar {
+        width: 528px;
+      }
+    }
+  }
 `
 
 const StyledSectioncomments = styled.section `
@@ -226,6 +246,11 @@ const StyledSectioncomments = styled.section `
   @media (min-width: 1200px) {
     width: 752px;
   }
+
+  @media (min-width: 1441px) {
+    width: 902px;
+  }
+
 `
 
 
