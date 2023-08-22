@@ -11,27 +11,6 @@ const StyleSaleContainer = styled.div`
     gap: 16px;
 
     width: 100%;
-
-    .sale__details {
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-
-      padding: 32px;
-      width: 100%;
-
-      background-color: blue;
-
-      .sale__details--container {
-        display: flex;
-        justify-content: space-between;
-
-        .sale__year--mileage {
-          display: flex;
-          gap: 32px;
-        }
-      }
-    }
   }
 `;
 

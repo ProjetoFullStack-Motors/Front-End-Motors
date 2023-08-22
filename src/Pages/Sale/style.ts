@@ -1,23 +1,18 @@
 import styled from "styled-components";
 
 const StyledMainContainer = styled.main`
-  width: 100vw;
-  height: auto;
   background: linear-gradient(0deg, var(--grey-8) 87%, var(--brand-1) 13%);
-  margin-top: 80px;
-  padding: 50px 12px 70px 12px;
+  margin-top: 150px auto;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   @media (min-width: 1200px) {
-    padding-left: 150px;
-    padding-right: 180px;
     background: linear-gradient(0deg, var(--grey-8) 75%, var(--brand-1) 25%);
   }
-
-  @media (min-width: 1441px) {
-    padding-left: 21.48%; 
-    padding-right: 21.48%; 
-  }
-
-
-`
+`;
 export default StyledMainContainer;

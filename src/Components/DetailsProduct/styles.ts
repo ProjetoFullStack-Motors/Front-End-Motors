@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
-const StyledDivContainer = styled.div `
-  width: 100%;
-  height: auto;
+const StyledDivContainer = styled.div`
+  width: 90%;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding-top: 100px;
+
+  margin: 0 auto;
 
   h2 {
     font-size: var(--font-heading-6);
@@ -21,7 +24,6 @@ const StyledDivContainer = styled.div `
   }
 
   > div {
-
     .boxImgCar {
       height: 355px;
       border-radius: var(--input-border);
@@ -32,17 +34,17 @@ const StyledDivContainer = styled.div `
       align-items: center;
 
       img {
-          scale: 0.6;
+        scale: 0.6;
       }
     }
 
     .boxInfoCar {
       display: flex;
       flex-direction: column;
-      gap: 24px;  
+      gap: 16px;
 
       .infoCar {
-        height: 327px;
+        height: 300px;
         padding: 28px;
         border-radius: var(--input-border);
         background-color: var(--grey-10);
@@ -82,16 +84,13 @@ const StyledDivContainer = styled.div `
           margin-bottom: 36px;
           color: var(--grey-1);
         }
-          
       }
 
       .descriptonCar {
-        height: 325px;
+        height: 300px;
         padding: 28px;
         border-radius: var(--input-border);
         background-color: var(--grey-10);
-
-        
       }
     }
   }
@@ -100,29 +99,13 @@ const StyledDivContainer = styled.div `
     height: auto;
     display: flex;
     flex-direction: column;
-    gap: 52px;
+    gap: 16px;
 
     .detailsPhotoCar {
       height: 359px;
       padding: 28px;
       background-color: var(--grey-10);
       border-radius: var(--input-border);
-      
-      /* ul {
-        display: flex;
-        gap: 7px;
-        overflow: auto;
-        flex-wrap: wrap;
-      
-        li {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          min-width: 90px;
-          min-height: 90px;
-          background-color: var(--grey-7);
-        }
-      } */
     }
 
     .detailsSeller {
@@ -162,13 +145,10 @@ const StyledDivContainer = styled.div `
   }
 
   .commentsSeller {
-    
-    
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1300px) {
     flex-direction: row;
-    
 
     > div {
       .boxImgCar {
@@ -185,7 +165,7 @@ const StyledDivContainer = styled.div `
             flex-direction: row;
             justify-content: space-between;
           }
-        }  
+        }
 
         .descriptonCar {
           padding-left: 44px;
@@ -195,13 +175,12 @@ const StyledDivContainer = styled.div `
     }
 
     .detailsSection {
-      
       .detailsPhotoCar {
-        width: 440px;
+        width: 430px;
         padding-left: 44px;
         padding-right: 44px;
 
-        ul {  
+        ul {
           li {
             min-width: 108px;
             min-height: 108px;
@@ -215,43 +194,15 @@ const StyledDivContainer = styled.div `
       }
     }
   }
+`;
 
-  @media (min-width: 1441px) {
-    gap: 2%;
-
-    > div {
-      .boxImgCar {
-        width: 902px;
-      }
-
-      .boxInfoCar {
-        width: 902px;
-      }
-    }
-
-    .detailsSection {
-      .detailsPhotoCar {
-        width: 528px;
-      }
-    }
-  }
-`
-
-const StyledSectioncomments = styled.section `
+const StyledSectionComments = styled.section`
   height: auto;
-  padding: 28px;
+  width: 90%;
+  max-width: 1200px;
+
   background-color: var(--grey-10);
   margin-top: 18px;
+`;
 
-  @media (min-width: 1200px) {
-    width: 752px;
-  }
-
-  @media (min-width: 1441px) {
-    width: 902px;
-  }
-
-`
-
-
-export {StyledDivContainer, StyledSectioncomments};
+export { StyledDivContainer, StyledSectionComments };
