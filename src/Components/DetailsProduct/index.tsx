@@ -4,8 +4,11 @@ import SaleContainer from "../SaleContainer";
 import { TSaleContainerProps } from "../SaleContainer/@types";
 import ListImages from "../SaleContainer/ListImages";
 import { SalesComments } from "..";
+import { useNavigate } from "react-router-dom";
 
 const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <StyledDivContainer>
@@ -16,7 +19,7 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
           <section className="boxInfoCar">
             <div className="infoCar">
               <h2>
-                {saleFounded.brand} {saleFounded.model} 
+                {saleFounded.brand} {saleFounded.model}
               </h2>
 
               <div className="price">
@@ -36,7 +39,7 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
                 Comprar
               </Button>
             </div>
-              
+
             <div className="descriptonCar">
               <h2>Descrição</h2>
               <p> {saleFounded.description} </p>
@@ -51,16 +54,26 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
           </section>
 
           <section className="detailsSeller">
-            <span>{saleFounded.user.firstName[0]}{saleFounded.user.lastName[0]}</span>
-            <h2>{saleFounded.user.firstName} {saleFounded.user.lastName}</h2>
+            <span>
+              {saleFounded.user.firstName[0]}
+              {saleFounded.user.lastName[0]}
+            </span>
+            <h2>
+              {saleFounded.user.firstName} {saleFounded.user.lastName}
+            </h2>
             <p> {saleFounded.user.description} </p>
-            <Button>Ver todos anúncios</Button>
+            <Button
+              onClick={() =>
+                navigate(`/ProfileViewUser/${saleFounded.user.id}`)
+              }>
+              Ver todos anúncios
+            </Button>
           </section>
         </div>
       </StyledDivContainer>
 
       <StyledSectioncomments>
-          <SalesComments />
+        <SalesComments />
       </StyledSectioncomments>
     </>
   );
