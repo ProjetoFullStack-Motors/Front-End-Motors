@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import EditAddressForm from "./Components/Forms/EditAddressForm";
 import EditOrDeleteProfileForm from "./Components/Forms/EditOrDeleteProfileForm";
 import { useModal } from "./Hooks";
+import DeleteProfileModal from "./Components/Forms/DeleteProfile";
 
 function App() {
   const { modal } = useModal();
@@ -41,6 +42,15 @@ function App() {
             <Modal title="Editar endereço">
               {" "}
               <EditAddressForm />
+            </Modal>,
+            document.body
+          )
+        : null}
+      {modal && modal == "Excluir perfil"
+        ? createPortal(
+            <Modal title="Excluir perfil">
+              {" "}
+              <DeleteProfileModal />
             </Modal>,
             document.body
           )

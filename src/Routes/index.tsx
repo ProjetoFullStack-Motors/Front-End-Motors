@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { Dashboard, Home, Register, Login } from "../Pages";
+import { Dashboard, Home, Register, Login, Sale } from "../Pages";
 import ProtectedRoute from "../Pages/ProtectedRoute";
-import Sale from "../Pages/Sale";
 import ProfileViewUser from "../Pages/ProfileViewUser";
 
 const AppRoutes = () => {

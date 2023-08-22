@@ -8,6 +8,8 @@ import {
     TErrorResponse,
     TUserMail,
     TJwtDecode,
+    TAddressResponse,
+    TAddressPartial,
 } from "./@types";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -125,6 +127,29 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
         retrieveUser(userData?.sub!);
     }, []);
 
+    const changeUserAddress = async (data: TAddressPartial) => {
+        const token = localStorage.getItem("frontEndMotors:token") || null;
+        try {
+            const changeAddress = await api.patch<TAddressResponse>(
+                "/address",
+                data,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            user!.address = changeAddress.data;
+
+            setUser(user);
+
+            toast.success("Endereço atualizado com sucesso");
+        } catch (error) {
+            console.log(error);
+            toast.error("Não foi possível atualizar o endereço");
+        }
+    };
+
     return (
         <UserContext.Provider
             value={{
@@ -136,6 +161,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
                 userRegister,
                 setUser,
                 retrieveUser,
+                changeUserAddress,
                 retrieveProfileViewUser,
             }}
         >

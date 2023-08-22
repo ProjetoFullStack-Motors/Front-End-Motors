@@ -16,7 +16,7 @@ import { useCarContext } from "../../../Hooks";
 import TFormData from "./@types";
 
 const CreateAd = () => {
-  const { setModal } = useModal();
+  const { closeModal } = useModal();
 
   const {
     createSalesAd,
@@ -81,7 +81,7 @@ const CreateAd = () => {
 
     createSalesAd(adObj);
 
-    setModal(null);
+    closeModal();
   };
 
   return (
@@ -99,22 +99,25 @@ const CreateAd = () => {
           arr={models!}
           id="model"
           title="Modelo"
-          selectValue={model ? model.name : models[0].name}
+          selectValue={model ? model.name : ""}
           itemKey="name"
           callback={handleModelSelect}
+          isModel
         />
         <StyledInputContainer>
           <Input
             id="year"
             label="Ano"
             disabled
-            value={model ? model.year : models[0].year}
+            value={model ? model.year : ""}
+            placeholder="Ex: 2023"
           />
           <Input
             id="engine"
             label="Combustível"
-            value={model ? detectFuel(model.fuel) : detectFuel(models[0].fuel)}
+            value={model ? detectFuel(model.fuel) : ""}
             disabled
+            placeholder="Ex: flex"
           />
         </StyledInputContainer>
         <StyledInputContainer>
@@ -143,11 +146,9 @@ const CreateAd = () => {
                     style: "currency",
                     currency: "BRL",
                   })
-                : models[0].value.toLocaleString("pt-br", {
-                    style: "currency",
-                    currency: "BRL",
-                  })
+                : ""
             }
+            placeholder="Ex: R$ 200.000,00"
             disabled
           />
           <Input
@@ -220,7 +221,7 @@ const CreateAd = () => {
             $background="grey-5"
             $color="grey-2"
             $width={7}
-            onClick={() => setModal(null)}
+            onClick={closeModal}
           >
             Excluir anúncio
           </Button>

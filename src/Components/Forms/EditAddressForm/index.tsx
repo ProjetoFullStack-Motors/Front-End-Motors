@@ -8,8 +8,8 @@ import { TEditAddress, editAddressSchema } from "./validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const EditAddressForm = () => {
-  const { user } = useUserContext();
-  const { setModal } = useModal();
+  const { user, changeUserAddress } = useUserContext();
+  const { closeModal } = useModal();
 
   const {
     register,
@@ -20,11 +20,11 @@ const EditAddressForm = () => {
   });
 
   const onSubmitForm = (data: TEditAddress) => {
-    const cleanedData = Object.fromEntries(
+    const cleanedData: TEditAddress = Object.fromEntries(
       Object.entries(data).filter(([key, value]) => value !== "")
     );
 
-    console.log(cleanedData);
+    cleanedData ? changeUserAddress(cleanedData) : null;
   };
 
   return (
@@ -70,6 +70,7 @@ const EditAddressForm = () => {
             placeholder={String(user?.address.addressNumber)}
             {...register("addressNumber")}
             errors={errors.addressNumber}
+            type="number"
           />
           <Input
             id="addressComplement"
@@ -85,7 +86,7 @@ const EditAddressForm = () => {
             $background="grey-5"
             $color="grey-2"
             type="button"
-            onClick={() => setModal(null)}
+            onClick={closeModal}
             $width={9}
             $maxWidth={10}
           >

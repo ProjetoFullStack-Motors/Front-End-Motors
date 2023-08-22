@@ -42,7 +42,6 @@ import "swiper/css/navigation";
 const StyleSwiper = styled(Swiper)`
   width: 100%;
   height: 355px;
-  background-color: red;
   text-align: center;
 
   img {
