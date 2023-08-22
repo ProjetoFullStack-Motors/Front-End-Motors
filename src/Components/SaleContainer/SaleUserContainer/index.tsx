@@ -14,7 +14,7 @@ const SaleUserContainer = ({ saleFounded }: TSaleContainerProps) => {
       <h2>
         {saleFounded.user.firstName} {saleFounded.user.lastName}
       </h2>
-      <p></p>
+      <p>{saleFounded.user.description}</p>
       <Button>Ver todos anúncios</Button>
     </div>
   );

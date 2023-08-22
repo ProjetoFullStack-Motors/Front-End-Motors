@@ -11,7 +11,7 @@ const FadeIn = keyframes`
 `;
 
 export const StyledModal = styled.div`
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
