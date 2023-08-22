@@ -22,27 +22,6 @@ const SaleContainer = ({ saleFounded }: TSaleContainerProps) => {
             ))}
           </ul>
         </StyleSwiper>
-
-        <div className="sale__details">
-          <h2>
-            {saleFounded.brand} {saleFounded.model}
-          </h2>
-
-          <section className="sale__details--container">
-            <div className="sale__year--mileage">
-              <span>{saleFounded.year}</span>
-              <span>{saleFounded.mileage} KM</span>
-            </div>
-            <div className="sale__price">
-              <p>R$ {saleFounded.price}</p>
-            </div>
-          </section>
-        </div>
-
-        <div className="sale__desc">
-          <h2>Descrição</h2>
-          <p>{saleFounded.description}</p>
-        </div>
       </div>
     </StyleSaleContainer>
   );

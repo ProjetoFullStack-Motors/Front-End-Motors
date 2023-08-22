@@ -1,48 +1,35 @@
 import styled from "styled-components";
 
-const StyleListImages = styled.div`
+const StyleListImages = styled.ul`
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  width: 100%;
-  height: 400px;
-  padding: 16px;
-
-  background-color: green;
-  ul {
+  gap: 7px;
+  overflow: y;
+  flex-wrap: wrap;
+      
+  li {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    gap: 16px;
+    width: 90px;
+    height: 90px;
+    background-color: var(--grey-7);
 
-    margin: 0 auto;
-    width: 90%;
-    height: 100%;
-
-    border: solid 2px white;
-
-    li {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      width: 108px;
-      height: 108px;
-
-      cursor: pointer;
-
-      background-color: white;
-      img {
-        width: 94px;
-        height: 54px;
-      }
+    img {
+      object-fit: fill;
+      min-width: 90px;
+      min-height: 90px;
     }
   }
 
   @media (min-width: 1200px) {
-    width: 440px;
+     
+    li {
+      img {
+        width: 108px;
+        height: 108px;
+      }
+    }
   }
-`;
+`
 
-export { StyleListImages };
+export {StyleListImages};
