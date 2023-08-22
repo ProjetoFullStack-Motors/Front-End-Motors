@@ -3,7 +3,7 @@ import { IInputProps } from "../@types";
 
 const Input = forwardRef(
   (
-    { id, label, errors, ...rest }: IInputProps,
+    { id, label, errors, maxlength, ...rest }: IInputProps,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     return (

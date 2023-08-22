@@ -2,7 +2,10 @@ import { z } from "zod";
 
 export const addressSchema = z.object({
   cep: z.string().max(8).nonempty("Cep é obrigatório"),
-  state: z.string().max(2).nonempty("Estado é obrigatório"),
+  state: z
+    .string()
+    .max(2, "Número máximo de caracteres é 2")
+    .nonempty("Estado é obrigatório"),
   city: z.string().max(255).nonempty("Cidade é obrigatória"),
   street: z.string().max(255).nonempty("Rua é obrigatória"),
   addressNumber: z.number().or(z.string().nonempty("Número é obrigatório")),

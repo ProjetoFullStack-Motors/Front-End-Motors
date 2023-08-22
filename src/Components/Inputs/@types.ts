@@ -6,4 +6,5 @@ export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   errors?: FieldError;
   maxlength?: string;
+  callback?: (cepData: string) => Promise<void>;
 }

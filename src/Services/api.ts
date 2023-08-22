@@ -10,4 +10,9 @@ const apiFipe = axios.create({
   timeout: 6000,
 });
 
-export { api, apiFipe };
+const apiLocal = axios.create({
+  baseURL: "https://viacep.com.br/ws/",
+  timeout: 6000,
+});
+
+export { api, apiFipe, apiLocal };
