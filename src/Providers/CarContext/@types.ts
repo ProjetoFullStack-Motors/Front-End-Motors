@@ -113,6 +113,7 @@ type TCarContextProps = {
   createSalesAd: (data: TCreateSaleAdRegister) => Promise<void>;
   isGoodPrice: (price: number, fipePrice: number) => boolean;
   setModel: React.Dispatch<React.SetStateAction<TBrandModel | null>>;
+  setModels: React.Dispatch<React.SetStateAction<[] | TBrandModel[]>>;
 };
 
 type TPaginateSalesAdResponse = {

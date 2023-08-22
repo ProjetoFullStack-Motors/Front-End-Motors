@@ -1,4 +1,4 @@
-import { TBrandModel } from "../../Providers/ModalContext/@types";
+import { TBrandModel } from "../../Providers/CarContext/@types";
 import Option from "./Option/index";
 import { forwardRef, ForwardedRef } from "react";
 import TSelectProps from "./@types";
@@ -6,7 +6,16 @@ import { StyledSelect } from "./style";
 
 const Select = forwardRef(
   (
-    { arr, id, itemKey, title, selectValue, callback, ...rest }: TSelectProps,
+    {
+      arr,
+      id,
+      itemKey,
+      title,
+      selectValue,
+      callback,
+      isModel,
+      ...rest
+    }: TSelectProps,
     ref: ForwardedRef<HTMLSelectElement>
   ) => {
     return (
@@ -21,6 +30,7 @@ const Select = forwardRef(
           ref={ref}
           {...rest}
         >
+          {isModel ? <Option value="Selecione um modelo" /> : null}
           {arr &&
             arr.map((item) => (
               <Option
