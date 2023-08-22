@@ -1,4 +1,4 @@
-import { StyledDivContainer, StyledSectioncomments } from "./styles";
+import { StyledDivContainer, StyledSectionComments } from "./styles";
 import Button from "../Buttons";
 import SaleContainer from "../SaleContainer";
 import { TSaleContainerProps } from "../SaleContainer/@types";
@@ -35,7 +35,7 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
                 className="btnEntrar"
                 $background="brand-2"
                 $width={1}
-                type="submit">
+                type="button">
                 Comprar
               </Button>
             </div>
@@ -72,9 +72,9 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
         </div>
       </StyledDivContainer>
 
-      <StyledSectioncomments>
+      <StyledSectionComments>
         <SalesComments />
-      </StyledSectioncomments>
+      </StyledSectionComments>
     </>
   );
 };

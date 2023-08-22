@@ -5,31 +5,21 @@ const StyleListImages = styled.ul`
   gap: 7px;
   overflow: y;
   flex-wrap: wrap;
-      
+
   li {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 90px;
-    height: 90px;
+    width: 108px;
+    height: 108px;
     background-color: var(--grey-7);
 
     img {
       object-fit: fill;
-      min-width: 90px;
-      min-height: 90px;
+      min-width: 95px;
+      min-height: 55px;
     }
   }
+`;
 
-  @media (min-width: 1200px) {
-     
-    li {
-      img {
-        width: 108px;
-        height: 108px;
-      }
-    }
-  }
-`
-
-export {StyleListImages};
+export { StyleListImages };
