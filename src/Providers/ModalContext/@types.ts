@@ -12,7 +12,8 @@ type TModalOptions =
   | "Excluir anúncio"
   | "Imagem do veículo"
   | "Editar perfil"
-  | "Editar endereço";
+  | "Editar endereço"
+  | "Excluir perfil";
 
 type TModalContextValues = {
   modal: TModalOptions;

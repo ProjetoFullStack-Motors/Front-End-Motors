@@ -100,6 +100,7 @@ const EditOrDeleteProfileForm = () => {
             type="button"
             $width={9}
             $maxWidth={10}
+            onClick={() => setModal("Excluir perfil")}
           >
             Excluir Perfil
           </Button>
