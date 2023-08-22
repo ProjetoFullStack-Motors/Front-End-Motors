@@ -3,7 +3,8 @@ import Button from "../../Buttons/index";
 import { StyledDeleteModalButtons, StyledDeleteProfileModal } from "./style";
 
 const DeleteProfileModal = () => {
-  const { setModal } = useModal();
+  const { closeModal } = useModal();
+
   return (
     <StyledDeleteProfileModal>
       <h2>Tem certeza que deseja excluir sua conta ?</h2>
@@ -18,7 +19,7 @@ const DeleteProfileModal = () => {
           type="button"
           $width={9}
           $maxWidth={10}
-          onClick={() => setModal(null)}
+          onClick={closeModal}
         >
           Cancelar
         </Button>

@@ -11,7 +11,7 @@ import InputPass from "../../Inputs/InputsPass";
 const EditOrDeleteProfileForm = () => {
   const { user } = useUserContext();
 
-  const { setModal } = useModal();
+  const { setModal, closeModal } = useModal();
 
   const {
     register,
@@ -88,7 +88,7 @@ const EditOrDeleteProfileForm = () => {
             $background="grey-5"
             $color="grey-2"
             type="button"
-            onClick={() => setModal(null)}
+            onClick={closeModal}
             $width={9}
             $maxWidth={10}
           >

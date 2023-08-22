@@ -16,6 +16,7 @@ type TUserContext = {
   userRegister: (data: TUserRegisterData) => void;
   userName: TUserName | null;
   retrieveUser: (id: string) => Promise<void>;
+  changeUserAddress: (data: TAddressPartial) => Promise<void>;
 };
 
 type TUserMail = {
@@ -39,6 +40,20 @@ type TAddress = {
   state: string;
   street: string;
 };
+
+type TAddressPartial = {
+  addressComplement?: string;
+  addressNumber?: number;
+  cep?: string;
+  city?: string;
+  state?: string;
+  street?: string;
+};
+
+type TAddressResponse = {
+  id: string;
+  created_at: string;
+} & TAddress;
 
 type TUser = {
   firstName: string;
@@ -76,4 +91,6 @@ export type {
   TErrorResponse,
   TUserMail,
   TJwtDecode,
+  TAddressResponse,
+  TAddressPartial,
 };

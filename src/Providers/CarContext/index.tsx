@@ -237,7 +237,6 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
       selectedBrand
         ? await getBrandModels(selectedBrand)
         : await getBrandModels(brands[0]);
-      models.length > 0 ? setModel(models[0]) : null;
     };
     getAllBrandModels();
   }, [selectedBrand]);
@@ -256,7 +255,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
       (item) => item.name === selectedValue
     );
 
-    findModel ? setModel(findModel) : null;
+    findModel ? setModel(findModel) : setModel(null);
   };
 
   const detectFuel = (fuel: number) => {
@@ -338,7 +337,9 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         createSalesAd,
         isGoodPrice,
         setModel,
-      }}>
+        setModels,
+      }}
+    >
       {children}
     </CarContext.Provider>
   );

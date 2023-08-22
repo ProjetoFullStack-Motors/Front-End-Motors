@@ -101,7 +101,7 @@ const StyledDashboardPage = styled.main`
       width: 90%;
       align-self: center;
       min-height: 1800px;
-      margin-bottom: 2rem;
+      margin-bottom: 10rem;
 
       .sales-list-container {
         display: flex;

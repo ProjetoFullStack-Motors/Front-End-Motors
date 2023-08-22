@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { TBrandModel } from "../../Providers/ModalContext/@types";
+import { TBrandModel } from "../../Providers/CarContext/@types";
 
 type TSelectProps = {
   arr: string[] | TBrandModel[];
@@ -7,6 +7,7 @@ type TSelectProps = {
   itemKey?: keyof TBrandModel;
   title: string;
   selectValue: string;
+  isModel?: boolean;
   callback: (
     event: ChangeEvent<HTMLSelectElement>
   ) =>
