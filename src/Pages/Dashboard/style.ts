@@ -101,12 +101,13 @@ const StyledDashboardPage = styled.main`
       width: 90%;
       align-self: center;
       min-height: 1800px;
-      margin-bottom: 10rem;
+      /* margin-bottom: 10rem; */
 
       .sales-list-container {
         display: flex;
         flex-direction: column;
         align-items: center;
+        min-height: 1200px;
       }
     }
   }

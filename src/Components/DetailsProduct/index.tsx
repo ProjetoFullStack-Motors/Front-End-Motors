@@ -9,8 +9,6 @@ import { useNavigate } from "react-router-dom";
 const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
   const navigate = useNavigate();
 
-  console.log(saleFounded);
-
   return (
     <>
       <StyledDivContainer>

@@ -9,14 +9,15 @@ import { useUserContext, useModal } from "../../Hooks";
 import { SalesList } from "../../Components";
 import { StyledDashboardPage } from "./style";
 import jwt_decode from "jwt-decode";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { TJwtDecode } from "../../Providers/UserContext/@types";
 import { createPortal } from "react-dom";
+import UserSalePagination from "../../Components/UserSalePagination";
 
 const Dashboard = () => {
   const { setModal } = useModal();
 
-  const { user, retrieveUser, userSales } = useUserContext();
+  const { user, retrieveUser, userSales, setUserSales } = useUserContext();
   useEffect(() => {
     const token = localStorage.getItem("frontEndMotors:token");
 
@@ -64,6 +65,8 @@ const Dashboard = () => {
           <div className="sales-list-container">
             <SalesList owner={user?.role!} sales={userSales} />
           </div>
+
+          <UserSalePagination setState={setUserSales} />
         </div>
       </div>
       {createPortal(

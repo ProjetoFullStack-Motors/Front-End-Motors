@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { TLoginData } from "../../Components/Forms/LoginForm/validator";
 import { api } from "../../Services/api";
 import jwt_decode from "jwt-decode";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { useModal } from "../../Hooks";
 import { TUserRegisterData } from "../../Components/Forms/RegisterForm/validator";
 import { TUserSales } from "../CarContext/@types";
@@ -28,8 +28,10 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
   const [userName, setUserName] = useState<TUserName | null>(null);
   const [user, setUser] = useState<TUser | null>(null);
   const [userSales, setUserSales] = useState<TUserSales[]>([]);
-
   const { setModal } = useModal();
+  const [previousPage, setPreviousPage] = useState<string | null>(null);
+  const [nextPage, setNextPage] = useState<string | null>(null);
+  const [pagesAmount, setPagesAmount] = useState(0);
 
   const userLogin = async (data: TLoginData) => {
     try {
@@ -82,6 +84,13 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
       });
       setUser(response.data.user);
       setUserSales(response.data.data);
+      const { prevPage, count, nextPage } = response.data;
+      if (count > 12) {
+        setPagesAmount(Math.ceil(count / 12));
+      }
+
+      setPreviousPage(prevPage);
+      setNextPage(nextPage);
     } catch (error) {
       const currentError = error as AxiosError<TErrorResponse>;
       toast.error(currentError.response?.data.message);
@@ -99,6 +108,13 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
       const response = await api.get(`salesAd/users/${id}`);
       setState(response.data.user);
       setState2(response.data.data);
+      const { prevPage, count, nextPage } = response.data;
+      if (count > 12) {
+        setPagesAmount(Math.ceil(count / 12));
+      }
+
+      setPreviousPage(prevPage);
+      setNextPage(nextPage);
     } catch (error) {
       const currentError = error as AxiosError<TErrorResponse>;
       toast.error(currentError.response?.data.message);
@@ -153,6 +169,25 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     }
   };
 
+  const getUserSalesPagination = async (
+    pageUrl: string,
+    setState: React.Dispatch<React.SetStateAction<TUserSales[]>>
+  ) => {
+    try {
+      const response = await axios.get(pageUrl);
+
+      const { prevPage, nextPage, data, count } = response.data;
+
+      setState(data);
+      setPreviousPage(prevPage);
+      setNextPage(nextPage);
+
+      if (count > 12) {
+        setPagesAmount(Math.ceil(count / 12));
+      }
+    } catch (error) {}
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -167,6 +202,11 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
         changeUserAddress,
         retrieveProfileViewUser,
         userSales,
+        getUserSalesPagination,
+        previousPage,
+        nextPage,
+        pagesAmount,
+        setUserSales,
       }}
     >
       {children}

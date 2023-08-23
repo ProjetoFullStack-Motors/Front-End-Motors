@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { TJwtDecode, TUser } from "../../Providers/UserContext/@types";
 import { useParams } from "react-router-dom";
 import { TUserSales } from "../../Providers/CarContext/@types";
+import UserSalePagination from "../../Components/UserSalePagination";
 
 const ProfileViewUser = () => {
   const { id } = useParams();
@@ -48,6 +49,7 @@ const ProfileViewUser = () => {
           <div className="sales-list-container">
             <SalesList owner={user?.role!} sales={salesProfileUser} />
           </div>
+          <UserSalePagination setState={setSalesProfileUser} />
         </div>
       </div>
       <Footer />

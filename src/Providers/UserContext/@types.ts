@@ -23,6 +23,14 @@ type TUserContext = {
     setState2: React.Dispatch<React.SetStateAction<TUserSales[]>>
   ) => Promise<void>;
   userSales: TUserSales[];
+  getUserSalesPagination: (
+    pageUrl: string,
+    setState: React.Dispatch<React.SetStateAction<TUserSales[]>>
+  ) => Promise<void>;
+  previousPage: string | null;
+  nextPage: string | null;
+  pagesAmount: number;
+  setUserSales: React.Dispatch<React.SetStateAction<TUserSales[]>>;
 };
 
 type TUserMail = {
