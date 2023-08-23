@@ -119,8 +119,7 @@ const StyledDivContainer = styled.div`
       border-radius: var(--input-border);
 
       span {
-        width: 77px;
-        height: 77px;
+        padding: 16px;
         background-color: var(--brand-1);
         color: var(--grey-10);
         border-radius: 50%;
@@ -197,17 +196,16 @@ const StyledSectionComments = styled.section`
   max-width: 1200px;
   height: auto;
   width: 90%;
-  
+
   > div {
     background-color: var(--grey-10);
     margin-top: 18px;
   }
-  
+
   @media (min-width: 1300px) {
     > div {
       max-width: 752px;
     }
-    
   }
 `;
 
