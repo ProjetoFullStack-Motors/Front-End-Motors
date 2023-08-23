@@ -1,7 +1,8 @@
 import { z } from "zod";
 
 export const editProfileSchema = z.object({
-  name: z.string().optional(),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
   email: z.string().optional(),
   password: z.string().optional(),
   cpf: z

@@ -31,6 +31,10 @@ type TUserContext = {
   nextPage: string | null;
   pagesAmount: number;
   setUserSales: React.Dispatch<React.SetStateAction<TUserSales[]>>;
+  updateUserInformation: (
+    id: string,
+    data: TUpdateUserPartial
+  ) => Promise<void>;
 };
 
 type TUserMail = {
@@ -84,6 +88,10 @@ type TUser = {
   created_at: string;
 };
 
+type TUpdateUser = Omit<TUser, "id" | "created_at" | "role">;
+
+type TUpdateUserPartial = Partial<TUpdateUser>;
+
 type TUserDataToken = {
   role: "seller" | "buyer";
   exp: number;
@@ -107,4 +115,5 @@ export type {
   TJwtDecode,
   TAddressResponse,
   TAddressPartial,
+  TUpdateUserPartial,
 };

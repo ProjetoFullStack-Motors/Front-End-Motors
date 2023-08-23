@@ -24,6 +24,8 @@ const EditAddressForm = () => {
       Object.entries(data).filter(([key, value]) => value !== "")
     );
 
+    cleanedData?.addressNumber ? Number(cleanedData.addressNumber) : null;
+
     cleanedData ? changeUserAddress(cleanedData) : null;
   };
 
@@ -70,7 +72,6 @@ const EditAddressForm = () => {
             placeholder={String(user?.address.addressNumber)}
             {...register("addressNumber")}
             errors={errors.addressNumber}
-            type="number"
           />
           <Input
             id="addressComplement"
