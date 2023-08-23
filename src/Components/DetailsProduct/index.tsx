@@ -75,7 +75,9 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
       </StyledDivContainer>
 
       <StyledSectionComments>
-        <SalesComments />
+        <div>
+          <SalesComments />
+        </div>
       </StyledSectionComments>
     </>
   );
