@@ -16,8 +16,8 @@ const StyleListImages = styled.ul`
 
     img {
       object-fit: fill;
-      min-width: 95px;
-      min-height: 55px;
+      min-width: 108px;
+      min-height: 108px;
     }
   }
 `;

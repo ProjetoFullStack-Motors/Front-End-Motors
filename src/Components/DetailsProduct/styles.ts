@@ -144,9 +144,6 @@ const StyledDivContainer = styled.div`
     }
   }
 
-  .commentsSeller {
-  }
-
   @media (min-width: 1300px) {
     flex-direction: row;
 
@@ -197,12 +194,21 @@ const StyledDivContainer = styled.div`
 `;
 
 const StyledSectionComments = styled.section`
+  max-width: 1200px;
   height: auto;
   width: 90%;
-  max-width: 1200px;
-
-  background-color: var(--grey-10);
-  margin-top: 18px;
+  
+  > div {
+    background-color: var(--grey-10);
+    margin-top: 18px;
+  }
+  
+  @media (min-width: 1300px) {
+    > div {
+      max-width: 752px;
+    }
+    
+  }
 `;
 
 export { StyledDivContainer, StyledSectionComments };
