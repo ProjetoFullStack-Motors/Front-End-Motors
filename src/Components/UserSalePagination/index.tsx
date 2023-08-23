@@ -1,32 +1,49 @@
 import { Button } from "..";
+import { useUserContext } from "../../Hooks";
 import { StyleChangePage } from "../ChangePage/style";
 import { TUserSalePaginationProps } from "./@types";
 import { MdNavigateNext, MdKeyboardArrowLeft } from "react-icons/md";
 
-const UserSalePagination = ({
-  currentPage,
-  pageNumbers,
-  setCurrentPage,
-}: TUserSalePaginationProps) => {
+const UserSalePagination = ({ setState }: TUserSalePaginationProps) => {
+  const { previousPage, nextPage, pagesAmount, getUserSalesPagination } =
+    useUserContext();
+
+  const currentPage = () => {
+    if (previousPage) {
+      const pageNumberIndex = previousPage.indexOf("=") + 1;
+
+      const pageNumber = Number(previousPage.substring(pageNumberIndex));
+      if (Number(pageNumber)) {
+        return pageNumber + 1;
+      }
+    } else {
+      return 1;
+    }
+  };
   return (
-    <StyleChangePage className="user__sale--pagination">
-      {currentPage !== 1 && (
+    <StyleChangePage>
+      {previousPage && (
         <Button
           $background="transparent"
           $color="brand-1"
-          onClick={() => setCurrentPage(currentPage - 1)}>
+          onClick={() => getUserSalesPagination(previousPage, setState)}
+        >
           <MdKeyboardArrowLeft />
           Anterior
         </Button>
       )}
+
       <p>
-        {currentPage} <span>de {pageNumbers}</span>
+        {currentPage()}{" "}
+        <span>de {nextPage || previousPage ? pagesAmount : 1}</span>
       </p>
-      {currentPage !== pageNumbers && (
+
+      {nextPage && (
         <Button
           $background="transparent"
-          onClick={() => setCurrentPage(currentPage + 1)}
-          $color="brand-1">
+          onClick={() => getUserSalesPagination(nextPage, setState)}
+          $color="brand-1"
+        >
           Seguinte
           <MdNavigateNext />
         </Button>

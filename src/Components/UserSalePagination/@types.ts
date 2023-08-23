@@ -1,7 +1,7 @@
+import { TUserSales } from "../../Providers/CarContext/@types";
+
 type TUserSalePaginationProps = {
-  currentPage: number;
-  pageNumbers: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setState: React.Dispatch<React.SetStateAction<TUserSales[]>>;
 };
 
 export type { TUserSalePaginationProps };

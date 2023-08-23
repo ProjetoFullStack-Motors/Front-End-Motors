@@ -140,6 +140,11 @@ type TCreateSaleAdRegister = {
   salesImages: TImageSalesAd[];
 };
 
+type TUserSales = {
+  id: string;
+  created_at: string;
+} & TCreateSaleAdRegister;
+
 interface ISale extends TCreateSaleAdRegister {
   id: string;
   created_at: Date;
@@ -159,4 +164,5 @@ export type {
   TCreateSaleAdRegister,
   TBrandModel,
   ISale,
+  TUserSales,
 };

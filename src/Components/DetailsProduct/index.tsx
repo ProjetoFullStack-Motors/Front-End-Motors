@@ -35,7 +35,8 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
                 className="btnEntrar"
                 $background="brand-2"
                 $width={1}
-                type="button">
+                type="button"
+              >
                 Comprar
               </Button>
             </div>
@@ -65,7 +66,8 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
             <Button
               onClick={() =>
                 navigate(`/ProfileViewUser/${saleFounded.user.id}`)
-              }>
+              }
+            >
               Ver todos anúncios
             </Button>
           </section>

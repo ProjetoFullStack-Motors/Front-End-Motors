@@ -17,8 +17,7 @@ import UserSalePagination from "../../Components/UserSalePagination";
 const Dashboard = () => {
   const { setModal } = useModal();
 
-  const { user, retrieveUser } = useUserContext();
-
+  const { user, retrieveUser, userSales, setUserSales } = useUserContext();
   useEffect(() => {
     const token = localStorage.getItem("frontEndMotors:token");
 
@@ -28,14 +27,6 @@ const Dashboard = () => {
       retrieveUser(tokenDecoded.userId);
     }
   }, []);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const salesPerPage = 12;
-
-  const indexOfLastSale = currentPage * salesPerPage;
-  const indexOfFirstSale = indexOfLastSale - salesPerPage;
-  const currentSales = user?.sales?.slice(indexOfFirstSale, indexOfLastSale);
-  const pageNumbers = Math.ceil(user?.sales?.length! / salesPerPage);
 
   return (
     <StyledDashboardPage>
@@ -61,7 +52,8 @@ const Dashboard = () => {
             <div className="seller-button-container">
               <button
                 className="seller-button"
-                onClick={() => setModal("Criar anúncio")}>
+                onClick={() => setModal("Criar anúncio")}
+              >
                 Criar Anúncio
               </button>
             </div>
@@ -71,14 +63,10 @@ const Dashboard = () => {
         <div className="sales-container">
           <h2>Anúncios</h2>
           <div className="sales-list-container">
-            <SalesList owner={user?.role!} sales={currentSales!} />
+            <SalesList owner={user?.role!} sales={userSales} />
           </div>
 
-          <UserSalePagination
-            currentPage={currentPage}
-            pageNumbers={pageNumbers}
-            setCurrentPage={setCurrentPage}
-          />
+          <UserSalePagination setState={setUserSales} />
         </div>
       </div>
       {createPortal(
