@@ -5,7 +5,7 @@ export const editAddressSchema = z.object({
   state: z.string().max(2, "Digite apenas a sigla do estado").optional(),
   city: z.string().optional(),
   street: z.string().optional(),
-  addressNumber: z.number().optional(),
+  addressNumber: z.string().optional(),
   addressComplement: z.string().optional(),
 });
 
