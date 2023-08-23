@@ -6,11 +6,13 @@ import jwt_decode from "jwt-decode";
 import { useEffect, useState } from "react";
 import { TJwtDecode, TUser } from "../../Providers/UserContext/@types";
 import { useParams } from "react-router-dom";
+import { TUserSales } from "../../Providers/CarContext/@types";
 
 const ProfileViewUser = () => {
   const { id } = useParams();
   const { user, retrieveUser, retrieveProfileViewUser } = useUserContext();
   const [ProfileUser, setProfileUser] = useState<TUser | null>(null);
+  const [salesProfileUser, setSalesProfileUser] = useState<TUserSales[]>([]);
 
   useEffect(() => {
     const token = localStorage.getItem("frontEndMotors:token");
@@ -19,7 +21,7 @@ const ProfileViewUser = () => {
 
       retrieveUser(tokenDecoded.userId);
     }
-    retrieveProfileViewUser(id!, setProfileUser);
+    retrieveProfileViewUser(id!, setProfileUser, setSalesProfileUser);
   }, []);
 
   return (
@@ -44,7 +46,7 @@ const ProfileViewUser = () => {
         <div className="sales-container">
           <h2>Anúncios</h2>
           <div className="sales-list-container">
-            <SalesList owner={user?.role!} sales={ProfileUser?.sales!} />
+            <SalesList owner={user?.role!} sales={salesProfileUser} />
           </div>
         </div>
       </div>

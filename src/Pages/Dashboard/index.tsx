@@ -16,7 +16,7 @@ import { createPortal } from "react-dom";
 const Dashboard = () => {
   const { setModal } = useModal();
 
-  const { user, retrieveUser } = useUserContext();
+  const { user, retrieveUser, userSales } = useUserContext();
   useEffect(() => {
     const token = localStorage.getItem("frontEndMotors:token");
 
@@ -62,7 +62,7 @@ const Dashboard = () => {
         <div className="sales-container">
           <h2>Anúncios</h2>
           <div className="sales-list-container">
-            <SalesList owner={user?.role!} sales={user?.sales!} />
+            <SalesList owner={user?.role!} sales={userSales} />
           </div>
         </div>
       </div>

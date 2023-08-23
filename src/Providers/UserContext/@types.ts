@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { TLoginData } from "../../Components/Forms/LoginForm/validator";
 import { TUserRegisterData } from "../../Components/Forms/RegisterForm/validator";
-import { TSaleUserSeller } from "../CarContext/@types";
+import { TSaleUserSeller, TUserSales } from "../CarContext/@types";
 
 type TUserProvidersProps = {
   children: ReactNode;
@@ -19,8 +19,10 @@ type TUserContext = {
   changeUserAddress: (data: TAddressPartial) => Promise<void>;
   retrieveProfileViewUser: (
     id: string,
-    setState: React.Dispatch<React.SetStateAction<TUser | null>>
+    setState: React.Dispatch<React.SetStateAction<TUser | null>>,
+    setState2: React.Dispatch<React.SetStateAction<TUserSales[]>>
   ) => Promise<void>;
+  userSales: TUserSales[];
 };
 
 type TUserMail = {
@@ -71,7 +73,6 @@ type TUser = {
   role: "seller" | "buyer";
   userImage?: string;
   address: TAddress;
-  sales?: TSaleUserSeller[];
   created_at: string;
 };
 

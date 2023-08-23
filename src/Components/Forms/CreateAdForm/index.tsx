@@ -223,7 +223,7 @@ const CreateAd = () => {
             $width={7}
             onClick={closeModal}
           >
-            Excluir anúncio
+            Cancelar
           </Button>
           <Button
             type="submit"
