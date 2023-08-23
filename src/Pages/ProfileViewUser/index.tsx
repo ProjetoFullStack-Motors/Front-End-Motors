@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 import { useEffect, useState } from "react";
 import { TJwtDecode, TUser } from "../../Providers/UserContext/@types";
 import { useParams } from "react-router-dom";
+import UserSalePagination from "../../Components/UserSalePagination";
 
 const ProfileViewUser = () => {
   const { id } = useParams();
@@ -21,6 +22,14 @@ const ProfileViewUser = () => {
     }
     retrieveProfileViewUser(id!, setProfileUser);
   }, []);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const salesPerPage = 12;
+
+  const indexOfLastSale = currentPage * salesPerPage;
+  const indexOfFirstSale = indexOfLastSale - salesPerPage;
+  const currentSales = user?.sales?.slice(indexOfFirstSale, indexOfLastSale);
+  const pageNumbers = Math.ceil(user?.sales?.length! / salesPerPage);
 
   return (
     <StyledDashboardPage>
@@ -44,8 +53,13 @@ const ProfileViewUser = () => {
         <div className="sales-container">
           <h2>Anúncios</h2>
           <div className="sales-list-container">
-            <SalesList owner={user?.role!} sales={ProfileUser?.sales!} />
+            <SalesList owner={user?.role!} sales={currentSales!} />
           </div>
+          <UserSalePagination
+            currentPage={currentPage}
+            pageNumbers={pageNumbers}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
       <Footer />
