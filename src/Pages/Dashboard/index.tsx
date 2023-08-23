@@ -9,14 +9,16 @@ import { useUserContext, useModal } from "../../Hooks";
 import { SalesList } from "../../Components";
 import { StyledDashboardPage } from "./style";
 import jwt_decode from "jwt-decode";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { TJwtDecode } from "../../Providers/UserContext/@types";
 import { createPortal } from "react-dom";
+import UserSalePagination from "../../Components/UserSalePagination";
 
 const Dashboard = () => {
   const { setModal } = useModal();
 
   const { user, retrieveUser } = useUserContext();
+
   useEffect(() => {
     const token = localStorage.getItem("frontEndMotors:token");
 
@@ -26,6 +28,14 @@ const Dashboard = () => {
       retrieveUser(tokenDecoded.userId);
     }
   }, []);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const salesPerPage = 12;
+
+  const indexOfLastSale = currentPage * salesPerPage;
+  const indexOfFirstSale = indexOfLastSale - salesPerPage;
+  const currentSales = user?.sales?.slice(indexOfFirstSale, indexOfLastSale);
+  const pageNumbers = Math.ceil(user?.sales?.length! / salesPerPage);
 
   return (
     <StyledDashboardPage>
@@ -51,8 +61,7 @@ const Dashboard = () => {
             <div className="seller-button-container">
               <button
                 className="seller-button"
-                onClick={() => setModal("Criar anúncio")}
-              >
+                onClick={() => setModal("Criar anúncio")}>
                 Criar Anúncio
               </button>
             </div>
@@ -62,8 +71,14 @@ const Dashboard = () => {
         <div className="sales-container">
           <h2>Anúncios</h2>
           <div className="sales-list-container">
-            <SalesList owner={user?.role!} sales={user?.sales!} />
+            <SalesList owner={user?.role!} sales={currentSales!} />
           </div>
+
+          <UserSalePagination
+            currentPage={currentPage}
+            pageNumbers={pageNumbers}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
       {createPortal(
