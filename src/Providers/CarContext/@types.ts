@@ -140,9 +140,18 @@ type TCreateSaleAdRegister = {
   salesImages: TImageSalesAd[];
 };
 
+type TUserOwnerSale = {
+  description: string,
+  firstName: string,
+  id: string,
+  lastName: string,
+  userImage: string,
+};
+
 type TUserSales = {
   id: string;
   created_at: string;
+  user: TUserOwnerSale;
 } & TCreateSaleAdRegister;
 
 interface ISale extends TCreateSaleAdRegister {
