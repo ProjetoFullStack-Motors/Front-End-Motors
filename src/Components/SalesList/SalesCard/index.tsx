@@ -1,13 +1,12 @@
 import { StyledSalesCard } from "./style";
 import { UserAvatar, ImgSwiper } from "../..";
 import { TSaleCardProps } from "./@types";
-import { useCarContext, useModal, useUserContext } from "../../../Hooks";
+import { useCarContext, useModal } from "../../../Hooks";
 import { useNavigate } from "react-router-dom";
 
 const SalesCard = ({ sale, owner }: TSaleCardProps) => {
   const { convertStr } = useCarContext();
   const { setModal } = useModal();
-  const { user } = useUserContext();
   const {
     brand,
     model,
@@ -17,6 +16,7 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
     price,
     description,
     salesImages,
+    user,
   } = sale;
 
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
           <div className="seller-info-container">
             <UserAvatar
               img={user.userImage}
-              username={`${user.firstName} ${user.lastName}`}
+              username={`${sale.user.firstName} ${sale.user.lastName}`}
             />
             <h3 className="seller-title">{`${user.firstName} ${user.lastName}`}</h3>
           </div>
