@@ -195,12 +195,16 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
   ) => {
     const token = localStorage.getItem("frontEndMotors:token") || null;
     try {
-      await api.patch(`/users/${id}`, data, {
+      const response = await api.patch(`/users/update/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       setUser({ ...user!, ...data });
+      setUserName({
+        firstName: response.data.firstName,
+        lastName: response.data.lastName,
+      });
 
       toast.success("Perfil atualizado com sucesso");
     } catch (error) {
@@ -210,6 +214,21 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
   };
 
   useEffect(() => {}, [user]);
+
+  const deleteUserProfile = async (id: string) => {
+    const token = localStorage.getItem("frontEndMotors:token") || null;
+    try {
+      await api.delete(`/users/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      logoutUser();
+    } catch (error) {
+      console.log(error);
+      toast.error("Não foi possível excluir sua conta");
+    }
+  };
 
   return (
     <UserContext.Provider
@@ -231,6 +250,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
         pagesAmount,
         setUserSales,
         updateUserInformation,
+        deleteUserProfile,
       }}
     >
       {children}
