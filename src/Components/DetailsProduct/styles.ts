@@ -87,7 +87,7 @@ const StyledDivContainer = styled.div`
       }
 
       .descriptonCar {
-        height: 300px;
+        height: auto;
         padding: 28px;
         border-radius: var(--input-border);
         background-color: var(--grey-10);
@@ -109,7 +109,7 @@ const StyledDivContainer = styled.div`
     }
 
     .detailsSeller {
-      height: 398px;
+      height: auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -166,6 +166,7 @@ const StyledDivContainer = styled.div`
         .descriptonCar {
           padding-left: 44px;
           padding-right: 44px;
+          height: 300px;
         }
       }
     }
@@ -187,6 +188,7 @@ const StyledDivContainer = styled.div`
       .detailsSeller {
         padding-left: 44px;
         padding-right: 44px;
+        height: 398px;
       }
     }
   }
