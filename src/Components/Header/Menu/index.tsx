@@ -3,15 +3,11 @@ import ProfileSettings from "./ProfileSettings";
 import { StyledMenu } from "./style";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaBars } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
 import AccessButtons from "./AccessButtons";
 import { useOutClick, useUserContext } from "../../../Hooks";
 
 const Menu = () => {
   const [open, setOpen] = useState(false);
-
-  const location = useLocation();
-  const { pathname } = location;
 
   const { user } = useUserContext();
 
