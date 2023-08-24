@@ -9,7 +9,7 @@ import { StyledButtonsContainer, StyledEditProfileForm } from "./style";
 import InputPass from "../../Inputs/InputsPass";
 
 const EditOrDeleteProfileForm = () => {
-  const { user } = useUserContext();
+  const { user, updateUserInformation } = useUserContext();
 
   const { setModal, closeModal } = useModal();
 
@@ -28,6 +28,10 @@ const EditOrDeleteProfileForm = () => {
     const cleanedData = Object.fromEntries(
       Object.entries(data).filter(([key, value]) => value !== "")
     );
+
+    updateUserInformation(user?.id!, cleanedData);
+
+    closeModal();
   };
 
   return (
@@ -35,11 +39,18 @@ const EditOrDeleteProfileForm = () => {
       <h2>Informações pessoais</h2>
       <form onSubmit={handleSubmit(onSubmitForm)}>
         <Input
-          id="name"
-          label="Nome"
-          {...register("name")}
-          placeholder={`${user?.firstName} ${user?.lastName}`}
-          errors={errors.name}
+          id="firstName"
+          label="Primeiro Nome"
+          {...register("firstName")}
+          placeholder={`${user?.firstName}`}
+          errors={errors.firstName}
+        />
+        <Input
+          id="lastName"
+          label="Sobrenome"
+          {...register("lastName")}
+          placeholder={`${user?.lastName}`}
+          errors={errors.lastName}
         />
         <Input
           id="email"

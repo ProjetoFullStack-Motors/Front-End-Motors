@@ -10,6 +10,7 @@ import {
   TJwtDecode,
   TAddressResponse,
   TAddressPartial,
+  TUpdateUserPartial,
 } from "./@types";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -77,7 +78,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
 
   const retrieveUser = async (id: string) => {
     try {
-      const response = await api.get(`salesAd/users/${id}`);
+      const response = await api.get(`/salesAd/users/${id}`);
       setUserName({
         firstName: response.data.user.firstName,
         lastName: response.data.user.lastName,
@@ -105,7 +106,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     setState2: React.Dispatch<React.SetStateAction<TUserSales[]>>
   ) => {
     try {
-      const response = await api.get(`salesAd/users/${id}`);
+      const response = await api.get(`/salesAd/users/${id}`);
       setState(response.data.user);
       setState2(response.data.data);
       const { prevPage, count, nextPage } = response.data;
@@ -188,6 +189,28 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     } catch (error) {}
   };
 
+  const updateUserInformation = async (
+    id: string,
+    data: TUpdateUserPartial
+  ) => {
+    const token = localStorage.getItem("frontEndMotors:token") || null;
+    try {
+      await api.patch(`/users/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUser({ ...user!, ...data });
+
+      toast.success("Perfil atualizado com sucesso");
+    } catch (error) {
+      console.log(error);
+      toast.error("Não foi possível atualizar o perfil");
+    }
+  };
+
+  useEffect(() => {}, [user]);
+
   return (
     <UserContext.Provider
       value={{
@@ -207,6 +230,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
         nextPage,
         pagesAmount,
         setUserSales,
+        updateUserInformation,
       }}
     >
       {children}
