@@ -5,9 +5,11 @@ import { TSaleContainerProps } from "../SaleContainer/@types";
 import ListImages from "../SaleContainer/ListImages";
 import { SalesComments } from "..";
 import { useNavigate } from "react-router-dom";
+import { useCarContext } from "../../Hooks";
 
 const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
   const navigate = useNavigate();
+  const { convertStr } = useCarContext();
 
   return (
     <>
@@ -19,7 +21,7 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
           <section className="boxInfoCar">
             <div className="infoCar">
               <h2>
-                {saleFounded.brand} {saleFounded.model}
+                {convertStr(saleFounded.brand)} {convertStr(saleFounded.model)}
               </h2>
 
               <div className="price">
@@ -28,15 +30,14 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
                   <span>{saleFounded.mileage} KM</span>
                 </div>
 
-                <p>R$ {saleFounded.price}</p>
+                <p>R$ {saleFounded.price.toFixed(2)}</p>
               </div>
 
               <Button
                 className="btnEntrar"
                 $background="brand-2"
                 $width={1}
-                type="button"
-              >
+                type="button">
                 Comprar
               </Button>
             </div>
@@ -66,8 +67,7 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
             <Button
               onClick={() =>
                 navigate(`/ProfileViewUser/${saleFounded.user.id}`)
-              }
-            >
+              }>
               Ver todos anúncios
             </Button>
           </section>
