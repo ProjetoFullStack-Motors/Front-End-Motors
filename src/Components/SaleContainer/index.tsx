@@ -1,4 +1,4 @@
-import { Navigation } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import { TSaleContainerProps } from "./@types";
 import { StyleSaleContainer, StyleSwiper } from "./style";
 import { SwiperSlide } from "swiper/react";
@@ -9,8 +9,9 @@ const SaleContainer = ({ saleFounded }: TSaleContainerProps) => {
       <div className="sale__container">
         <StyleSwiper
           slidesPerView={1}
-          modules={[Navigation]}
+          modules={[Navigation, Autoplay]}
           navigation={{ enabled: true, hideOnClick: true }}
+          autoplay={{ delay: 2000, disableOnInteraction: false, pauseOnMouseEnter: true }}
           loop>
           <ul className="sale__image--container">
             {saleFounded.salesImages.map((img) => (
