@@ -6,6 +6,7 @@ import { useModal, useUserContext } from "../../../Hooks";
 import { useForm } from "react-hook-form";
 import { TEditAddress, editAddressSchema } from "./validator";
 import { zodResolver } from "@hookform/resolvers/zod";
+import TRequestAddress from "./@types";
 
 const EditAddressForm = () => {
   const { user, changeUserAddress } = useUserContext();
@@ -20,11 +21,11 @@ const EditAddressForm = () => {
   });
 
   const onSubmitForm = (data: TEditAddress) => {
-    const cleanedData: TEditAddress = Object.fromEntries(
+    const cleanedData: TRequestAddress = Object.fromEntries(
       Object.entries(data).filter(([key, value]) => value !== "")
     );
 
-    cleanedData?.addressNumber ? Number(cleanedData.addressNumber) : null;
+    cleanedData.addressNumber = Number(data.addressNumber);
 
     cleanedData ? changeUserAddress(cleanedData) : null;
   };

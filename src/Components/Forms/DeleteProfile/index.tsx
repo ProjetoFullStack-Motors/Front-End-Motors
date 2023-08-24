@@ -1,9 +1,15 @@
-import { useModal } from "../../../Hooks";
+import { useModal, useUserContext } from "../../../Hooks";
 import Button from "../../Buttons/index";
 import { StyledDeleteModalButtons, StyledDeleteProfileModal } from "./style";
 
 const DeleteProfileModal = () => {
   const { closeModal } = useModal();
+  const { deleteUserProfile, user } = useUserContext();
+
+  const deleteFunction = async () => {
+    await deleteUserProfile(user?.id!);
+    closeModal();
+  };
 
   return (
     <StyledDeleteProfileModal>
@@ -23,7 +29,13 @@ const DeleteProfileModal = () => {
         >
           Cancelar
         </Button>
-        <Button $background="alert-2" $color="alert-1" type="submit" $width={4}>
+        <Button
+          $background="alert-2"
+          $color="alert-1"
+          type="submit"
+          $width={4}
+          onClick={deleteFunction}
+        >
           Sim, excluir meu perfil
         </Button>
       </StyledDeleteModalButtons>

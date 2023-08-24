@@ -35,6 +35,7 @@ type TUserContext = {
     id: string,
     data: TUpdateUserPartial
   ) => Promise<void>;
+  deleteUserProfile: (id: string) => Promise<void>;
 };
 
 type TUserMail = {
