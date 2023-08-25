@@ -28,6 +28,8 @@ const EditAddressForm = () => {
     cleanedData.addressNumber = Number(data.addressNumber);
 
     cleanedData ? changeUserAddress(cleanedData) : null;
+
+    closeModal();
   };
 
   return (
