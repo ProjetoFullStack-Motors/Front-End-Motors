@@ -34,12 +34,13 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
                 <p>R$ {saleFounded.price.toFixed(2)}</p>
               </div>
 
-              {user && user.role === "buyer" && (
+              {user && user.role === "buyer" ? (
                 <Button
                   className="btnEntrar"
                   $background="brand-2"
                   $width={1}
                   type="button"
+                  title="Clicando aqui você será redirecionado para o whatsapp do anunciante"
                   onClick={() =>
                     window.open(
                       `https://api.whatsapp.com/send?phone=+55${
@@ -58,7 +59,16 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
                   }>
                   Comprar
                 </Button>
-              )}
+              ) : !user ? (
+                <Button
+                  className="btnEntrar"
+                  $background="brand-2"
+                  $width={1}
+                  type="button"
+                  onClick={() => navigate("/register")}>
+                  Comprar
+                </Button>
+              ) : null}
             </div>
 
             <div className="descriptonCar">

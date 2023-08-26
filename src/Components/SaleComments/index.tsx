@@ -3,9 +3,12 @@ import { comments } from "./mock";
 import { useUserContext } from "../../Hooks";
 import SaleCommentCard from "./SaleCommentCard";
 import { Button, UserAvatar } from "../index";
+import { useNavigate } from "react-router-dom";
 
 const SaleComments = () => {
   const { user } = useUserContext();
+
+  const navigate = useNavigate();
 
   const postSuggestions = [
     "Gostei muito!",
@@ -23,7 +26,7 @@ const SaleComments = () => {
           ))}
         </ul>
       </div>
-      {user && (
+      {user ? (
         <div className="comments-post">
           <div className="user-header">
             <UserAvatar
@@ -36,6 +39,27 @@ const SaleComments = () => {
           <div className="message-container">
             <textarea className="message-area"></textarea>
             <Button className="post-button">Comentar</Button>
+          </div>
+          <div className="message-suggestions">
+            {postSuggestions.map((suggestion, index) => (
+              <span key={index}>{suggestion}</span>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="comments-post">
+          <div className="user-header">
+            <UserAvatar username={`Sem Cadastro`} />
+            <h3 className="username">{`Usuário sem cadastro`}</h3>
+          </div>
+
+          <div className="message-container">
+            <textarea className="message-area"></textarea>
+            <Button
+              className="post-button"
+              onClick={() => navigate("/register")}>
+              Comentar
+            </Button>
           </div>
           <div className="message-suggestions">
             {postSuggestions.map((suggestion, index) => (
