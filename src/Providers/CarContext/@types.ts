@@ -114,6 +114,8 @@ type TCarContextProps = {
   isGoodPrice: (price: number, fipePrice: number) => boolean;
   setModel: React.Dispatch<React.SetStateAction<TBrandModel | null>>;
   setModels: React.Dispatch<React.SetStateAction<[] | TBrandModel[]>>;
+  saleFounded: ISale | null; 
+  setSaleFounded: React.Dispatch<React.SetStateAction<ISale | null>>;
 };
 
 type TPaginateSalesAdResponse = {

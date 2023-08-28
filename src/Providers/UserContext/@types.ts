@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { TLoginData } from "../../Components/Forms/LoginForm/validator";
 import { TUserRegisterData } from "../../Components/Forms/RegisterForm/validator";
-import { TSaleUserSeller, TUserSales } from "../CarContext/@types";
+import { TUserSales } from "../CarContext/@types";
 
 type TUserProvidersProps = {
   children: ReactNode;

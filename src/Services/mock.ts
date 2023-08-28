@@ -1,4 +1,4 @@
-import { TSaleProps } from "../Providers/CarContext/@types";
+// import { TSaleProps } from "../Providers/CarContext/@types";
 
 /* eslint-disable indent */
 const mock = [
