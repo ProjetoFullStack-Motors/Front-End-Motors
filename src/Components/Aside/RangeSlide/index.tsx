@@ -1,6 +1,5 @@
 import { Slider } from "@mui/material";
 import { TRangeSlideProps } from "./@types";
-import mock from "../../../Services/mock";
 import { StyledSlider } from "./style";
 import { useCarContext } from "../../../Hooks";
 
@@ -24,7 +23,7 @@ const RangeSlide = ({
       </div>
       <Slider
         value={sliderValue.map((number: number) => Number(number))}
-        onChange={(event, newValue) => handleSliderChange(newValue, itemKey)}
+        onChange={(_event, newValue) => handleSliderChange(newValue, itemKey)}
         valueLabelDisplay="auto"
         step={stepValue}
         min={min}
