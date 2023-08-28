@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { api } from "../../Services/api";
 import { useParams } from "react-router-dom";
-import { ISale } from "../../Providers/CarContext/@types";
 import { Header } from "../../Components";
 import StyledMainContainer from "./style";
 import DetailsProduct from "../../Components/DetailsProduct";
+import { CarContext } from "../../Providers";
 
 const Sale = () => {
     const { id } = useParams();
-    const [saleFounded, setSaleFounded] = useState<ISale | null>(null);
+    const {setSaleFounded, saleFounded} = useContext(CarContext)
 
     useEffect(() => {
         const getSale = async () => {

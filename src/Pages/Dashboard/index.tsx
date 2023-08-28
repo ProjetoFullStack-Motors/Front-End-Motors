@@ -9,7 +9,7 @@ import { useUserContext, useModal } from "../../Hooks";
 import { SalesList } from "../../Components";
 import { StyledDashboardPage } from "./style";
 import jwt_decode from "jwt-decode";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { TJwtDecode } from "../../Providers/UserContext/@types";
 import { createPortal } from "react-dom";
 import UserSalePagination from "../../Components/UserSalePagination";

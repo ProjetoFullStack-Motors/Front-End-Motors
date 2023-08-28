@@ -22,7 +22,7 @@ const EditAddressForm = () => {
 
   const onSubmitForm = (data: TEditAddress) => {
     const cleanedData: TRequestAddress = Object.fromEntries(
-      Object.entries(data).filter(([key, value]) => value !== "")
+      Object.entries(data).filter(([_key, value]) => value !== "")
     );
 
     cleanedData.addressNumber = Number(data.addressNumber);
