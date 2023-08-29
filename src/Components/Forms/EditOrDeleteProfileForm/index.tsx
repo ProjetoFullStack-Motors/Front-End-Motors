@@ -26,7 +26,7 @@ const EditOrDeleteProfileForm = () => {
 
   const onSubmitForm = (data: TEditProfile) => {
     const cleanedData = Object.fromEntries(
-      Object.entries(data).filter(([key, value]) => value !== "")
+      Object.entries(data).filter(([_key, value]) => value !== "")
     );
 
     updateUserInformation(user?.id!, cleanedData);

@@ -1,5 +1,4 @@
 import { Avatar } from "@mui/material";
-import useStyles from "./style";
 
 type TUserAvatarProps = {
   img?: string;

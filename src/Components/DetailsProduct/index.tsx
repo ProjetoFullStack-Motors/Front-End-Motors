@@ -34,18 +34,41 @@ const DetailsProduct = ({ saleFounded }: TSaleContainerProps) => {
                 <p>R$ {saleFounded.price.toFixed(2)}</p>
               </div>
 
-              {user && user.role === "buyer" && (
+              {user && user.role === "buyer" ? (
                 <Button
                   className="btnEntrar"
                   $background="brand-2"
                   $width={1}
                   type="button"
+                  title="Clicando aqui você será redirecionado para o whatsapp do anunciante"
                   onClick={() =>
-                    (window.location.href = `https://api.whatsapp.com/send?phone=+55${saleFounded.user.cellphone}&text=Ol%C3%A1%2C%20venho%20por%20meio%20do%20seu%20portf%C3%B3lio%20na%20internet%2C%20gostaria%20de%20conhecer%20melhor%20seus%20servi%C3%A7os`)
+                    window.open(
+                      `https://api.whatsapp.com/send?phone=+55${
+                        saleFounded.user.cellphone
+                      }&text=Venho%20por%20meio%20do%20seu%20an%C3%BAncio%20na%20plataforma%20Kenzie%20Motors.%20O%20${convertStr(
+                        saleFounded.brand
+                      )}%20${convertStr(
+                        saleFounded.model
+                      )}%20ano%20${convertStr(
+                        saleFounded.year
+                      )}%20no%20valor%20de%20R$${saleFounded.price.toFixed(
+                        2
+                      )}.`,
+                      "_blank"
+                    )
                   }>
                   Comprar
                 </Button>
-              )}
+              ) : !user ? (
+                <Button
+                  className="btnEntrar"
+                  $background="brand-2"
+                  $width={1}
+                  type="button"
+                  onClick={() => navigate("/register")}>
+                  Comprar
+                </Button>
+              ) : null}
             </div>
 
             <div className="descriptonCar">

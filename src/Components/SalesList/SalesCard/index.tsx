@@ -46,7 +46,7 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
           <div className="seller-info-container">
             <UserAvatar
               img={user.userImage}
-              username={`${sale.user.firstName} ${sale.user.lastName}`}
+              username={`${sale.user!.firstName} ${sale.user!.lastName}`}
             />
             <h3 className="seller-title">{`${user.firstName} ${user.lastName}`}</h3>
           </div>

@@ -1,5 +1,6 @@
 import { createContext, useEffect, useReducer, useState } from "react";
 import {
+  ISale,
   TAsideValues,
   TBrandModel,
   TCarAction,
@@ -14,7 +15,7 @@ import {
 import { api, apiFipe } from "../../Services/api";
 import { toast } from "react-toastify";
 import axios, { AxiosResponse } from "axios";
-import { useUserContext } from "../../Hooks";
+// import { useUserContext } from "../../Hooks";
 
 const CarContext = createContext({} as TCarContextProps);
 
@@ -34,8 +35,9 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [model, setModel] = useState<TBrandModel | null>(null);
+  const [saleFounded, setSaleFounded] = useState<ISale | null>(null);
 
-  const { user, setUser } = useUserContext();
+  // const { user, setUser } = useUserContext();
 
   useEffect(() => {
     const asideValues = async () => {
@@ -282,10 +284,18 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
 
       toast.success("Anúncio criado com sucesso");
 
-      setUser({
-        ...user!,
-        sales: [...user!.sales!, salesAd.data],
-      });
+      // setUser({
+      //   ...user!,
+      //   sales: [...user!.sales!, salesAd.data],
+      // });
+
+      setSaleFounded({
+        ...saleFounded!,
+        ...salesAd
+      })
+      
+      window.location.reload();
+
     } catch (error) {
       console.log(error);
       toast.error("Nào foi possível criar um novo anúncio");
@@ -338,6 +348,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         isGoodPrice,
         setModel,
         setModels,
+        saleFounded, 
+        setSaleFounded
       }}
     >
       {children}

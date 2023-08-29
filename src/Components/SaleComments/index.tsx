@@ -4,8 +4,10 @@ import SaleCommentCard from "./SaleCommentCard";
 import { Button, UserAvatar } from "../index";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SaleComments = () => {
+    const navigate = useNavigate();
     const { user, comments, readCommentSaleAd } = useUserContext();
     const [defaultComment, setDefautComment] = useState<string>("");
     const { id } = useParams();
@@ -40,35 +42,43 @@ const SaleComments = () => {
                     </ul>
                 )}
             </div>
-            {user && (
-                <div className="comments-post">
-                    <div className="user-header">
-                        <UserAvatar
-                            username={`${user?.firstName} ${user?.lastName}`}
-                            img={user?.userImage}
-                        />
-                        <h3 className="username">{`${user?.firstName} ${user?.lastName}`}</h3>
-                    </div>
 
-                    <form className="message-container">
-                        <textarea
-                            className="message-area"
-                            defaultValue={defaultComment}
-                        ></textarea>
-                        <Button className="post-button">Comentar</Button>
-                    </form>
-                    <div className="message-suggestions">
-                        {postSuggestions.map((suggestion, index) => (
-                            <span
-                                key={index}
-                                onClick={() => setDefautComment(suggestion)}
-                            >
-                                {suggestion}
-                            </span>
-                        ))}
-                    </div>
+            <div className="comments-post">
+                <div className="user-header">
+                    <UserAvatar
+                        username={`${user?.firstName} ${user?.lastName}`}
+                        img={user?.userImage}
+                    />
+                    <h3 className="username">{`${user?.firstName} ${user?.lastName}`}</h3>
                 </div>
-            )}
+
+                <form className="message-container">
+                    <textarea
+                        className="message-area"
+                        defaultValue={defaultComment}
+                    ></textarea>
+                    {user ? (
+                        <Button className="post-button">Comentar</Button>
+                    ) : (
+                        <Button
+                            className="post-button"
+                            onClick={() => navigate("/register")}
+                        >
+                            Comentar
+                        </Button>
+                    )}
+                </form>
+                <div className="message-suggestions">
+                    {postSuggestions.map((suggestion, index) => (
+                        <span
+                            key={index}
+                            onClick={() => setDefautComment(suggestion)}
+                        >
+                            {suggestion}
+                        </span>
+                    ))}
+                </div>
+            </div>
         </StyledSaleComments>
     );
 };
