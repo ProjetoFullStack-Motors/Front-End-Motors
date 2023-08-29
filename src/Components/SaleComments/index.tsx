@@ -1,51 +1,76 @@
 import { StyledSaleComments } from "./style";
-import { comments } from "./mock";
 import { useUserContext } from "../../Hooks";
 import SaleCommentCard from "./SaleCommentCard";
 import { Button, UserAvatar } from "../index";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const SaleComments = () => {
-  const { user } = useUserContext();
+    const { user, comments, readCommentSaleAd } = useUserContext();
+    const [defaultComment, setDefautComment] = useState<string>("");
+    const { id } = useParams();
 
-  const postSuggestions = [
-    "Gostei muito!",
-    "Incrível",
-    "Recomendarei para meus amigos!",
-  ];
+    useEffect(() => {
+        readCommentSaleAd(id!);
+    }, []);
 
-  return (
-    <StyledSaleComments>
-      <div className="comments-section">
-        <h2>Comentários</h2>
-        <ul className="comments-list">
-          {comments.map((comment) => (
-            <SaleCommentCard comment={comment} key={comment.created_at} />
-          ))}
-        </ul>
-      </div>
-      {user && (
-        <div className="comments-post">
-          <div className="user-header">
-            <UserAvatar
-              username={`${user?.firstName} ${user?.lastName}`}
-              img={user?.userImage}
-            />
-            <h3 className="username">{`${user?.firstName} ${user?.lastName}`}</h3>
-          </div>
+    const postSuggestions = [
+        "Gostei muito!",
+        "Incrível",
+        "Recomendarei para meus amigos!",
+    ];
 
-          <div className="message-container">
-            <textarea className="message-area"></textarea>
-            <Button className="post-button">Comentar</Button>
-          </div>
-          <div className="message-suggestions">
-            {postSuggestions.map((suggestion, index) => (
-              <span key={index}>{suggestion}</span>
-            ))}
-          </div>
-        </div>
-      )}
-    </StyledSaleComments>
-  );
+    return (
+        <StyledSaleComments>
+            <div className="comments-section">
+                <h2>Comentários</h2>
+                {comments.length == 0 ? (
+                    <p>
+                        Esse anúncio ainda não possui nenhum comentário, seja o
+                        primeiro a comentar!
+                    </p>
+                ) : (
+                    <ul className="comments-list">
+                        {comments.map((comment) => (
+                            <SaleCommentCard
+                                comment={comment}
+                                key={comment.created_at}
+                            />
+                        ))}
+                    </ul>
+                )}
+            </div>
+            {user && (
+                <div className="comments-post">
+                    <div className="user-header">
+                        <UserAvatar
+                            username={`${user?.firstName} ${user?.lastName}`}
+                            img={user?.userImage}
+                        />
+                        <h3 className="username">{`${user?.firstName} ${user?.lastName}`}</h3>
+                    </div>
+
+                    <form className="message-container">
+                        <textarea
+                            className="message-area"
+                            defaultValue={defaultComment}
+                        ></textarea>
+                        <Button className="post-button">Comentar</Button>
+                    </form>
+                    <div className="message-suggestions">
+                        {postSuggestions.map((suggestion, index) => (
+                            <span
+                                key={index}
+                                onClick={() => setDefautComment(suggestion)}
+                            >
+                                {suggestion}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            )}
+        </StyledSaleComments>
+    );
 };
 
 export default SaleComments;
