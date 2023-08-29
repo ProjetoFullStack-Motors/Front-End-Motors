@@ -58,14 +58,15 @@ const SaleComments = () => {
       </div>
 
       <div className="comments-post">
-        <div className="user-header">
-          <UserAvatar
-            username={`${user?.firstName} ${user?.lastName}`}
-            img={user?.userImage}
-          />
-          <h3 className="username">{`${user?.firstName} ${user?.lastName}`}</h3>
-        </div>
-
+        {user && (
+          <div className="user-header">
+            <UserAvatar
+              username={`${user?.firstName} ${user?.lastName}`}
+              img={user?.userImage}
+            />
+            <h3 className="username">{`${user?.firstName} ${user?.lastName}`}</h3>
+          </div>
+        )}{" "}
         <form className="message-container" onSubmit={handleSubmit(onSubmit)}>
           <textarea
             className="message-area"
