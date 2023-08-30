@@ -13,7 +13,8 @@ type TModalOptions =
   | "Imagem do veículo"
   | "Editar perfil"
   | "Editar endereço"
-  | "Excluir perfil";
+  | "Excluir perfil"
+  | "Editar comentário";
 
 type TModalContextValues = {
   modal: TModalOptions;

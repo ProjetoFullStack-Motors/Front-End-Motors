@@ -15,6 +15,10 @@ import {
 import { api, apiFipe } from "../../Services/api";
 import { toast } from "react-toastify";
 import axios, { AxiosResponse } from "axios";
+import {
+  TComment,
+  TCreateComment,
+} from "../../Components/SaleComments/validator";
 // import { useUserContext } from "../../Hooks";
 
 const CarContext = createContext({} as TCarContextProps);
@@ -36,6 +40,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   const [selectedModel, setSelectedModel] = useState("");
   const [model, setModel] = useState<TBrandModel | null>(null);
   const [saleFounded, setSaleFounded] = useState<ISale | null>(null);
+  const [comment, setComment] = useState<TComment | null>(null);
+  const [changeComment, setChangeComment] = useState(false);
 
   // const { user, setUser } = useUserContext();
 
@@ -291,11 +297,10 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
 
       setSaleFounded({
         ...saleFounded!,
-        ...salesAd
-      })
-      
-      window.location.reload();
+        ...salesAd,
+      });
 
+      window.location.reload();
     } catch (error) {
       console.log(error);
       toast.error("Nào foi possível criar um novo anúncio");
@@ -307,6 +312,42 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
       return true;
     } else {
       return false;
+    }
+  };
+
+  const createCommentSaleAd = async (id: string, data: TCreateComment) => {
+    const token = localStorage.getItem("frontEndMotors:token") || null;
+
+    try {
+      await api.post(`/comments/salesAd/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setChangeComment(!changeComment);
+      toast.success("Comentário adicionado");
+    } catch (error) {
+      console.log(error);
+      toast.error("Não foi possível realizar um comentário");
+    }
+  };
+
+  const editCommentSaleAd = async (id: string, data: TCreateComment) => {
+    const token = localStorage.getItem("frontEndMotors:token") || null;
+
+    try {
+      await api.patch(`/comments/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setChangeComment(!changeComment);
+      toast.success("Comentário editado com sucesso");
+    } catch (error) {
+      console.log(error);
+      toast.error("Não foi possível editar o comentário");
     }
   };
 
@@ -348,8 +389,13 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         isGoodPrice,
         setModel,
         setModels,
-        saleFounded, 
-        setSaleFounded
+        saleFounded,
+        setSaleFounded,
+        comment,
+        setComment,
+        createCommentSaleAd,
+        editCommentSaleAd,
+        changeComment,
       }}
     >
       {children}

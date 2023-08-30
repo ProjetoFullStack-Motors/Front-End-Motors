@@ -7,36 +7,36 @@ import DetailsProduct from "../../Components/DetailsProduct";
 import { CarContext } from "../../Providers";
 
 const Sale = () => {
-    const { id } = useParams();
-    const {setSaleFounded, saleFounded} = useContext(CarContext)
+  const { id } = useParams();
+  const { setSaleFounded, saleFounded, changeComment } = useContext(CarContext);
 
-    useEffect(() => {
-        const getSale = async () => {
-            try {
-                const { data } = await api.get(`/salesAd/${id}`);
+  useEffect(() => {
+    const getSale = async () => {
+      try {
+        const { data } = await api.get(`/salesAd/${id}`);
 
-                setSaleFounded(data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
+        setSaleFounded(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-        getSale();
-    }, []);
+    getSale();
+  }, [changeComment]);
 
-    return (
+  return (
+    <>
+      <Header />
+
+      {saleFounded && (
         <>
-            <Header />
-
-            {saleFounded && (
-                <>
-                    <StyledMainContainer>
-                        <DetailsProduct saleFounded={saleFounded}/>
-                    </StyledMainContainer>
-                </>
-            )}
+          <StyledMainContainer>
+            <DetailsProduct saleFounded={saleFounded} />
+          </StyledMainContainer>
         </>
-    );
+      )}
+    </>
+  );
 };
 
 export default Sale;
