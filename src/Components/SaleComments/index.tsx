@@ -2,7 +2,6 @@ import { StyledSaleComments } from "./style";
 import { useCarContext, useUserContext } from "../../Hooks";
 import SaleCommentCard from "./SaleCommentCard";
 import { Button, UserAvatar } from "../index";
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -13,7 +12,6 @@ const SaleComments = () => {
   const navigate = useNavigate();
   const { user } = useUserContext();
   const { createCommentSaleAd, saleFounded } = useCarContext();
-  const [defaultComment, setDefautComment] = useState<string>("");
   const { id } = useParams();
 
   const { comments } = saleFounded!;
@@ -72,7 +70,6 @@ const SaleComments = () => {
         <form className="message-container" onSubmit={handleSubmit(onSubmit)}>
           <textarea
             className="message-area"
-            defaultValue={defaultComment}
             {...register("comment")}
           ></textarea>
           {errors && errors.comment ? <p>{errors.comment.message}</p> : null}
