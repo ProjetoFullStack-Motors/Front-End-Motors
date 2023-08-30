@@ -8,7 +8,7 @@ const Textarea = forwardRef(
   ) => {
     return (
       <fieldset>
-        <label htmlFor={id}>{label}</label>
+        {label ? <label htmlFor={id}>{label}</label> : null}
         <textarea id={id} {...rest} ref={ref} />
         {errors ? <span>{errors.message}</span> : null}
       </fieldset>
