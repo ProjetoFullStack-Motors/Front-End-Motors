@@ -14,7 +14,8 @@ type TModalOptions =
   | "Editar perfil"
   | "Editar endereço"
   | "Excluir perfil"
-  | "Editar comentário";
+  | "Editar comentário"
+  | "Excluir comentário";
 
 type TModalContextValues = {
   modal: TModalOptions;

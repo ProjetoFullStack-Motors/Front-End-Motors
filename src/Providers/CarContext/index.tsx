@@ -351,6 +351,24 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     }
   };
 
+  const deleteCommentSaleAd = async (id: string) => {
+    const token = localStorage.getItem("frontEndMotors:token") || null;
+
+    try {
+      await api.delete(`/comments/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setChangeComment(!changeComment);
+      toast.success("Comentário deletado com sucesso");
+    } catch (error) {
+      console.log(error);
+      toast.error("Não foi possível excluir o comentário");
+    }
+  };
+
   return (
     <CarContext.Provider
       value={{
@@ -396,6 +414,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         createCommentSaleAd,
         editCommentSaleAd,
         changeComment,
+        deleteCommentSaleAd,
       }}
     >
       {children}
