@@ -3,6 +3,7 @@ import { TSaleCommentCardProps } from "./@types";
 import { UserAvatar } from "../../index";
 import { useCarContext, useModal, useUserContext } from "../../../Hooks";
 import { BiEdit } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
 
 const SaleCommentCard = ({ comment }: TSaleCommentCardProps) => {
   const date = new Date();
@@ -13,7 +14,10 @@ const SaleCommentCard = ({ comment }: TSaleCommentCardProps) => {
   const { setModal } = useModal();
   const { saleFounded, setComment } = useCarContext();
 
-  const openCommentModal = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const openCommentModal = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    title: "Editar comentário" | "Excluir comentário"
+  ) => {
     const commentId: string = event.currentTarget.id;
 
     const commentFound = saleFounded?.comments.find(
@@ -22,7 +26,7 @@ const SaleCommentCard = ({ comment }: TSaleCommentCardProps) => {
 
     commentFound ? setComment(commentFound) : null;
 
-    commentFound ? setModal("Editar comentário") : null;
+    commentFound ? setModal(title) : null;
   };
 
   return (
@@ -40,8 +44,19 @@ const SaleCommentCard = ({ comment }: TSaleCommentCardProps) => {
       <p className="comment-message">{comment.comment}</p>
       <div className="comment-buttons">
         {comment.user.id === user?.id ? (
-          <button id={comment.id} onClick={openCommentModal}>
+          <button
+            id={comment.id}
+            onClick={(event) => openCommentModal(event, "Editar comentário")}
+          >
             <BiEdit />
+          </button>
+        ) : null}
+        {comment.user.id === user?.id || saleFounded?.user.id === user?.id ? (
+          <button
+            id={comment.id}
+            onClick={(event) => openCommentModal(event, "Excluir comentário")}
+          >
+            <MdDelete />
           </button>
         ) : null}
       </div>
