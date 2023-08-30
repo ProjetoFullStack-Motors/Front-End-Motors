@@ -6,23 +6,17 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import {
-  TCommentsArray,
-  TCreateComment,
-  createCommentSchema,
-} from "./validator";
+import { TCreateComment, createCommentSchema } from "./validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-type TSaleCommentProps = {
-  comments: TCommentsArray;
-};
-
-const SaleComments = ({ comments }: TSaleCommentProps) => {
+const SaleComments = () => {
   const navigate = useNavigate();
   const { user } = useUserContext();
-  const { createCommentSaleAd } = useCarContext();
+  const { createCommentSaleAd, saleFounded } = useCarContext();
   const [defaultComment, setDefautComment] = useState<string>("");
   const { id } = useParams();
+
+  const { comments } = saleFounded!;
 
   const postSuggestions = [
     "Gostei muito!",
@@ -34,13 +28,17 @@ const SaleComments = ({ comments }: TSaleCommentProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<TCreateComment>({
     resolver: zodResolver(createCommentSchema),
+    defaultValues: {
+      comment: "",
+    },
   });
 
   const onSubmit = (data: { comment: string }) => {
     createCommentSaleAd(id!, data);
-    setDefautComment("");
+    setValue("comment", "");
   };
 
   return (
@@ -94,7 +92,7 @@ const SaleComments = ({ comments }: TSaleCommentProps) => {
         </form>
         <div className="message-suggestions">
           {postSuggestions.map((suggestion, index) => (
-            <span key={index} onClick={() => setDefautComment(suggestion)}>
+            <span key={index} onClick={() => setValue("comment", suggestion)}>
               {suggestion}
             </span>
           ))}
