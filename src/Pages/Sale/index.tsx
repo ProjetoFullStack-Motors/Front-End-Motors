@@ -8,7 +8,7 @@ import { CarContext } from "../../Providers";
 
 const Sale = () => {
   const { id } = useParams();
-  const { setSaleFounded, saleFounded } = useContext(CarContext);
+  const { setSaleFounded, saleFounded, changeComment } = useContext(CarContext);
 
   useEffect(() => {
     const getSale = async () => {
@@ -22,7 +22,7 @@ const Sale = () => {
     };
 
     getSale();
-  }, []);
+  }, [changeComment]);
 
   return (
     <>

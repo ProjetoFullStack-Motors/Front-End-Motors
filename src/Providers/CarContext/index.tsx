@@ -41,6 +41,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   const [model, setModel] = useState<TBrandModel | null>(null);
   const [saleFounded, setSaleFounded] = useState<ISale | null>(null);
   const [comment, setComment] = useState<TComment | null>(null);
+  const [changeComment, setChangeComment] = useState(false);
 
   // const { user, setUser } = useUserContext();
 
@@ -318,13 +319,13 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     const token = localStorage.getItem("frontEndMotors:token") || null;
 
     try {
-      const newComment = await api.post(`/comments/salesAd/${id}`, data, {
+      await api.post(`/comments/salesAd/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      saleFounded!.comments = [...saleFounded!.comments, newComment.data];
-      setSaleFounded(saleFounded);
+
+      setChangeComment(!changeComment);
       toast.success("Comentário adicionado");
     } catch (error) {
       console.log(error);
@@ -342,23 +343,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         },
       });
 
-      const updateComments = saleFounded!.comments.map((comment) => {
-        if (comment.id === id) {
-          comment = {
-            ...comment,
-            ...data,
-          };
-        } else {
-          comment = {
-            ...comment,
-          };
-        }
-
-        return comment;
-      });
-
-      saleFounded!.comments = updateComments;
-      setSaleFounded(saleFounded);
+      setChangeComment(!changeComment);
       toast.success("Comentário editado com sucesso");
     } catch (error) {
       console.log(error);
@@ -410,6 +395,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         setComment,
         createCommentSaleAd,
         editCommentSaleAd,
+        changeComment,
       }}
     >
       {children}

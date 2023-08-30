@@ -125,6 +125,7 @@ type TCarContextProps = {
   editCommentSaleAd: (id: string, data: TCreateComment) => Promise<void>;
   comment: TComment | null;
   setComment: React.Dispatch<React.SetStateAction<TComment | null>>;
+  changeComment: boolean;
 };
 
 type TPaginateSalesAdResponse = {
