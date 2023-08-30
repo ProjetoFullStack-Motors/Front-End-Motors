@@ -21,7 +21,6 @@ import axios, { AxiosError } from "axios";
 import { useModal } from "../../Hooks";
 import { TUserRegisterData } from "../../Components/Forms/RegisterForm/validator";
 import { TUserSales } from "../CarContext/@types";
-import { TCommentsArray } from "../../Components/SaleComments/validator";
 
 const UserContext = createContext({} as TUserContext);
 
@@ -34,7 +33,6 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
   const [previousPage, setPreviousPage] = useState<string | null>(null);
   const [nextPage, setNextPage] = useState<string | null>(null);
   const [pagesAmount, setPagesAmount] = useState(0);
-  const [comments, setComments] = useState<TCommentsArray | []>([]);
 
   const userLogin = async (data: TLoginData) => {
     try {
@@ -253,7 +251,6 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
         setUserSales,
         updateUserInformation,
         deleteUserProfile,
-        comments,
       }}
     >
       {children}

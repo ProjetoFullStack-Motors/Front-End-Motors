@@ -1,5 +1,5 @@
-import { TComment } from "../../../Providers/UserContext/@types";
+import { TComment } from "../validator";
 
 export type TSaleCommentCardProps = {
-    comment: TComment;
+  comment: TComment;
 };

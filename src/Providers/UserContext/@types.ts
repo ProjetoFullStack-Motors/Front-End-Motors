@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { TLoginData } from "../../Components/Forms/LoginForm/validator";
 import { TUserRegisterData } from "../../Components/Forms/RegisterForm/validator";
 import { TUserSales } from "../CarContext/@types";
-import { TCommentsArray } from "../../Components/SaleComments/validator";
 
 type TUserProvidersProps = {
   children: ReactNode;
@@ -37,7 +36,6 @@ type TUserContext = {
     data: TUpdateUserPartial
   ) => Promise<void>;
   deleteUserProfile: (id: string) => Promise<void>;
-  comments: TCommentsArray | [];
 };
 
 type TUserMail = {
