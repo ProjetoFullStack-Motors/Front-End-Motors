@@ -8,6 +8,7 @@ import EditAddressForm from "./Components/Forms/EditAddressForm";
 import EditOrDeleteProfileForm from "./Components/Forms/EditOrDeleteProfileForm";
 import { useModal } from "./Hooks";
 import DeleteProfileModal from "./Components/Forms/DeleteProfile";
+import EditCommentForm from "./Components/Forms/EditCommentForm";
 
 function App() {
   const { modal } = useModal();
@@ -51,6 +52,15 @@ function App() {
             <Modal title="Excluir perfil">
               {" "}
               <DeleteProfileModal />
+            </Modal>,
+            document.body
+          )
+        : null}
+      {modal && modal == "Editar comentário"
+        ? createPortal(
+            <Modal title="Editar comentário">
+              {" "}
+              <EditCommentForm />
             </Modal>,
             document.body
           )
