@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import LinkStyle from "../../Links";
 
 const SalesCard = ({ sale, owner }: TSaleCardProps) => {
-  const { convertStr } = useCarContext();
+  const { convertStr, setEditSale } = useCarContext();
   const { setModal } = useModal();
   const {
     id,
@@ -22,6 +22,12 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
   } = sale;
 
   const imgs = salesImages?.map((img) => img.imageUrl);
+
+  const setSaleForEdit = () => {
+    setEditSale(sale);
+
+    setModal("Editar anúncio");
+  };
 
   return (
     <StyledSalesCard>
@@ -64,7 +70,7 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
 
         <div className="sales-buttons-container">
           {owner == "seller" && (
-            <button onClick={() => setModal("Editar anúncio")}>Editar</button>
+            <button onClick={setSaleForEdit}>Editar</button>
           )}
           <LinkStyle
             className="details-sale-button"
