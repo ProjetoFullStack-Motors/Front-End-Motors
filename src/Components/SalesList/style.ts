@@ -7,12 +7,14 @@ export const StyledSalesList = styled.ul`
   overflow: scroll;
   overflow-wrap: normal;
   align-content: flex-start;
+  padding: 8px;
 
   @media (min-width: 1024px) {
     flex-wrap: wrap;
-    overflow: auto;
+    overflow-y: auto;
     max-width: 90%;
     width: 90%;
-    height: 100%;
+    height: 1680px;
+    justify-content: space-between;
   }
 `;
