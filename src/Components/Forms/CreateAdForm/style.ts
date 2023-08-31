@@ -3,6 +3,15 @@ import styled from "styled-components";
 const StyledCreateAd = styled.div`
   margin-top: 2rem;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  h2 {
+    font-size: var(--font-body-1);
+    color: var(--grey-0);
+    font-weight: var(--font-semibold);
+  }
 
   form {
     display: flex;
