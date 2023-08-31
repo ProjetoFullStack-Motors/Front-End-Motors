@@ -8,7 +8,6 @@ export const StyledSalesCard = styled.li`
   height: 21.875rem;
   transition: transform 0.5s;
   border-radius: 10px;
-  cursor: pointer;
   position: relative;
 
   &::after {
@@ -98,6 +97,7 @@ export const StyledSalesCard = styled.li`
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
   }
 
   .seller-title {

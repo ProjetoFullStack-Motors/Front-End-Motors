@@ -13,7 +13,8 @@ import { createPortal } from "react-dom";
 import { useCarContext } from "../../Hooks";
 
 const Home = () => {
-  const { filterModal, setFilterModal, filteredCars } = useCarContext();
+  const { filterModal, setFilterModal, filteredCars, allCars } =
+    useCarContext();
 
   return (
     <>
@@ -29,15 +30,14 @@ const Home = () => {
             $display={true}
             $width={5}
             $background="brand-2"
-            onClick={() => setFilterModal(true)}
-          >
+            onClick={() => setFilterModal(true)}>
             Filtros
           </Button>
         </ButtonContainerPosition>
 
         {filterModal && createPortal(<AsideMobile />, document.body)}
 
-        <ChangePage />
+        {allCars.length > 0 && <ChangePage />}
 
         <Footer />
       </StyledHomePage>

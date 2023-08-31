@@ -8,6 +8,7 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
   const { convertStr } = useCarContext();
   const { setModal } = useModal();
   const {
+    id,
     brand,
     model,
     year,
@@ -28,22 +29,20 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
       {isGoodPrice ? (
         <h4
           className="good-price-tag"
-          title="Essa oferta está 5% abaixo da tabela Fipe"
-        >
+          title="Essa oferta está 5% abaixo da tabela Fipe">
           $
         </h4>
       ) : null}
       <ImgSwiper imgs={imgs}></ImgSwiper>
-      <div
-        className="sales-info-container"
-        onClick={() => navigate(`/sale/${sale.id}`)}
-      >
+      <div className="sales-info-container">
         <h2 className="car-title">
           {convertStr(brand)} - {convertStr(model)}
         </h2>
         <p className="car-description">{description}</p>
         {user ? (
-          <div className="seller-info-container">
+          <div
+            className="seller-info-container"
+            onClick={() => navigate(`/ProfileViewUser/${user.id}`)}>
             <UserAvatar
               img={user.userImage}
               username={`${sale.user!.firstName} ${sale.user!.lastName}`}
@@ -64,14 +63,16 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
           </span>
         </div>
 
-        {!user ? (
-          <div className="sales-buttons-container">
-            {owner == "seller" && (
-              <button onClick={() => setModal("Editar anúncio")}>Editar</button>
-            )}
-            <button className="details-sale-button">Ver Detalhes</button>
-          </div>
-        ) : null}
+        <div className="sales-buttons-container">
+          {owner == "seller" && (
+            <button onClick={() => setModal("Editar anúncio")}>Editar</button>
+          )}
+          <button
+            className="details-sale-button"
+            onClick={() => navigate(`/sale/${id}`)}>
+            Ver Detalhes
+          </button>
+        </div>
       </div>
     </StyledSalesCard>
   );
