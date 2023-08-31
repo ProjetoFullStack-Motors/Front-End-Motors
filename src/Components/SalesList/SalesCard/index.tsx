@@ -5,7 +5,7 @@ import { useCarContext, useModal } from "../../../Hooks";
 import { useNavigate } from "react-router-dom";
 
 const SalesCard = ({ sale, owner }: TSaleCardProps) => {
-  const { convertStr } = useCarContext();
+  const { convertStr, setEditSale } = useCarContext();
   const { setModal } = useModal();
   const {
     id,
@@ -24,12 +24,19 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
 
   const imgs = salesImages?.map((img) => img.imageUrl);
 
+  const setSaleForEdit = () => {
+    setEditSale(sale);
+
+    setModal("Editar anúncio");
+  };
+
   return (
     <StyledSalesCard>
       {isGoodPrice ? (
         <h4
           className="good-price-tag"
-          title="Essa oferta está 5% abaixo da tabela Fipe">
+          title="Essa oferta está 5% abaixo da tabela Fipe"
+        >
           $
         </h4>
       ) : null}
@@ -42,7 +49,8 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
         {user ? (
           <div
             className="seller-info-container"
-            onClick={() => navigate(`/ProfileViewUser/${user.id}`)}>
+            onClick={() => navigate(`/ProfileViewUser/${user.id}`)}
+          >
             <UserAvatar
               img={user.userImage}
               username={`${sale.user!.firstName} ${sale.user!.lastName}`}
@@ -65,11 +73,12 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
 
         <div className="sales-buttons-container">
           {owner == "seller" && (
-            <button onClick={() => setModal("Editar anúncio")}>Editar</button>
+            <button onClick={setSaleForEdit}>Editar</button>
           )}
           <button
             className="details-sale-button"
-            onClick={() => navigate(`/sale/${id}`)}>
+            onClick={() => navigate(`/sale/${id}`)}
+          >
             Ver Detalhes
           </button>
         </div>

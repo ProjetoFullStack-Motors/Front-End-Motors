@@ -13,9 +13,11 @@ import { useEffect } from "react";
 import { TJwtDecode } from "../../Providers/UserContext/@types";
 import { createPortal } from "react-dom";
 import UserSalePagination from "../../Components/UserSalePagination";
+import EditAdForm from "../../Components/Forms/EditAdForm";
+import DeleteAdModal from "../../Components/Forms/DeleteAdModal";
 
 const Dashboard = () => {
-  const { setModal } = useModal();
+  const { setModal, modal } = useModal();
 
   const { user, retrieveUser, userSales, setUserSales } = useUserContext();
   useEffect(() => {
@@ -69,14 +71,32 @@ const Dashboard = () => {
           <UserSalePagination setState={setUserSales} />
         </div>
       </div>
-      {createPortal(
-        <Modal title={"Criar anúncio"}>
-          <CreateAdForm />
-        </Modal>,
-        document.body
-      )}
+      {modal === "Criar anúncio"
+        ? createPortal(
+            <Modal title={"Criar anúncio"}>
+              <CreateAdForm />
+            </Modal>,
+            document.body
+          )
+        : null}
 
-      <Modal title={"Editar anúncio"}>Formulário de editar anúncio</Modal>
+      {modal === "Editar anúncio"
+        ? createPortal(
+            <Modal title={"Editar anúncio"}>
+              <EditAdForm />
+            </Modal>,
+            document.body
+          )
+        : null}
+      {modal === "Excluir anúncio"
+        ? createPortal(
+            <Modal title={"Excluir anúncio"}>
+              <DeleteAdModal />
+            </Modal>,
+            document.body
+          )
+        : null}
+
       <Footer />
     </StyledDashboardPage>
   );
