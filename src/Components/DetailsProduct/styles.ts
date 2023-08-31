@@ -130,7 +130,7 @@ const StyledDivContainer = styled.div`
         margin-bottom: 28px;
       }
 
-      button {
+      a {
         width: 206px;
         height: 48px;
         margin-top: 28px;
@@ -139,6 +139,8 @@ const StyledDivContainer = styled.div`
         background-color: var(--grey-0);
         border: none;
         border-radius: var(--input-border);
+        padding: 10px;
+        text-align: center;
       }
     }
   }

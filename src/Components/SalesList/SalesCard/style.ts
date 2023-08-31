@@ -5,10 +5,11 @@ export const StyledSalesCard = styled.li`
   flex-direction: column;
   gap: 16px;
   width: 18rem;
-  height: 21.875rem;
+  height: auto;
   transition: transform 0.5s;
   border-radius: 10px;
   position: relative;
+  margin-top: 8px;
 
   &::after {
     position: absolute;
@@ -141,15 +142,17 @@ export const StyledSalesCard = styled.li`
     gap: 20px;
   }
 
+  .sales-buttons-container > a,
   .sales-buttons-container > button {
-    padding: 10px 15px;
-    /* font-family: "Lexend", "sans-serif"; */
+    padding: 10px 8px;
     background-color: transparent;
     font-weight: var(--font-bold);
     border: 2px solid var(--grey-0);
     border-radius: 5px;
+    transition: all 0.5s;
   }
 
+  .sales-buttons-container > a:hover,
   .sales-buttons-container > button:hover {
     background-color: var(--grey-0);
     color: var(--white);

@@ -2,7 +2,8 @@ import { StyledSalesCard } from "./style";
 import { UserAvatar, ImgSwiper } from "../..";
 import { TSaleCardProps } from "./@types";
 import { useCarContext, useModal } from "../../../Hooks";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import LinkStyle from "../../Links";
 
 const SalesCard = ({ sale, owner }: TSaleCardProps) => {
   const { convertStr } = useCarContext();
@@ -19,8 +20,6 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
     salesImages,
     user,
   } = sale;
-
-  const navigate = useNavigate();
 
   const imgs = salesImages?.map((img) => img.imageUrl);
 
@@ -40,15 +39,15 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
         </h2>
         <p className="car-description">{description}</p>
         {user ? (
-          <div
-            className="seller-info-container"
-            onClick={() => navigate(`/ProfileViewUser/${user.id}`)}>
-            <UserAvatar
-              img={user.userImage}
-              username={`${sale.user!.firstName} ${sale.user!.lastName}`}
-            />
-            <h3 className="seller-title">{`${user.firstName} ${user.lastName}`}</h3>
-          </div>
+          <Link to={`/ProfileViewUser/${user.id}`}>
+            <div className="seller-info-container">
+              <UserAvatar
+                img={user.userImage}
+                username={`${sale.user!.firstName} ${sale.user!.lastName}`}
+              />
+              <h3 className="seller-title">{`${user.firstName} ${user.lastName}`}</h3>
+            </div>
+          </Link>
         ) : null}
         <div className="car-info-container">
           <div className="car-info">
@@ -67,11 +66,13 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
           {owner == "seller" && (
             <button onClick={() => setModal("Editar anúncio")}>Editar</button>
           )}
-          <button
+          <LinkStyle
             className="details-sale-button"
-            onClick={() => navigate(`/sale/${id}`)}>
+            $color="grey-0"
+            $width={3}
+            to={`/sale/${id}`}>
             Ver Detalhes
-          </button>
+          </LinkStyle>
         </div>
       </div>
     </StyledSalesCard>

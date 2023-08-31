@@ -14,7 +14,8 @@ export const StyledSalesList = styled.ul`
     overflow-y: auto;
     max-width: 90%;
     width: 90%;
-    height: 1680px;
+    height: 100%;
+    max-height: 1800px;
     justify-content: space-between;
   }
 `;

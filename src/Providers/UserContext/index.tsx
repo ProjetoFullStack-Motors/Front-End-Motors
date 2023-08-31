@@ -13,7 +13,7 @@ import {
   TUpdateUserPartial,
 } from "./@types";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TLoginData } from "../../Components/Forms/LoginForm/validator";
 import { api } from "../../Services/api";
 import jwt_decode from "jwt-decode";
@@ -230,6 +230,12 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     }
   };
 
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <UserContext.Provider
       value={{
@@ -251,8 +257,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
         setUserSales,
         updateUserInformation,
         deleteUserProfile,
-      }}
-    >
+      }}>
       {children}
     </UserContext.Provider>
   );
