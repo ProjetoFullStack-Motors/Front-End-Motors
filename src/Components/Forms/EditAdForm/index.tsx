@@ -33,6 +33,7 @@ const EditAdForm = () => {
     setModels,
     setSelectedBrand,
     deleteSalesImage,
+    // updateSalesAd
   } = useCarContext();
 
   const imgUrlPlusArray = editSale?.salesImages.slice(3);
@@ -68,6 +69,8 @@ const EditAdForm = () => {
     },
   });
 
+  // let idArray: any = [];
+
   useEffect(() => {
     const getBrandModels = async (brand: string) => {
       try {
@@ -92,11 +95,28 @@ const EditAdForm = () => {
 
   const { fields, append, remove } = useFieldArray({
     control,
+    // name: "salesImages",
     name: "imgUrlPlus",
   });
 
   const onSubmitForm = (data: TEditAd) => {
-    console.log(data);
+    // salesAdData.salesImages?.forEach((sales, index) => {
+    //   sales.id = idArray[index];
+    // })
+
+    // const saleImg = salesAdData.salesImages?.filter(saleImg => {
+    //   return saleImg.imageUrl !== "";
+    // })
+
+    // salesAdData.salesImages = saleImg;
+
+    // const cleanedData: TEditAd = Object.fromEntries(
+    //   Object.entries(salesAdData).filter(([_key, value]) => value !== "")
+    // );
+
+    // cleanedData ? updateSalesAd(editSale!.id, cleanedData) : null;
+
+    // console.log(cleanedData)
   };
 
   const handleRemoveAndRequest = async (
@@ -205,6 +225,25 @@ const EditAdForm = () => {
           errors={errors.imgUrl3}
           placeholder="Ex: https://image.com"
         />
+
+{/* {editSale?.salesImages.map((img, index) => {
+          // console.log(img.id)
+          
+            idArray[index] = img.id;
+          
+          return (
+            <StyledDinamicInput key={`${img.id}`}>
+              <Input
+                id={`${img.id}`}
+                label="Imagem de capa"
+                {...register(`salesImages.${index}.imageUrl`)} 
+                errors={errors.salesImages?.[index]?.root!}
+                // placeholder="Ex: https://image.com"
+                placeholder={`${img.id}`}
+              />
+            </StyledDinamicInput>
+          );
+        })} */}
 
         <Button
           type="button"
