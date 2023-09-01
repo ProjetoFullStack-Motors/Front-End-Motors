@@ -21,6 +21,7 @@ import {
   TCreateComment,
 } from "../../Components/SaleComments/validator";
 import { useUserContext } from "../../Hooks";
+import { TEditAd } from "../../Components/Forms/EditAdForm/validator";
 // import { useUserContext } from "../../Hooks";
 
 const CarContext = createContext({} as TCarContextProps);
@@ -294,17 +295,11 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
 
       toast.success("Anúncio criado com sucesso");
 
-      // setUser({
-      //   ...user!,
-      //   sales: [...user!.sales!, salesAd.data],
-      // });
-
       setSaleFounded({
         ...saleFounded!,
         ...salesAd,
       });
 
-      window.location.reload();
     } catch (error) {
       console.log(error);
       toast.error("Nào foi possível criar um novo anúncio");
@@ -393,6 +388,17 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     }
   };
 
+  const updateSalesAd = async (id: string, salesAdData: TEditAd) => {
+    try {
+      await api.patch(`/salesAd/${id}`, salesAdData);
+      toast.success("Contato atualizado com sucesso!");
+    
+    } catch (error) {
+      toast.warning("Não é possível atualizar anúncio de outro Usuário!");
+      console.log(error);
+    }
+  }
+
   return (
     <CarContext.Provider
       value={{
@@ -442,6 +448,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         editSale,
         setEditSale,
         deleteSalesAd,
+        updateSalesAd,
       }}
     >
       {children}

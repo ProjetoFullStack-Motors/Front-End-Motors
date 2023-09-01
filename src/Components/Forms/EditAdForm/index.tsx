@@ -1,6 +1,6 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { useCarContext, useModal } from "../../../Hooks";
-import { TEditAd, editAdSchema } from "./validator";
+import updateAdSchema, { TEditAd } from "./validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   StyledCreateAd,
@@ -14,18 +14,19 @@ import Button from "../../Buttons";
 import { AiFillDelete } from "react-icons/ai";
 
 const EditAdForm = () => {
-  const { closeModal, setModal } = useModal();
+  const { setModal } = useModal();
 
   const {
     brands,
     models,
-    selectedBrand,
+    // selectedBrand,
     handleBrandSelect,
     handleModelSelect,
-    model,
-    detectFuel,
-    isGoodPrice,
+    // model,
+    // detectFuel,
+    // isGoodPrice,
     editSale,
+    updateSalesAd
   } = useCarContext();
 
   const {
@@ -34,15 +35,23 @@ const EditAdForm = () => {
     formState: { errors },
     control,
   } = useForm<TEditAd>({
-    resolver: zodResolver(editAdSchema),
+    resolver: zodResolver(updateAdSchema),
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "imgUrlPlus",
+    name: "salesImages",
   });
 
-  const onSubmitForm = (data: TEditAd) => {};
+  const onSubmitForm = (salesAdData: TEditAd) => {
+    const cleanedData: TEditAd = Object.fromEntries(
+      Object.entries(salesAdData).filter(([_key, value]) => value !== "")
+    );
+
+    cleanedData ? updateSalesAd(editSale!.id, cleanedData) : null;
+
+    console.log(cleanedData)
+  };
 
   return (
     <StyledCreateAd>
@@ -120,28 +129,22 @@ const EditAdForm = () => {
           errors={errors.description}
           placeholder="Escreva a descrição do carro"
         />
-        <Input
-          id="imgUrl"
-          label="Imagem de capa"
-          {...register("imgUrl")}
-          errors={errors.imgUrl}
-          placeholder="Ex: https://image.com"
-        />
-        <Input
-          id="imgUrl2"
-          label="1ª imagem da galeria"
-          {...register("imgUrl2")}
-          errors={errors.imgUrl2}
-          placeholder="Ex: https://image.com"
-        />
-        <Input
-          id="imgUrl3"
-          label="2ª imagem da galeria"
-          {...register("imgUrl3")}
-          errors={errors.imgUrl3}
-          placeholder="Ex: https://image.com"
-        />
-
+        
+        {editSale?.salesImages.map((img, index) => {
+          return (
+            <StyledDinamicInput key={`${img.id}`}>
+              <Input
+                id={`${img.id}`}
+                label="Imagem de capa"
+                {...register(`salesImages.${index}.id`)} 
+                {...register(`salesImages.${index}.imageUrl`)} 
+                errors={errors.salesImages?.[index]?.root!}
+                placeholder="Ex: https://image.com"
+              />
+            </StyledDinamicInput>
+          );
+        })}
+        
         <Button
           type="button"
           $background="brand-4"

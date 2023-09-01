@@ -5,6 +5,7 @@ import {
   TCommentsArray,
   TCreateComment,
 } from "../../Components/SaleComments/validator";
+import { TEditAd } from "../../Components/Forms/EditAdForm/validator";
 
 type TCarProvidersProps = {
   children: ReactNode;
@@ -130,6 +131,7 @@ type TCarContextProps = {
   editSale: ISale | null;
   setEditSale: React.Dispatch<React.SetStateAction<ISale | null>>;
   deleteSalesAd: (id: string) => Promise<void>;
+  updateSalesAd: (id: string, salesAdData: TEditAd) => Promise<void>
 };
 
 type TPaginateSalesAdResponse = {
@@ -140,6 +142,7 @@ type TPaginateSalesAdResponse = {
 };
 
 type TImageSalesAd = {
+  id(id: any): unknown;
   imageUrl: string;
 };
 
@@ -155,6 +158,8 @@ type TCreateSaleAdRegister = {
   description: string;
   salesImages: TImageSalesAd[];
 };
+
+interface IUpdateSaleAdPartial extends Partial<TCreateSaleAdRegister> {}
 
 type TUserOwnerSale = {
   description: string;
@@ -191,4 +196,5 @@ export type {
   TBrandModel,
   ISale,
   TUserSales,
+  IUpdateSaleAdPartial,
 };
