@@ -193,8 +193,7 @@ const CreateAd = () => {
           $background="brand-4"
           $color="brand-1"
           $width={8}
-          onClick={() => append({ url: "" })}
-        >
+          onClick={() => append({ url: "" })}>
           Adicionar campo para imagem da galeria
         </Button>
 
@@ -221,16 +220,14 @@ const CreateAd = () => {
             $background="grey-5"
             $color="grey-2"
             $width={7}
-            onClick={closeModal}
-          >
+            onClick={closeModal}>
             Cancelar
           </Button>
           <Button
             type="submit"
             $background="brand-1"
             $color="grey-9"
-            $width={7}
-          >
+            $width={7}>
             Salvar alterações
           </Button>
         </StyledInputContainer>

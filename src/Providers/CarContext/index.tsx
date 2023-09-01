@@ -294,17 +294,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
 
       toast.success("Anúncio criado com sucesso");
 
-      // setUser({
-      //   ...user!,
-      //   sales: [...user!.sales!, salesAd.data],
-      // });
-
-      setSaleFounded({
-        ...saleFounded!,
-        ...salesAd,
-      });
-
-      window.location.reload();
+      setUserSales([salesAd.data, ...userSales!]);
     } catch (error) {
       console.log(error);
       toast.error("Nào foi possível criar um novo anúncio");
@@ -312,7 +302,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   };
 
   const isGoodPrice = (price: number, fipePrice: number) => {
-    if (fipePrice * 0.95 <= price) {
+    if (price <= fipePrice * 0.95) {
       return true;
     } else {
       return false;
@@ -442,8 +432,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         editSale,
         setEditSale,
         deleteSalesAd,
-      }}
-    >
+      }}>
       {children}
     </CarContext.Provider>
   );

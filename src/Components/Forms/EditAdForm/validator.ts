@@ -1,6 +1,11 @@
 import { z } from "zod";
 
 export const editAdSchema = z.object({
+  brand: z.string(),
+  model: z.string(),
+  year: z.string(),
+  engine: z.string(),
+  fipePrice: z.string(),
   mileage: z.string().optional(),
   color: z.string().optional(),
   price: z.string().optional(),
@@ -10,7 +15,7 @@ export const editAdSchema = z.object({
   imgUrl3: z.string().url("O dado necessita ser uma url").optional(),
   imgUrlPlus: z
     .object({
-      url: z.string().url("O dado necessita ser uma url").optional(),
+      imageUrl: z.string().url("O dado necessita ser uma url").optional(),
     })
     .array(),
 });

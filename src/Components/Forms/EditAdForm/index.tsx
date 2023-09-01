@@ -12,6 +12,9 @@ import Input from "../../Inputs/ Input";
 import Textarea from "../../Textarea";
 import Button from "../../Buttons";
 import { AiFillDelete } from "react-icons/ai";
+import { apiFipe } from "../../../Services/api";
+import { useEffect, useState } from "react";
+import { TBrandModel } from "../../../Providers/CarContext/@types";
 
 const EditAdForm = () => {
   const { closeModal, setModal } = useModal();
@@ -26,23 +29,68 @@ const EditAdForm = () => {
     detectFuel,
     isGoodPrice,
     editSale,
+    getBrandModels,
+    setModels,
+    setSelectedBrand,
   } = useCarContext();
+
+  const imgUrlPlusArray = editSale?.salesImages.slice(3);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
     control,
   } = useForm<TEditAd>({
     resolver: zodResolver(editAdSchema),
+    defaultValues: {
+      brand: editSale?.brand,
+      model: editSale?.model,
+      engine: editSale?.engine,
+      year: editSale?.year,
+      color: editSale?.color,
+      description: editSale?.description,
+      mileage: String(editSale?.mileage),
+      fipePrice: "",
+      price: String(editSale?.price),
+      imgUrl: editSale?.salesImages[0].imageUrl,
+      imgUrl2: editSale?.salesImages[1].imageUrl,
+      imgUrl3: editSale?.salesImages[2].imageUrl,
+      imgUrlPlus: imgUrlPlusArray,
+    },
   });
+
+  useEffect(() => {
+    const getBrandModels = async (brand: string) => {
+      try {
+        const { data } = await apiFipe.get<TBrandModel[]>(
+          `/cars?brand=${brand}`
+        );
+        setModels(data);
+
+        const findModel: TBrandModel | undefined = data.find(
+          (carModel) => carModel.name === editSale!.model
+        );
+
+        setValue("model", String(findModel?.name));
+        setValue("fipePrice", String(findModel?.value));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getBrandModels(editSale!.brand);
+  }, []);
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "imgUrlPlus",
   });
 
-  const onSubmitForm = (data: TEditAd) => {};
+  const onSubmitForm = (data: TEditAd) => {
+    console.log(data);
+  };
 
   return (
     <StyledCreateAd>
@@ -52,7 +100,7 @@ const EditAdForm = () => {
           arr={brands!}
           id="brand"
           title="Marca"
-          selectValue={editSale!.brand}
+          {...register("brand")}
           callback={handleBrandSelect}
         />
 
@@ -60,18 +108,24 @@ const EditAdForm = () => {
           arr={models!}
           id="model"
           title="Modelo"
-          selectValue={editSale!.model}
+          {...register("model")}
           itemKey="name"
           callback={handleModelSelect}
-          isModel
         />
         <StyledInputContainer>
-          <Input id="year" label="Ano" disabled placeholder="Ex: 2023" />
+          <Input
+            id="year"
+            label="Ano"
+            disabled
+            placeholder="Ex: 2023"
+            {...register("year")}
+          />
           <Input
             id="engine"
             label="Combustível"
             disabled
             placeholder="Ex: flex"
+            {...register("engine")}
           />
         </StyledInputContainer>
         <StyledInputContainer>
@@ -94,15 +148,8 @@ const EditAdForm = () => {
           <Input
             id="fipePrice"
             label="Preço tabela FIPE"
-            // value={
-            //   model
-            //     ? model.value.toLocaleString("pt-br", {
-            //         style: "currency",
-            //         currency: "BRL",
-            //       })
-            //     : ""
-            // }
             placeholder="Ex: R$ 200.000,00"
+            {...register("fipePrice")}
             disabled
           />
           <Input
@@ -147,8 +194,7 @@ const EditAdForm = () => {
           $background="brand-4"
           $color="brand-1"
           $width={8}
-          onClick={() => append({ url: "" })}
-        >
+          onClick={() => append({ imageUrl: "" })}>
           Adicionar campo para imagem da galeria
         </Button>
 
@@ -158,7 +204,7 @@ const EditAdForm = () => {
               <Input
                 id={`imgUrlPlus-${index}`}
                 label="Imagem extra"
-                {...register(`imgUrlPlus.${index}.url`)}
+                {...register(`imgUrlPlus.${index}.imageUrl`)}
                 errors={errors.imgUrlPlus?.[index]?.root!}
                 placeholder="Ex: https://image.com"
               />
@@ -175,16 +221,14 @@ const EditAdForm = () => {
             $background="grey-5"
             $color="grey-2"
             $width={7}
-            onClick={() => setModal("Excluir anúncio")}
-          >
+            onClick={() => setModal("Excluir anúncio")}>
             Excluir anúncio
           </Button>
           <Button
             type="submit"
             $background="brand-1"
             $color="grey-9"
-            $width={7}
-          >
+            $width={7}>
             Salvar alterações
           </Button>
         </StyledInputContainer>
