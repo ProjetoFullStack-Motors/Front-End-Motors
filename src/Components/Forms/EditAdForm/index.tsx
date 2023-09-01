@@ -32,16 +32,10 @@ const EditAdForm = () => {
     getBrandModels,
     setModels,
     setSelectedBrand,
-    deleteSalesImage,
+    editASalesAd,
   } = useCarContext();
 
   const imgUrlPlusArray = editSale?.salesImages.slice(3);
-
-  console.log(editSale);
-
-  console.log(imgUrlPlusArray);
-
-  console.log(editSale!.salesImages);
 
   const {
     register,
@@ -68,6 +62,8 @@ const EditAdForm = () => {
     },
   });
 
+  const [fipePrice, setFipePrice] = useState(0);
+
   useEffect(() => {
     const getBrandModels = async (brand: string) => {
       try {
@@ -82,6 +78,7 @@ const EditAdForm = () => {
 
         setValue("model", String(findModel?.name));
         setValue("fipePrice", String(findModel?.value));
+        setFipePrice(findModel!.value);
       } catch (error) {
         console.log(error);
       }
@@ -97,24 +94,51 @@ const EditAdForm = () => {
 
   const onSubmitForm = (data: TEditAd) => {
     const { imgUrl, imgUrl2, imgUrl3, imgUrlPlus, ...rest } = data;
-    const array = editSale?.salesImages.map((img, index) => {
-      if (img.imageUrl !== editSale?.salesImages[index].imageUrl) {
-        return img;
-      }
+
+    let adObj: any = {
+      ...rest,
+      isGoodPrice: isGoodPrice(Number(data.price), fipePrice),
+      salesImages: [],
+      price: Number(data.price),
+      mileage: Number(data.mileage),
+    };
+
+    console.log(data.price);
+
+    let initialArrayData = [imgUrl, imgUrl2, imgUrl3];
+
+    const strImgUrlPlusArray: string[] =
+      imgUrlPlus?.map((img) => img.imageUrl!) || null;
+
+    if (strImgUrlPlusArray) {
+      initialArrayData = [...initialArrayData, ...strImgUrlPlusArray];
+    }
+
+    const imgArray = initialArrayData.map((img) => {
+      return {
+        imageUrl: img,
+      };
     });
 
-    console.log(array);
+    adObj = {
+      ...adObj,
+      salesImages: imgArray,
+    };
+
+    editASalesAd(editSale!.id, adObj);
+
+    closeModal();
   };
 
-  const handleRemoveAndRequest = async (
-    event: React.MouseEvent<HTMLButtonElement>,
-    index: number
-  ) => {
-    remove(index);
+  // const handleRemoveAndRequest = async (
+  //   event: React.MouseEvent<HTMLButtonElement>,
+  //   index: number
+  // ) => {
+  //   remove(index);
 
-    const buttonId = event.currentTarget.id;
-    await deleteSalesImage(buttonId!);
-  };
+  //   const buttonId = event.currentTarget.id;
+  //   await deleteSalesImage(buttonId!);
+  // };
 
   return (
     <StyledCreateAd>
@@ -218,8 +242,7 @@ const EditAdForm = () => {
           $background="brand-4"
           $color="brand-1"
           $width={8}
-          onClick={() => append({ imageUrl: "" })}
-        >
+          onClick={() => append({ imageUrl: "" })}>
           Adicionar campo para imagem da galeria
         </Button>
 
@@ -227,18 +250,14 @@ const EditAdForm = () => {
           return (
             <StyledDinamicInput key={field.id}>
               <Input
-                id={`imgUrlPlus-${index}`}
+                id="imgUrlPlus"
                 label="Imagem extra"
                 {...register(`imgUrlPlus.${index}.imageUrl`)}
                 errors={errors.imgUrlPlus?.[index]?.root!}
                 placeholder="Ex: https://image.com"
               />
 
-              <button
-                type="button"
-                id={imgUrlPlusArray![index].id}
-                onClick={(event) => handleRemoveAndRequest(event, index)}
-              >
+              <button type="button" onClick={() => remove(index)}>
                 <AiFillDelete />
               </button>
             </StyledDinamicInput>
@@ -250,16 +269,14 @@ const EditAdForm = () => {
             $background="grey-5"
             $color="grey-2"
             $width={7}
-            onClick={() => setModal("Excluir anúncio")}
-          >
+            onClick={() => setModal("Excluir anúncio")}>
             Excluir anúncio
           </Button>
           <Button
             type="submit"
             $background="brand-1"
             $color="grey-9"
-            $width={7}
-          >
+            $width={7}>
             Salvar alterações
           </Button>
         </StyledInputContainer>

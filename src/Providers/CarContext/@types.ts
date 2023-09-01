@@ -130,7 +130,7 @@ type TCarContextProps = {
   editSale: ISale | null;
   setEditSale: React.Dispatch<React.SetStateAction<ISale | null>>;
   deleteSalesAd: (id: string) => Promise<void>;
-  deleteSalesImage: (id: string) => Promise<void>;
+  editASalesAd: (id: string, data: TUpdateSalesAd) => Promise<void>;
 };
 
 type TPaginateSalesAdResponse = {

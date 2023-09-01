@@ -384,42 +384,10 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     }
   };
 
-  const deleteSalesImage = async (id: string) => {
-    const token = localStorage.getItem("frontEndMotors:token") || null;
-
-    try {
-      await api.delete(`/salesAd/image/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      let findAd: TUserSales | undefined = userSales.find(
-        (ad) => ad.id === editSale!.id
-      );
-
-      const updateImages = findAd!.salesImages.filter((img) => img.id !== id);
-
-      findAd!.salesImages = updateImages;
-
-      const updateEditSalesImages = editSale!.salesImages.filter(
-        (img) => img.id !== id
-      );
-
-      editSale!.salesImages = updateEditSalesImages;
-
-      setEditSale(editSale);
-
-      setUserSales([...userSales, findAd!]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const editASalesAd = async (id: string, data: TUpdateSalesAd) => {
     const token = localStorage.getItem("frontEndMotors:token") || null;
     try {
-      await api.patch(`/salesAd/${id}`, data, {
+      await api.put(`/salesAd/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -494,9 +462,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         editSale,
         setEditSale,
         deleteSalesAd,
-        deleteSalesImage,
-      }}
-    >
+        editASalesAd,
+      }}>
       {children}
     </CarContext.Provider>
   );
