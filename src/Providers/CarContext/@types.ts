@@ -130,6 +130,7 @@ type TCarContextProps = {
   editSale: ISale | null;
   setEditSale: React.Dispatch<React.SetStateAction<ISale | null>>;
   deleteSalesAd: (id: string) => Promise<void>;
+  deleteSalesImage: (id: string) => Promise<void>;
 };
 
 type TPaginateSalesAdResponse = {
@@ -140,6 +141,7 @@ type TPaginateSalesAdResponse = {
 };
 
 type TImageSalesAd = {
+  id?: string;
   imageUrl: string;
 };
 
@@ -155,6 +157,8 @@ type TCreateSaleAdRegister = {
   description: string;
   salesImages: TImageSalesAd[];
 };
+
+type TUpdateSalesAd = Partial<TCreateSaleAdRegister>;
 
 type TUserOwnerSale = {
   description: string;
@@ -191,4 +195,5 @@ export type {
   TBrandModel,
   ISale,
   TUserSales,
+  TUpdateSalesAd,
 };
