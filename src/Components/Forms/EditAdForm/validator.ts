@@ -15,6 +15,7 @@ export const editAdSchema = z.object({
   imgUrl3: z.string().url("O dado necessita ser uma url").optional(),
   imgUrlPlus: z
     .object({
+      // id: z.string().optional(),
       imageUrl: z.string().url("O dado necessita ser uma url").optional(),
     })
     .array(),
