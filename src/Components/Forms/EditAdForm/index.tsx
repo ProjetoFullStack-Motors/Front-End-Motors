@@ -46,11 +46,16 @@ const EditAdForm = () => {
   });
 
   const onSubmitForm = (salesAdData: TEditAd) => {
-    // console.log(salesAdData.salesImages);
     salesAdData.salesImages?.forEach((sales, index) => {
       sales.id = idArray[index];
-      console.log(sales)
     })
+
+    const saleImg = salesAdData.salesImages?.filter(saleImg => {
+      return saleImg.imageUrl !== "";
+    })
+
+    salesAdData.salesImages = saleImg;
+
     const cleanedData: TEditAd = Object.fromEntries(
       Object.entries(salesAdData).filter(([_key, value]) => value !== "")
     );
@@ -141,14 +146,12 @@ const EditAdForm = () => {
           // console.log(img.id)
           
             idArray[index] = img.id;
-            // console.log(idArray)
           
           return (
             <StyledDinamicInput key={`${img.id}`}>
               <Input
                 id={`${img.id}`}
                 label="Imagem de capa"
-                // {...register(`salesImages.${index}.id`)} 
                 {...register(`salesImages.${index}.imageUrl`)} 
                 errors={errors.salesImages?.[index]?.root!}
                 placeholder="Ex: https://image.com"
