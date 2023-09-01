@@ -89,7 +89,14 @@ const EditAdForm = () => {
   });
 
   const onSubmitForm = (data: TEditAd) => {
-    console.log(data);
+    const { imgUrl, imgUrl2, imgUrl3, imgUrlPlus, ...rest } = data;
+    const array = editSale?.salesImages.map((img, index) => {
+      if (img.imageUrl !== editSale?.salesImages[index].imageUrl) {
+        return img;
+      }
+    });
+
+    console.log(array);
   };
 
   return (
