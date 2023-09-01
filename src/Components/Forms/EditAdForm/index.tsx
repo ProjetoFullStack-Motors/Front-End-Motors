@@ -32,9 +32,16 @@ const EditAdForm = () => {
     getBrandModels,
     setModels,
     setSelectedBrand,
+    deleteSalesImage,
   } = useCarContext();
 
   const imgUrlPlusArray = editSale?.salesImages.slice(3);
+
+  console.log(editSale);
+
+  console.log(imgUrlPlusArray);
+
+  console.log(editSale!.salesImages);
 
   const {
     register,
@@ -97,6 +104,16 @@ const EditAdForm = () => {
     });
 
     console.log(array);
+  };
+
+  const handleRemoveAndRequest = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    index: number
+  ) => {
+    remove(index);
+
+    const buttonId = event.currentTarget.id;
+    await deleteSalesImage(buttonId!);
   };
 
   return (
@@ -201,7 +218,8 @@ const EditAdForm = () => {
           $background="brand-4"
           $color="brand-1"
           $width={8}
-          onClick={() => append({ imageUrl: "" })}>
+          onClick={() => append({ imageUrl: "" })}
+        >
           Adicionar campo para imagem da galeria
         </Button>
 
@@ -216,7 +234,11 @@ const EditAdForm = () => {
                 placeholder="Ex: https://image.com"
               />
 
-              <button type="button" onClick={() => remove(index)}>
+              <button
+                type="button"
+                id={imgUrlPlusArray![index].id}
+                onClick={(event) => handleRemoveAndRequest(event, index)}
+              >
                 <AiFillDelete />
               </button>
             </StyledDinamicInput>
@@ -228,14 +250,16 @@ const EditAdForm = () => {
             $background="grey-5"
             $color="grey-2"
             $width={7}
-            onClick={() => setModal("Excluir anúncio")}>
+            onClick={() => setModal("Excluir anúncio")}
+          >
             Excluir anúncio
           </Button>
           <Button
             type="submit"
             $background="brand-1"
             $color="grey-9"
-            $width={7}>
+            $width={7}
+          >
             Salvar alterações
           </Button>
         </StyledInputContainer>
