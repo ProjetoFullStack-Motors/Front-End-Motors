@@ -14,6 +14,7 @@ import { useCarContext } from "../../Hooks";
 import  NoCars  from "../../Components/MessageNoCars";
 
 const Home = () => {
+
   const { filterModal, setFilterModal, filteredCars, allCars } = useCarContext();
 
   return (
@@ -35,8 +36,7 @@ const Home = () => {
             $display={true}
             $width={5}
             $background="brand-2"
-            onClick={() => setFilterModal(true)}
-          >
+            onClick={() => setFilterModal(true)}>
             Filtros
           </Button>
         </ButtonContainerPosition>
@@ -44,6 +44,7 @@ const Home = () => {
         {filterModal && createPortal(<AsideMobile />, document.body)}
         </>
         }
+
 
         <Footer />
       </StyledHomePage>

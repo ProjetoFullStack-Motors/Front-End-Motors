@@ -103,7 +103,7 @@ const StyledDiv = styled.div`
     width: 100%;
 
     fieldset {
-      width: 80%;
+      width: 90%;
       height: auto;
 
       input {
@@ -113,7 +113,7 @@ const StyledDiv = styled.div`
     }
 
     button {
-      width: 20%;
+      width: 10%;
       height: 48px;
 
       padding: 0;
