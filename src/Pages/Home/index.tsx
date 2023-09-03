@@ -11,20 +11,26 @@ import {
 import { ButtonContainerPosition, StyledHomePage } from "./style";
 import { createPortal } from "react-dom";
 import { useCarContext } from "../../Hooks";
+import  NoCars  from "../../Components/MessageNoCars";
 
 const Home = () => {
-  const { filterModal, setFilterModal, filteredCars, allCars } =
-    useCarContext();
+
+  const { filterModal, setFilterModal, filteredCars, allCars } = useCarContext();
 
   return (
     <>
       <StyledHomePage>
         <Header />
         <Banner />
+    
+       
+        {allCars.length === 0? <NoCars /> : 
+        <>
         <div className="home-container container">
           <AsideDesktop />
           <SalesList sales={filteredCars} owner="all" />
         </div>
+        <ChangePage />
         <ButtonContainerPosition>
           <Button
             $display={true}
@@ -36,8 +42,9 @@ const Home = () => {
         </ButtonContainerPosition>
 
         {filterModal && createPortal(<AsideMobile />, document.body)}
+        </>
+        }
 
-        {allCars.length > 0 && <ChangePage />}
 
         <Footer />
       </StyledHomePage>
