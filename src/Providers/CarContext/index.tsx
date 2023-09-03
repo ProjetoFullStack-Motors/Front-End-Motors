@@ -45,7 +45,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   const [saleFounded, setSaleFounded] = useState<ISale | null>(null);
   const [comment, setComment] = useState<TComment | null>(null);
   const [changeComment, setChangeComment] = useState(false);
-  const [editSale, setEditSale] = useState<ISale | null>(null);
+  const [editSale, setEditSale] = useState<ISale | TUserSales | TSaleProps | null>(null);
 
   // const { user, setUser } = useUserContext();
   const { setUserSales, userSales } = useUserContext();
