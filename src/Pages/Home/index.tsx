@@ -47,7 +47,7 @@ const Home = () => {
 
             {filterModal && createPortal(<AsideMobile />, document.body)}
           </>
-        )}
+        )}  
 
         <Footer />
       </StyledHomePage>
