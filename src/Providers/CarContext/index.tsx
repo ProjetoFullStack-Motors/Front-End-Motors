@@ -408,8 +408,10 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
       });
 
       setUserSales(updateUserSales);
+      toast.success("Anúncio atualizado com sucesso");
     } catch (error) {
       console.log(error);
+      toast.error("Não foi possível atualizar o anúncio");
     }
   };
 
@@ -463,7 +465,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         setEditSale,
         deleteSalesAd,
         editASalesAd,
-      }}>
+      }}
+    >
       {children}
     </CarContext.Provider>
   );

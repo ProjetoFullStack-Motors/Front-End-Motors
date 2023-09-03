@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { TBrandModel } from "../../../Providers/CarContext/@types";
 import InputRadio from "../../Inputs/InputRadio";
 import { StyledInputRadioContainer, StyledStatusTitle } from "./style";
+import TEditFormPartial from "./@types";
 
 const EditAdForm = () => {
   const { closeModal, setModal } = useModal();
@@ -49,6 +50,7 @@ const EditAdForm = () => {
       year: editSale?.year,
       color: editSale?.color,
       description: editSale?.description,
+      status: String(editSale!.status),
       mileage: String(editSale?.mileage),
       fipePrice: "",
       price: String(editSale?.price),
@@ -92,15 +94,14 @@ const EditAdForm = () => {
   const onSubmitForm = (data: TEditAd) => {
     const { imgUrl, imgUrl2, imgUrl3, imgUrlPlus, ...rest } = data;
 
-    let adObj: any = {
+    let adObj: TEditFormPartial = {
       ...rest,
       isGoodPrice: isGoodPrice(Number(data.price), fipePrice),
       salesImages: [],
       price: Number(data.price),
       mileage: Number(data.mileage),
+      status: JSON.parse(data.status!),
     };
-
-    console.log(data.price);
 
     let initialArrayData = [imgUrl, imgUrl2, imgUrl3];
 

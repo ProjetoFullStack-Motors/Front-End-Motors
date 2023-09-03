@@ -20,6 +20,7 @@ type TSaleProps = {
   price: number;
   color: string;
   description: string;
+  status: boolean;
   user?: TUser;
   salesImages: [
     {
@@ -141,7 +142,6 @@ type TPaginateSalesAdResponse = {
 };
 
 type TImageSalesAd = {
-  id?: string;
   imageUrl: string;
 };
 
@@ -155,6 +155,7 @@ type TCreateSaleAdRegister = {
   isGoodPrice: boolean;
   price: number;
   description: string;
+  status?: boolean;
   salesImages: TImageSalesAd[];
 };
 
