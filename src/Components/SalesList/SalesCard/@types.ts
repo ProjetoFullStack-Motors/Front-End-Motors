@@ -1,7 +1,7 @@
-import { ISale } from "../../../Providers/CarContext/@types";
+import { ISale, TUserSales, TSaleProps } from "../../../Providers/CarContext/@types";
 
 type TSaleCardProps = {
-  sale: ISale;
+  sale: ISale | TUserSales | TSaleProps;
   owner: "buyer" | "seller" | "all";
 };
 
