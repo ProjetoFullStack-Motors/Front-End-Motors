@@ -15,6 +15,9 @@ import { AiFillDelete } from "react-icons/ai";
 import { apiFipe } from "../../../Services/api";
 import { useEffect, useState } from "react";
 import { TBrandModel } from "../../../Providers/CarContext/@types";
+import InputRadio from "../../Inputs/InputRadio";
+import { StyledInputRadioContainer, StyledStatusTitle } from "./style";
+import TEditFormPartial from "./@types";
 
 const EditAdForm = () => {
   const { closeModal, setModal } = useModal();
@@ -22,16 +25,11 @@ const EditAdForm = () => {
   const {
     brands,
     models,
-    selectedBrand,
     handleBrandSelect,
     handleModelSelect,
-    model,
-    detectFuel,
     isGoodPrice,
     editSale,
-    getBrandModels,
     setModels,
-    setSelectedBrand,
     editASalesAd,
   } = useCarContext();
 
@@ -52,6 +50,7 @@ const EditAdForm = () => {
       year: editSale?.year,
       color: editSale?.color,
       description: editSale?.description,
+      status: String(editSale!.status),
       mileage: String(editSale?.mileage),
       fipePrice: "",
       price: String(editSale?.price),
@@ -95,15 +94,14 @@ const EditAdForm = () => {
   const onSubmitForm = (data: TEditAd) => {
     const { imgUrl, imgUrl2, imgUrl3, imgUrlPlus, ...rest } = data;
 
-    let adObj: any = {
+    let adObj: TEditFormPartial = {
       ...rest,
       isGoodPrice: isGoodPrice(Number(data.price), fipePrice),
       salesImages: [],
       price: Number(data.price),
       mileage: Number(data.mileage),
+      status: JSON.parse(data.status!),
     };
-
-    console.log(data.price);
 
     let initialArrayData = [imgUrl, imgUrl2, imgUrl3];
 
@@ -129,16 +127,6 @@ const EditAdForm = () => {
 
     closeModal();
   };
-
-  // const handleRemoveAndRequest = async (
-  //   event: React.MouseEvent<HTMLButtonElement>,
-  //   index: number
-  // ) => {
-  //   remove(index);
-
-  //   const buttonId = event.currentTarget.id;
-  //   await deleteSalesImage(buttonId!);
-  // };
 
   return (
     <StyledCreateAd>
@@ -215,6 +203,21 @@ const EditAdForm = () => {
           errors={errors.description}
           placeholder="Escreva a descrição do carro"
         />
+        <StyledStatusTitle>Publicado</StyledStatusTitle>
+        <StyledInputRadioContainer>
+          <InputRadio
+            title="status"
+            label="Sim"
+            inputValue="true"
+            {...register("status")}
+          />
+          <InputRadio
+            title="status"
+            label="Não"
+            inputValue="false"
+            {...register("status")}
+          />
+        </StyledInputRadioContainer>
         <Input
           id="imgUrl"
           label="Imagem de capa"
@@ -242,7 +245,8 @@ const EditAdForm = () => {
           $background="brand-4"
           $color="brand-1"
           $width={8}
-          onClick={() => append({ imageUrl: "" })}>
+          onClick={() => append({ imageUrl: "" })}
+        >
           Adicionar campo para imagem da galeria
         </Button>
 
@@ -269,14 +273,16 @@ const EditAdForm = () => {
             $background="grey-5"
             $color="grey-2"
             $width={7}
-            onClick={() => setModal("Excluir anúncio")}>
+            onClick={() => setModal("Excluir anúncio")}
+          >
             Excluir anúncio
           </Button>
           <Button
             type="submit"
             $background="brand-1"
             $color="grey-9"
-            $width={7}>
+            $width={7}
+          >
             Salvar alterações
           </Button>
         </StyledInputContainer>

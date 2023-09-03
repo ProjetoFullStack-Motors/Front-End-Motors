@@ -10,9 +10,10 @@ export const editAdSchema = z.object({
   color: z.string().optional(),
   price: z.string().optional(),
   description: z.string().optional(),
-  imgUrl: z.string().url("O dado necessita ser uma url").optional(),
-  imgUrl2: z.string().url("O dado necessita ser uma url").optional(),
-  imgUrl3: z.string().url("O dado necessita ser uma url").optional(),
+  status: z.string().optional(),
+  imgUrl: z.string().url("O dado necessita ser uma url"),
+  imgUrl2: z.string().url("O dado necessita ser uma url"),
+  imgUrl3: z.string().url("O dado necessita ser uma url"),
   imgUrlPlus: z
     .object({
       imageUrl: z.string().url("O dado necessita ser uma url").optional(),
