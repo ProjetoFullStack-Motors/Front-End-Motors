@@ -2,12 +2,14 @@ import { StyledSalesCard } from "./style";
 import { UserAvatar, ImgSwiper } from "../..";
 import { TSaleCardProps } from "./@types";
 import { useCarContext, useModal } from "../../../Hooks";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import LinkStyle from "../../Links";
 
 const SalesCard = ({ sale, owner }: TSaleCardProps) => {
-  const { convertStr } = useCarContext();
+  const { convertStr, setEditSale } = useCarContext();
   const { setModal } = useModal();
   const {
+    id,
     brand,
     model,
     year,
@@ -19,37 +21,39 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
     user,
   } = sale;
 
-  const navigate = useNavigate();
-
   const imgs = salesImages?.map((img) => img.imageUrl);
+
+  const setSaleForEdit = () => {
+    setEditSale(sale);
+
+    setModal("Editar anúncio");
+  };
 
   return (
     <StyledSalesCard>
       {isGoodPrice ? (
         <h4
           className="good-price-tag"
-          title="Essa oferta está 5% abaixo da tabela Fipe"
-        >
+          title="Essa oferta está 5% abaixo da tabela Fipe">
           $
         </h4>
       ) : null}
       <ImgSwiper imgs={imgs}></ImgSwiper>
-      <div
-        className="sales-info-container"
-        onClick={() => navigate(`/sale/${sale.id}`)}
-      >
+      <div className="sales-info-container">
         <h2 className="car-title">
           {convertStr(brand)} - {convertStr(model)}
         </h2>
         <p className="car-description">{description}</p>
         {user ? (
-          <div className="seller-info-container">
-            <UserAvatar
-              img={user.userImage}
-              username={`${sale.user!.firstName} ${sale.user!.lastName}`}
-            />
-            <h3 className="seller-title">{`${user.firstName} ${user.lastName}`}</h3>
-          </div>
+          <Link to={`/ProfileViewUser/${user.id}`}>
+            <div className="seller-info-container">
+              <UserAvatar
+                img={user.userImage}
+                username={`${sale.user!.firstName} ${sale.user!.lastName}`}
+              />
+              <h3 className="seller-title">{`${user.firstName} ${user.lastName}`}</h3>
+            </div>
+          </Link>
         ) : null}
         <div className="car-info-container">
           <div className="car-info">
@@ -64,14 +68,18 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
           </span>
         </div>
 
-        {!user ? (
-          <div className="sales-buttons-container">
-            {owner == "seller" && (
-              <button onClick={() => setModal("Editar anúncio")}>Editar</button>
-            )}
-            <button className="details-sale-button">Ver Detalhes</button>
-          </div>
-        ) : null}
+        <div className="sales-buttons-container">
+          {owner == "seller" && (
+            <button onClick={setSaleForEdit}>Editar</button>
+          )}
+          <LinkStyle
+            className="details-sale-button"
+            $color="grey-0"
+            $width={3}
+            to={`/sale/${id}`}>
+            Ver Detalhes
+          </LinkStyle>
+        </div>
       </div>
     </StyledSalesCard>
   );

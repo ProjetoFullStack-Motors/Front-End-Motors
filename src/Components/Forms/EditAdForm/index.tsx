@@ -1,68 +1,112 @@
-import Select from "../../Select";
-import useModal from "../../../Hooks/useModal";
+import { useFieldArray, useForm } from "react-hook-form";
+import { useCarContext, useModal } from "../../../Hooks";
+import { TEditAd, editAdSchema } from "./validator";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   StyledCreateAd,
   StyledDinamicInput,
   StyledInputContainer,
-} from "./style";
+} from "../CreateAdForm/style";
+import Select from "../../Select";
 import Input from "../../Inputs/ Input";
 import Textarea from "../../Textarea";
-import { useFieldArray, useForm } from "react-hook-form";
-import { TCreateAd, createAdSchema } from "./validator";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Button from "../../Buttons/index";
+import Button from "../../Buttons";
 import { AiFillDelete } from "react-icons/ai";
-import { useCarContext } from "../../../Hooks";
-import TFormData from "./@types";
+import { apiFipe } from "../../../Services/api";
+import { useEffect, useState } from "react";
+import { TBrandModel } from "../../../Providers/CarContext/@types";
+import InputRadio from "../../Inputs/InputRadio";
+import { StyledInputRadioContainer, StyledStatusTitle } from "./style";
+import TEditFormPartial from "./@types";
 
-const CreateAd = () => {
-  const { closeModal } = useModal();
+const EditAdForm = () => {
+  const { closeModal, setModal } = useModal();
 
   const {
-    createSalesAd,
     brands,
     models,
-    selectedBrand,
     handleBrandSelect,
     handleModelSelect,
-    model,
-    detectFuel,
     isGoodPrice,
+    editSale,
+    setModels,
+    editASalesAd,
   } = useCarContext();
+
+  const imgUrlPlusArray = editSale?.salesImages.slice(3);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
     control,
-  } = useForm<TCreateAd>({
-    resolver: zodResolver(createAdSchema),
+  } = useForm<TEditAd>({
+    resolver: zodResolver(editAdSchema),
+    defaultValues: {
+      brand: editSale?.brand,
+      model: editSale?.model,
+      engine: editSale?.engine,
+      year: editSale?.year,
+      color: editSale?.color,
+      description: editSale?.description,
+      status: String(editSale!.status),
+      mileage: String(editSale?.mileage),
+      fipePrice: "",
+      price: String(editSale?.price),
+      imgUrl: editSale?.salesImages[0].imageUrl,
+      imgUrl2: editSale?.salesImages[1].imageUrl,
+      imgUrl3: editSale?.salesImages[2].imageUrl,
+      imgUrlPlus: imgUrlPlusArray,
+    },
   });
+
+  const [fipePrice, setFipePrice] = useState(0);
+
+  useEffect(() => {
+    const getBrandModels = async (brand: string) => {
+      try {
+        const { data } = await apiFipe.get<TBrandModel[]>(
+          `/cars?brand=${brand}`
+        );
+        setModels(data);
+
+        const findModel: TBrandModel | undefined = data.find(
+          (carModel) => carModel.name === editSale!.model
+        );
+
+        setValue("model", String(findModel?.name));
+        setValue("fipePrice", String(findModel?.value));
+        setFipePrice(findModel!.value);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getBrandModels(editSale!.brand);
+  }, []);
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "imgUrlPlus",
   });
 
-  const onSubmitForm = (data: TCreateAd) => {
-    const fipePrice: number = model ? model.value : models[0].value;
+  const onSubmitForm = (data: TEditAd) => {
     const { imgUrl, imgUrl2, imgUrl3, imgUrlPlus, ...rest } = data;
-    let adObj: TFormData = {
+
+    let adObj: TEditFormPartial = {
       ...rest,
-      brand: selectedBrand,
-      model: model ? model.name : models[0].name,
-      year: model ? model.year : models[0].year,
       isGoodPrice: isGoodPrice(Number(data.price), fipePrice),
       salesImages: [],
-      engine: model ? detectFuel(model.fuel) : detectFuel(models[0].fuel),
       price: Number(data.price),
       mileage: Number(data.mileage),
+      status: JSON.parse(data.status!),
     };
 
     let initialArrayData = [imgUrl, imgUrl2, imgUrl3];
 
     const strImgUrlPlusArray: string[] =
-      imgUrlPlus?.map((img) => img.url!) || null;
+      imgUrlPlus?.map((img) => img.imageUrl!) || null;
 
     if (strImgUrlPlusArray) {
       initialArrayData = [...initialArrayData, ...strImgUrlPlusArray];
@@ -79,19 +123,20 @@ const CreateAd = () => {
       salesImages: imgArray,
     };
 
-    createSalesAd(adObj);
+    editASalesAd(editSale!.id, adObj);
 
     closeModal();
   };
 
   return (
     <StyledCreateAd>
+      <h2>Informações do veículo</h2>
       <form onSubmit={handleSubmit(onSubmitForm)}>
         <Select
           arr={brands!}
           id="brand"
           title="Marca"
-          selectValue={selectedBrand}
+          {...register("brand")}
           callback={handleBrandSelect}
         />
 
@@ -99,25 +144,24 @@ const CreateAd = () => {
           arr={models!}
           id="model"
           title="Modelo"
-          selectValue={model ? model.name : ""}
+          {...register("model")}
           itemKey="name"
           callback={handleModelSelect}
-          isModel
         />
         <StyledInputContainer>
           <Input
             id="year"
             label="Ano"
             disabled
-            value={model ? model.year : ""}
             placeholder="Ex: 2023"
+            {...register("year")}
           />
           <Input
             id="engine"
             label="Combustível"
-            value={model ? detectFuel(model.fuel) : ""}
             disabled
             placeholder="Ex: flex"
+            {...register("engine")}
           />
         </StyledInputContainer>
         <StyledInputContainer>
@@ -140,15 +184,8 @@ const CreateAd = () => {
           <Input
             id="fipePrice"
             label="Preço tabela FIPE"
-            value={
-              model
-                ? model.value.toLocaleString("pt-br", {
-                    style: "currency",
-                    currency: "BRL",
-                  })
-                : ""
-            }
             placeholder="Ex: R$ 200.000,00"
+            {...register("fipePrice")}
             disabled
           />
           <Input
@@ -166,6 +203,21 @@ const CreateAd = () => {
           errors={errors.description}
           placeholder="Escreva a descrição do carro"
         />
+        <StyledStatusTitle>Publicado</StyledStatusTitle>
+        <StyledInputRadioContainer>
+          <InputRadio
+            title="status"
+            label="Sim"
+            inputValue="true"
+            {...register("status")}
+          />
+          <InputRadio
+            title="status"
+            label="Não"
+            inputValue="false"
+            {...register("status")}
+          />
+        </StyledInputRadioContainer>
         <Input
           id="imgUrl"
           label="Imagem de capa"
@@ -193,7 +245,8 @@ const CreateAd = () => {
           $background="brand-4"
           $color="brand-1"
           $width={8}
-          onClick={() => append({ url: "" })}>
+          onClick={() => append({ imageUrl: "" })}
+        >
           Adicionar campo para imagem da galeria
         </Button>
 
@@ -201,9 +254,9 @@ const CreateAd = () => {
           return (
             <StyledDinamicInput key={field.id}>
               <Input
-                id={`imgUrlPlus-${index}`}
+                id="imgUrlPlus"
                 label="Imagem extra"
-                {...register(`imgUrlPlus.${index}.url`)}
+                {...register(`imgUrlPlus.${index}.imageUrl`)}
                 errors={errors.imgUrlPlus?.[index]?.root!}
                 placeholder="Ex: https://image.com"
               />
@@ -220,14 +273,16 @@ const CreateAd = () => {
             $background="grey-5"
             $color="grey-2"
             $width={7}
-            onClick={closeModal}>
-            Cancelar
+            onClick={() => setModal("Excluir anúncio")}
+          >
+            Excluir anúncio
           </Button>
           <Button
             type="submit"
             $background="brand-1"
             $color="grey-9"
-            $width={7}>
+            $width={7}
+          >
             Salvar alterações
           </Button>
         </StyledInputContainer>
@@ -236,4 +291,4 @@ const CreateAd = () => {
   );
 };
 
-export default CreateAd;
+export default EditAdForm;

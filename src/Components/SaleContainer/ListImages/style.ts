@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 const StyleListImages = styled.ul`
   display: flex;
+  justify-content: center;
   gap: 7px;
-  overflow: y;
   flex-wrap: wrap;
+  height: 80%;
+  overflow-y: auto;
 
   li {
     display: flex;
@@ -16,8 +18,8 @@ const StyleListImages = styled.ul`
 
     img {
       object-fit: fill;
-      min-width: 108px;
-      min-height: 108px;
+      width: 90%;
+      height: 50%;
     }
   }
 `;

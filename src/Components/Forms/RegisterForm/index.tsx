@@ -137,7 +137,6 @@ const FormRegister = () => {
               onClick={() => findLocal(getValues("address.cep"))}
               $background="transparent"
               $color="gray-5"
-              $border
               className="button__cep">
               <AiOutlineSearch size={30} />
             </Button>

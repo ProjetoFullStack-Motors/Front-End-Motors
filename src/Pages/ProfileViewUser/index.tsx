@@ -15,6 +15,10 @@ const ProfileViewUser = () => {
   const [ProfileUser, setProfileUser] = useState<TUser | null>(null);
   const [salesProfileUser, setSalesProfileUser] = useState<TUserSales[]>([]);
 
+  const carsWithStatusTrue = salesProfileUser.filter(
+    (car) => car.status === true
+  );
+
   useEffect(() => {
     const token = localStorage.getItem("frontEndMotors:token");
     if (token) {
@@ -47,7 +51,7 @@ const ProfileViewUser = () => {
         <div className="sales-container">
           <h2>Anúncios</h2>
           <div className="sales-list-container">
-            <SalesList owner={user?.role!} sales={salesProfileUser} />
+            <SalesList owner={user?.role!} sales={carsWithStatusTrue} />
           </div>
           <UserSalePagination setState={setSalesProfileUser} />
         </div>

@@ -11,6 +11,8 @@ import {
   TFilterSalesAd,
   TPaginateSalesAdResponse,
   TSaleProps,
+  TUpdateSalesAd,
+  TUserSales,
 } from "./@types";
 import { api, apiFipe } from "../../Services/api";
 import { toast } from "react-toastify";
@@ -19,6 +21,7 @@ import {
   TComment,
   TCreateComment,
 } from "../../Components/SaleComments/validator";
+import { useUserContext } from "../../Hooks";
 // import { useUserContext } from "../../Hooks";
 
 const CarContext = createContext({} as TCarContextProps);
@@ -42,8 +45,10 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   const [saleFounded, setSaleFounded] = useState<ISale | null>(null);
   const [comment, setComment] = useState<TComment | null>(null);
   const [changeComment, setChangeComment] = useState(false);
+  const [editSale, setEditSale] = useState<ISale | TUserSales | TSaleProps | null>(null);
 
   // const { user, setUser } = useUserContext();
+  const { setUserSales, userSales } = useUserContext();
 
   useEffect(() => {
     const asideValues = async () => {
@@ -290,17 +295,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
 
       toast.success("Anúncio criado com sucesso");
 
-      // setUser({
-      //   ...user!,
-      //   sales: [...user!.sales!, salesAd.data],
-      // });
-
-      setSaleFounded({
-        ...saleFounded!,
-        ...salesAd,
-      });
-
-      window.location.reload();
+      setUserSales([salesAd.data, ...userSales!]);
     } catch (error) {
       console.log(error);
       toast.error("Nào foi possível criar um novo anúncio");
@@ -308,7 +303,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   };
 
   const isGoodPrice = (price: number, fipePrice: number) => {
-    if (fipePrice * 0.95 <= price) {
+    if (price <= fipePrice * 0.95) {
       return true;
     } else {
       return false;
@@ -369,6 +364,57 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     }
   };
 
+  const deleteSalesAd = async (id: string) => {
+    const token = localStorage.getItem("frontEndMotors:token") || null;
+
+    try {
+      await api.delete(`/salesAd/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const filterAds: TUserSales[] = userSales.filter((ad) => ad.id !== id);
+
+      setUserSales(filterAds);
+      toast.success("anúncio deletado com sucesso");
+    } catch (error) {
+      console.log(error);
+      toast.error("Não foi possível excluir o anúncio");
+    }
+  };
+
+  const editASalesAd = async (id: string, data: TUpdateSalesAd) => {
+    const token = localStorage.getItem("frontEndMotors:token") || null;
+    try {
+      await api.put(`/salesAd/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const updateUserSales = userSales.map((salesAd) => {
+        if (salesAd.id === id) {
+          salesAd = {
+            ...salesAd,
+            ...data,
+          };
+        } else {
+          salesAd = {
+            ...salesAd,
+          };
+        }
+
+        return salesAd;
+      });
+
+      setUserSales(updateUserSales);
+      toast.success("Anúncio atualizado com sucesso");
+    } catch (error) {
+      console.log(error);
+      toast.error("Não foi possível atualizar o anúncio");
+    }
+  };
+
   return (
     <CarContext.Provider
       value={{
@@ -415,6 +461,10 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         editCommentSaleAd,
         changeComment,
         deleteCommentSaleAd,
+        editSale,
+        setEditSale,
+        deleteSalesAd,
+        editASalesAd,
       }}
     >
       {children}

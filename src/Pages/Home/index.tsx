@@ -11,33 +11,43 @@ import {
 import { ButtonContainerPosition, StyledHomePage } from "./style";
 import { createPortal } from "react-dom";
 import { useCarContext } from "../../Hooks";
+import NoCars from "../../Components/MessageNoCars";
 
 const Home = () => {
-  const { filterModal, setFilterModal, filteredCars } = useCarContext();
+  const { filterModal, setFilterModal, filteredCars, allCars } =
+    useCarContext();
+
+  const carsWithStatusTrue = filteredCars.filter((car) => car.status === true);
 
   return (
     <>
       <StyledHomePage>
         <Header />
         <Banner />
-        <div className="home-container container">
-          <AsideDesktop />
-          <SalesList sales={filteredCars} owner="all" />
-        </div>
-        <ButtonContainerPosition>
-          <Button
-            $display={true}
-            $width={5}
-            $background="brand-2"
-            onClick={() => setFilterModal(true)}
-          >
-            Filtros
-          </Button>
-        </ButtonContainerPosition>
 
-        {filterModal && createPortal(<AsideMobile />, document.body)}
+        {allCars.length === 0 ? (
+          <NoCars />
+        ) : (
+          <>
+            <div className="home-container container">
+              <AsideDesktop />
+              <SalesList sales={carsWithStatusTrue} owner="all" />
+            </div>
+            <ChangePage />
+            <ButtonContainerPosition>
+              <Button
+                $display={true}
+                $width={5}
+                $background="brand-2"
+                onClick={() => setFilterModal(true)}
+              >
+                Filtros
+              </Button>
+            </ButtonContainerPosition>
 
-        <ChangePage />
+            {filterModal && createPortal(<AsideMobile />, document.body)}
+          </>
+        )}  
 
         <Footer />
       </StyledHomePage>

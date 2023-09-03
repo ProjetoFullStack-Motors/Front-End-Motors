@@ -107,7 +107,9 @@ const StyledDashboardPage = styled.main`
         display: flex;
         flex-direction: column;
         align-items: center;
-        min-height: 1200px;
+        /* min-height: 1200px; */
+        max-width: 1200px;
+        margin: 0 auto;
       }
     }
   }

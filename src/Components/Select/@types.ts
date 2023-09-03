@@ -6,7 +6,7 @@ type TSelectProps = {
   id: string;
   itemKey?: keyof TBrandModel;
   title: string;
-  selectValue: string;
+  selectValue?: string;
   isModel?: boolean;
   callback: (
     event: ChangeEvent<HTMLSelectElement>
