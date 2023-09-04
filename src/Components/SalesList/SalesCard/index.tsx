@@ -19,6 +19,7 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
     description,
     salesImages,
     user,
+    status,
   } = sale;
 
   const imgs = salesImages?.map((img) => img.imageUrl);
@@ -34,7 +35,7 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
   const isSellerPage = pathname.includes("ProfileViewUser");
 
   return (
-    <StyledSalesCard>
+    <StyledSalesCard $status={status}>
       {isGoodPrice ? (
         <h4
           className="good-price-tag"
@@ -76,13 +77,17 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
           {owner == "seller" && !isSellerPage && (
             <button onClick={setSaleForEdit}>Editar</button>
           )}
-          <LinkStyle
-            className="details-sale-button"
-            $color="grey-0"
-            $width={3}
-            to={`/sale/${id}`}>
-            Ver Detalhes
-          </LinkStyle>
+          {status ? (
+            <LinkStyle
+              className="details-sale-button"
+              $color="grey-0"
+              $width={3}
+              to={`/sale/${id}`}>
+              Ver Detalhes
+            </LinkStyle>
+          ) : (
+            <p>INDISPONÍVEL</p>
+          )}
         </div>
       </div>
     </StyledSalesCard>

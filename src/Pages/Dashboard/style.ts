@@ -89,7 +89,6 @@ const StyledDashboardPage = styled.main`
     display: flex;
     flex-direction: column;
     gap: 4rem;
-    min-height: 900px;
     padding-left: 2rem;
 
     h2 {
@@ -101,13 +100,11 @@ const StyledDashboardPage = styled.main`
       width: 90%;
       align-self: center;
       min-height: 1800px;
-      /* margin-bottom: 10rem; */
 
       .sales-list-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* min-height: 1200px; */
         max-width: 1200px;
         margin: 0 auto;
       }

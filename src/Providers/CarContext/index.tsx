@@ -12,6 +12,7 @@ import {
   TPaginateSalesAdResponse,
   TSaleProps,
   TUpdateSalesAd,
+  TUserSales,
 } from "./@types";
 import { api, apiFipe } from "../../Services/api";
 import { toast } from "react-toastify";
@@ -20,8 +21,6 @@ import {
   TComment,
   TCreateComment,
 } from "../../Components/SaleComments/validator";
-import { useUserContext } from "../../Hooks";
-// import { useUserContext } from "../../Hooks";
 
 const CarContext = createContext({} as TCarContextProps);
 
@@ -44,9 +43,9 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   const [saleFounded, setSaleFounded] = useState<ISale | null>(null);
   const [comment, setComment] = useState<TComment | null>(null);
   const [changeComment, setChangeComment] = useState(false);
-  const [editSale, setEditSale] = useState<ISale | null>(null);
-
-  const { setUserSales, userSales } = useUserContext();
+  const [editSale, setEditSale] = useState<
+    ISale | TUserSales | TSaleProps | null
+  >(null);
 
   useEffect(() => {
     const asideValues = async () => {
@@ -123,7 +122,22 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
 
   const [car, dispatch] = useReducer(carReducer, initialState);
 
-  useEffect(() => {}, [car]);
+  useEffect(() => {
+    if (
+      car.brand == initialState.brand &&
+      car.model == initialState.model &&
+      car.color == initialState.color &&
+      car.year == initialState.year &&
+      car.price[0] == initialState.price[0] &&
+      car.price[1] == initialState.price[1] &&
+      car.engine == initialState.engine &&
+      car.mileage[0] == initialState.mileage[0] &&
+      car.mileage[1] == initialState.mileage[1]
+    ) {
+      setCars([]);
+      setChange(!change);
+    }
+  }, [car]);
 
   const handleClick = (type: string, value: string | number) => {
     dispatch({ type, payload: value });
@@ -285,7 +299,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     const token = localStorage.getItem("frontEndMotors:token");
 
     try {
-      const salesAd = await api.post("/salesAd", data, {
+      await api.post("/salesAd", data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -293,7 +307,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
 
       toast.success("Anúncio criado com sucesso");
 
-      setUserSales([salesAd.data, ...userSales!]);
+      setChange(!change);
     } catch (error) {
       console.log(error);
       toast.error("Nào foi possível criar um novo anúncio");
@@ -388,24 +402,13 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const updateUserSales = userSales.map((salesAd) => {
-        if (salesAd.id === id) {
-          salesAd = {
-            ...salesAd,
-            ...data,
-          };
-        } else {
-          salesAd = {
-            ...salesAd,
-          };
-        }
 
-        return salesAd;
-      });
+      setChange(!change);
 
-      setUserSales(updateUserSales);
+      toast.success("Anúncio atualizado com sucesso");
     } catch (error) {
       console.log(error);
+      toast.error("Não foi possível atualizar o anúncio");
     }
   };
 
@@ -453,6 +456,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         setComment,
         createCommentSaleAd,
         editCommentSaleAd,
+        change,
         changeComment,
         deleteCommentSaleAd,
         editSale,

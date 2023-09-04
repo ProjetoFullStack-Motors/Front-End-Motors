@@ -16,6 +16,5 @@ export const StyledSalesList = styled.ul`
     width: 90%;
     height: 100%;
     max-height: 1800px;
-    justify-content: space-between;
   }
 `;

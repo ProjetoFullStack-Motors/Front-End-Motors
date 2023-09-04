@@ -99,17 +99,19 @@ export const GlobalStyles = createGlobalStyle`
     body {
         font-family: 'Lexend', 'sans-serif';
 
-        ::-webkit-scrollbar {
+  
+
+
+    }
+
+    ::-webkit-scrollbar {
             width: 8px;
         }
 
 
-        ::-webkit-scrollbar-thumb {
-             background: var(--brand-1);
-             border-radius: 50px;
-        }
-
-
+    ::-webkit-scrollbar-thumb {
+            background: var(--brand-1);
+            border-radius: 50px;
     }
 
     button {

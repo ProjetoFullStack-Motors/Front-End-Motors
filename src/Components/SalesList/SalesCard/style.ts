@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { StyledSalesCardProps } from "./@types";
 
-export const StyledSalesCard = styled.li`
+export const StyledSalesCard = styled.li<StyledSalesCardProps>`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -10,6 +11,10 @@ export const StyledSalesCard = styled.li`
   border-radius: 10px;
   position: relative;
   margin-top: 8px;
+
+  flex: 0 0 calc(33.33% - 4%);
+
+  opacity: ${({ $status }) => ($status ? "1" : "0.6")};
 
   &::after {
     position: absolute;
@@ -139,14 +144,16 @@ export const StyledSalesCard = styled.li`
 
   .sales-buttons-container {
     display: flex;
+    align-items: center;
     gap: 20px;
   }
 
   .sales-buttons-container > a,
   .sales-buttons-container > button {
-    padding: 10px 8px;
+    padding: 12px 8px;
     background-color: transparent;
     font-weight: var(--font-bold);
+    font-size: var(--font-body-1);
     border: 2px solid var(--grey-0);
     border-radius: 5px;
     transition: all 0.5s;

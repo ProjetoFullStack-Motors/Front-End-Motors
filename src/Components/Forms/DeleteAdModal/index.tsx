@@ -11,8 +11,6 @@ const DeleteAdModal = () => {
     closeModal();
   };
 
-  console.log(editSale);
-
   return (
     <StyledDeleteAd>
       <h2>Tem certeza que deseja excluir esse anúncio ?</h2>
@@ -24,8 +22,7 @@ const DeleteAdModal = () => {
           type="button"
           $width={9}
           $maxWidth={10}
-          onClick={closeModal}
-        >
+          onClick={closeModal}>
           Cancelar
         </Button>
         <Button
@@ -33,8 +30,7 @@ const DeleteAdModal = () => {
           $color="alert-1"
           type="submit"
           $width={4}
-          onClick={deleteAd}
-        >
+          onClick={deleteAd}>
           Sim, excluir o anúncio
         </Button>
       </div>

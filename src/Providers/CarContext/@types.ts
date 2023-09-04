@@ -20,6 +20,7 @@ type TSaleProps = {
   price: number;
   color: string;
   description: string;
+  status: boolean;
   user?: TUser;
   salesImages: [
     {
@@ -30,7 +31,8 @@ type TSaleProps = {
     }
   ];
   engine: string;
-  created_at: string;
+  created_at: Date;
+  comments?: TCommentsArray;
 };
 
 type TSaleUserSeller = Omit<TSaleProps, "user">;
@@ -125,10 +127,13 @@ type TCarContextProps = {
   editCommentSaleAd: (id: string, data: TCreateComment) => Promise<void>;
   comment: TComment | null;
   setComment: React.Dispatch<React.SetStateAction<TComment | null>>;
+  change: boolean;
   changeComment: boolean;
   deleteCommentSaleAd: (id: string) => Promise<void>;
-  editSale: ISale | null;
-  setEditSale: React.Dispatch<React.SetStateAction<ISale | null>>;
+  editSale: ISale | TUserSales | TSaleProps | null;
+  setEditSale: React.Dispatch<
+    React.SetStateAction<ISale | TUserSales | TSaleProps | null>
+  >;
   deleteSalesAd: (id: string) => Promise<void>;
   editASalesAd: (id: string, data: TUpdateSalesAd) => Promise<void>;
 };
@@ -141,7 +146,6 @@ type TPaginateSalesAdResponse = {
 };
 
 type TImageSalesAd = {
-  id?: string;
   imageUrl: string;
 };
 
@@ -155,6 +159,7 @@ type TCreateSaleAdRegister = {
   isGoodPrice: boolean;
   price: number;
   description: string;
+  status?: boolean;
   salesImages: TImageSalesAd[];
 };
 
@@ -170,8 +175,9 @@ type TUserOwnerSale = {
 
 type TUserSales = {
   id: string;
-  created_at: string;
+  created_at: Date;
   user: TUserOwnerSale;
+  comments?: TCommentsArray;
 } & TCreateSaleAdRegister;
 
 interface ISale extends TCreateSaleAdRegister {
