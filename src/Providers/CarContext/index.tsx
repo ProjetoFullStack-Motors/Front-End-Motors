@@ -12,7 +12,6 @@ import {
   TPaginateSalesAdResponse,
   TSaleProps,
   TUpdateSalesAd,
-  TUserSales,
 } from "./@types";
 import { api, apiFipe } from "../../Services/api";
 import { toast } from "react-toastify";
@@ -373,9 +372,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         },
       });
 
-      const filterAds: TUserSales[] = userSales.filter((ad) => ad.id !== id);
-
-      setUserSales(filterAds);
+      setChange(!change);
       toast.success("anúncio deletado com sucesso");
     } catch (error) {
       console.log(error);

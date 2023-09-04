@@ -2,7 +2,7 @@ import { StyledSalesCard } from "./style";
 import { UserAvatar, ImgSwiper } from "../..";
 import { TSaleCardProps } from "./@types";
 import { useCarContext, useModal } from "../../../Hooks";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LinkStyle from "../../Links";
 
 const SalesCard = ({ sale, owner }: TSaleCardProps) => {
@@ -28,6 +28,10 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
 
     setModal("Editar anúncio");
   };
+
+  const { pathname } = useLocation();
+
+  const isSellerPage = pathname.includes("ProfileViewUser");
 
   return (
     <StyledSalesCard>
@@ -69,7 +73,7 @@ const SalesCard = ({ sale, owner }: TSaleCardProps) => {
         </div>
 
         <div className="sales-buttons-container">
-          {owner == "seller" && (
+          {owner == "seller" && !isSellerPage && (
             <button onClick={setSaleForEdit}>Editar</button>
           )}
           <LinkStyle
