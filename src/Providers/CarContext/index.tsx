@@ -47,7 +47,6 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
   const [changeComment, setChangeComment] = useState(false);
   const [editSale, setEditSale] = useState<ISale | null>(null);
 
-  // const { user, setUser } = useUserContext();
   const { setUserSales, userSales } = useUserContext();
 
   useEffect(() => {
