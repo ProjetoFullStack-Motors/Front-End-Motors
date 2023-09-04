@@ -18,8 +18,10 @@ const StyledDeleteAd = styled.div`
   div {
     display: flex;
     flex-direction: row;
-    align-self: flex-end;
+    justify-content: flex-end;
     gap: 1rem;
+
+    width: 100%;
   }
 `;
 

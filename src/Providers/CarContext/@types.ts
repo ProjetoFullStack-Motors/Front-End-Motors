@@ -127,10 +127,13 @@ type TCarContextProps = {
   editCommentSaleAd: (id: string, data: TCreateComment) => Promise<void>;
   comment: TComment | null;
   setComment: React.Dispatch<React.SetStateAction<TComment | null>>;
+  change: boolean;
   changeComment: boolean;
   deleteCommentSaleAd: (id: string) => Promise<void>;
   editSale: ISale | TUserSales | TSaleProps | null;
-  setEditSale: React.Dispatch<React.SetStateAction<ISale | TUserSales | TSaleProps | null>>;
+  setEditSale: React.Dispatch<
+    React.SetStateAction<ISale | TUserSales | TSaleProps | null>
+  >;
   deleteSalesAd: (id: string) => Promise<void>;
   editASalesAd: (id: string, data: TUpdateSalesAd) => Promise<void>;
 };
@@ -143,6 +146,7 @@ type TPaginateSalesAdResponse = {
 };
 
 type TImageSalesAd = {
+  id?: string;
   imageUrl: string;
 };
 

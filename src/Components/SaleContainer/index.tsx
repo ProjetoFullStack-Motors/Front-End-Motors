@@ -11,11 +11,15 @@ const SaleContainer = ({ saleFounded }: TSaleContainerProps) => {
           slidesPerView={1}
           modules={[Navigation, Autoplay]}
           navigation={{ enabled: true, hideOnClick: true }}
-          autoplay={{ delay: 2000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+          autoplay={{
+            delay: 2000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
           loop>
           <ul className="sale__image--container">
             {saleFounded.salesImages.map((img) => (
-              <SwiperSlide key={img.imageUrl} className="car-img-container">
+              <SwiperSlide key={img.id} className="car-img-container">
                 <li>
                   <img src={img.imageUrl} alt={saleFounded.model} />
                 </li>

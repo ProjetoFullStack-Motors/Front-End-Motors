@@ -11,27 +11,31 @@ import {
 import { ButtonContainerPosition, StyledHomePage } from "./style";
 import { createPortal } from "react-dom";
 import { useCarContext } from "../../Hooks";
-import NoCars from "../../Components/MessageNoCars";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const { filterModal, setFilterModal, filteredCars, allCars } =
     useCarContext();
 
-  const carsWithStatusTrue = filteredCars.filter((car) => car.status === true);
-
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <StyledHomePage>
         <Header />
         <Banner />
 
         {allCars.length === 0 ? (
-          <NoCars />
+
+          <p>Não existe carros</p>
+
         ) : (
           <>
             <div className="home-container container">
               <AsideDesktop />
-              <SalesList sales={carsWithStatusTrue} owner="all" />
+              <SalesList sales={filteredCars} owner="all" />
             </div>
             <ChangePage />
             <ButtonContainerPosition>
@@ -51,7 +55,7 @@ const Home = () => {
 
         <Footer />
       </StyledHomePage>
-    </>
+    </motion.div>
   );
 };
 

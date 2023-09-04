@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const StyledDashboardPage = styled.main`
   min-height: 100vh;
-  /* max-height: max-content; */
   max-width: 100vw;
   position: relative;
   display: flex;
@@ -42,6 +41,7 @@ const StyledDashboardPage = styled.main`
 
   .user-name-container {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
     gap: 10px;
   }
@@ -89,7 +89,6 @@ const StyledDashboardPage = styled.main`
     display: flex;
     flex-direction: column;
     gap: 4rem;
-    min-height: 900px;
     padding-left: 2rem;
 
     h2 {
@@ -101,13 +100,11 @@ const StyledDashboardPage = styled.main`
       width: 90%;
       align-self: center;
       min-height: 1800px;
-      /* margin-bottom: 10rem; */
 
       .sales-list-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* min-height: 1200px; */
         max-width: 1200px;
         margin: 0 auto;
       }

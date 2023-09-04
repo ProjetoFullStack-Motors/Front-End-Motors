@@ -70,9 +70,7 @@ const SaleComments = () => {
         <form className="message-container" onSubmit={handleSubmit(onSubmit)}>
           <textarea
             className="message-area"
-            {...register("comment")}
-          ></textarea>
-          {errors && errors.comment ? <p>{errors.comment.message}</p> : null}
+            {...register("comment")}></textarea>
           {user ? (
             <Button className="post-button" type="submit">
               Comentar
@@ -81,12 +79,12 @@ const SaleComments = () => {
             <Button
               className="post-button"
               onClick={() => navigate("/register")}
-              type="button"
-            >
+              type="button">
               Comentar
             </Button>
           )}
         </form>
+        {errors && errors.comment ? <p>{errors.comment.message}</p> : null}
         <div className="message-suggestions">
           {postSuggestions.map((suggestion, index) => (
             <span key={index} onClick={() => setValue("comment", suggestion)}>

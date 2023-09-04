@@ -121,19 +121,6 @@ const StyledDiv = styled.div`
     }
   }
 
-  /* .buyerBtn {
-    color: var(--grey-10);
-    background-color: var(--brand-1);
-    border-radius: var(--button-border);
-    cursor: pointer;
-  }
-
-  .sellerBtn {
-    color: var(--grey-1);
-    border: 2px solid var(--grey-3);
-    border-radius: var(--button-border);
-  } */
-
   @media (min-width: 769px) {
     width: 411px;
     height: auto;

@@ -63,8 +63,8 @@ export const StyledSaleComments = styled.div`
 
   .post-button {
     position: absolute;
-    right: 15px;
-    bottom: 15px;
+    right: 20px;
+    bottom: 20px;
     border-radius: 4px;
   }
 

@@ -40,8 +40,7 @@ const NavItem = forwardRef(
             className="pFalse"
             onClick={() => {
               setIsSearching(true);
-            }}
-          >
+            }}>
             {convertStr(title, itemKey)}
           </p>
         )}

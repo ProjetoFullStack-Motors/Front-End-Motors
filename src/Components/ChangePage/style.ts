@@ -7,7 +7,7 @@ const StyleChangePage = styled.div`
   justify-content: center;
   gap: 8px;
 
-  margin: 2rem auto 15rem auto;
+  margin: 2rem auto;
 
   button {
     display: flex;

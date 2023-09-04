@@ -8,16 +8,13 @@ import { TJwtDecode, TUser } from "../../Providers/UserContext/@types";
 import { useParams } from "react-router-dom";
 import { TUserSales } from "../../Providers/CarContext/@types";
 import UserSalePagination from "../../Components/UserSalePagination";
+import { motion } from "framer-motion";
 
 const ProfileViewUser = () => {
   const { id } = useParams();
   const { user, retrieveUser, retrieveProfileViewUser } = useUserContext();
   const [ProfileUser, setProfileUser] = useState<TUser | null>(null);
   const [salesProfileUser, setSalesProfileUser] = useState<TUserSales[]>([]);
-
-  const carsWithStatusTrue = salesProfileUser.filter(
-    (car) => car.status === true
-  );
 
   useEffect(() => {
     const token = localStorage.getItem("frontEndMotors:token");
@@ -30,34 +27,39 @@ const ProfileViewUser = () => {
   }, []);
 
   return (
-    <StyledDashboardPage>
-      <Header />
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}>
+      <StyledDashboardPage>
+        <Header />
 
-      <div className="dashboard-container">
-        <div className="dashboard-header-purple"></div>
-        <div className="user-info-container">
-          <UserAvatar
-            img={ProfileUser?.userImage}
-            username={`${ProfileUser?.firstName} ${ProfileUser?.lastName}`}
-            size="big"
-          />
-          <div className="user-name-container">
-            <h2 className="user-name">{`${ProfileUser?.firstName} ${ProfileUser?.lastName}`}</h2>
-            <span className="user-role">Anunciante</span>
+        <div className="dashboard-container">
+          <div className="dashboard-header-purple"></div>
+          <div className="user-info-container">
+            <UserAvatar
+              img={ProfileUser?.userImage}
+              username={`${ProfileUser?.firstName} ${ProfileUser?.lastName}`}
+              size="big"
+            />
+            <div className="user-name-container">
+              <h2 className="user-name">{`${ProfileUser?.firstName} ${ProfileUser?.lastName}`}</h2>
+              <span className="user-role">Anunciante</span>
+            </div>
+            <p className="user-description">{ProfileUser?.description}</p>
           </div>
-          <p className="user-description">{ProfileUser?.description}</p>
-        </div>
 
-        <div className="sales-container">
-          <h2>Anúncios</h2>
-          <div className="sales-list-container">
-            <SalesList owner={user?.role!} sales={carsWithStatusTrue} />
+          <div className="sales-container">
+            <h2>Anúncios</h2>
+            <div className="sales-list-container">
+              <SalesList owner={user?.role!} sales={salesProfileUser} />
+            </div>
+            <UserSalePagination setState={setSalesProfileUser} />
           </div>
-          <UserSalePagination setState={setSalesProfileUser} />
         </div>
-      </div>
-      <Footer />
-    </StyledDashboardPage>
+        <Footer />
+      </StyledDashboardPage>
+    </motion.div>
   );
 };
 
