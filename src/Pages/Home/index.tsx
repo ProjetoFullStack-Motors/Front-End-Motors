@@ -28,7 +28,9 @@ const Home = () => {
         <Banner />
 
         {allCars.length === 0 ? (
+
           <p>Não existe carros</p>
+
         ) : (
           <>
             <div className="home-container container">
