@@ -146,6 +146,7 @@ type TPaginateSalesAdResponse = {
 };
 
 type TImageSalesAd = {
+  id: string;
   imageUrl: string;
 };
 

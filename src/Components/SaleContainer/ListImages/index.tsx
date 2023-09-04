@@ -20,14 +20,14 @@ const ListImages = ({ saleFounded }: TSaleContainerProps) => {
   return (
     <>
       <StyleListImages>
-          {saleFounded.salesImages.map((img) => (
-            <li
-              key={img.imageUrl}
-              title="Visualizar imagem"
-              onClick={() => findImage(img.imageUrl)}>
-              <img src={img.imageUrl} alt={saleFounded.model} />
-            </li>
-          ))}
+        {saleFounded.salesImages.map((img) => (
+          <li
+            key={img.id}
+            title="Visualizar imagem"
+            onClick={() => findImage(img.imageUrl)}>
+            <img src={img.imageUrl} alt={saleFounded.model} />
+          </li>
+        ))}
       </StyleListImages>
 
       {modal && modal == "Imagem do veículo"
