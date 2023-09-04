@@ -3,7 +3,6 @@ import styled from "styled-components";
 const StyledSlider = styled.div`
   display: flex;
   flex-direction: column;
-  /* gap: 1rem; */
 
   h2 {
     font-size: var(--font-heading-4);

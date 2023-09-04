@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const StyledDashboardPage = styled.main`
   min-height: 100vh;
-  /* max-height: max-content; */
   max-width: 100vw;
   position: relative;
   display: flex;

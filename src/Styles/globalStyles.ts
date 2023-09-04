@@ -10,8 +10,6 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     :root{
-        // colors:
-
         --brand-1: #4529E6;
         --brand-2: #5126EA;
         --brand-3: #B0A6F0;
@@ -49,65 +47,47 @@ export const GlobalStyles = createGlobalStyle`
 
         --modal-background: rgba(33, 37, 41, 0.6);
 
-        //font-size:
-
-        --font-heading-1: 2.75rem; // 44px
-        --font-heading-2: 2.25rem; // 36px
-        --font-heading-3: 2rem; // 32px
-        --font-heading-4: 1.75rem; // 28px
-        --font-heading-5: 1.5rem; // 24px
-        --font-heading-6: 1.25rem; // 20px
-        --font-body-1: 1rem; // 16px
-        --font-body-2: .875rem; // 14px
-
-        //font-weight:
+        --font-heading-1: 2.75rem; 
+        --font-heading-2: 2.25rem; 
+        --font-heading-3: 2rem; 
+        --font-heading-4: 1.75rem; 
+        --font-heading-5: 1.5rem; 
+        --font-heading-6: 1.25rem; 
+        --font-body-1: 1rem; 
+        --font-body-2: .875rem; 
 
         --font-bold: 700;
         --font-semibold: 600;
         --font-medium: 500;
         --font-base: 400;
 
-        //border-radius:
-
         --button-border: 2px;
         --input-border: 4px;
 
-        //button-width:
-
-        --button-width-0: 5rem; // 80px
-        --button-width-1: 6.25rem; // 100px
-        --button-width-2: 6.75rem; // 108px
-        --button-width-3: 7.875rem; // 126px
-        --button-width-4: 12.875rem; // 206px
-        --button-width-5: 17.438rem; // 279px
+        --button-width-0: 5rem; 
+        --button-width-1: 6.25rem; 
+        --button-width-2: 6.75rem; 
+        --button-width-3: 7.875rem; 
+        --button-width-4: 12.875rem; 
+        --button-width-5: 17.438rem; 
         --button-width-6: 100%;
         --button-width-7: 48%;
         --button-width-8: 80%;
-        --button-width-9: 9.375rem; //150px
-        --button-width-10: 10.313rem; //165px
-
-        //button-height:
+        --button-width-9: 9.375rem; 
+        --button-width-10: 10.313rem;  
 
         --button-height-1: 3rem; // 48px
-
-
-        //border-button:
 
         --border-button-1: 1.5px solid var(--grey-1);
     }
 
     body {
         font-family: 'Lexend', 'sans-serif';
-
-  
-
-
     }
 
     ::-webkit-scrollbar {
             width: 8px;
         }
-
 
     ::-webkit-scrollbar-thumb {
             background: var(--brand-1);

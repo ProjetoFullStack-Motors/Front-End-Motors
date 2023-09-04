@@ -6,8 +6,6 @@ export const FooterStyled = styled.footer`
   justify-content: center;
   width: 100%;
   background-color: var(--grey-0);
-  /* position: absolute;
-  bottom: 0; */
   margin-top: 2rem;
   div {
     display: flex;
