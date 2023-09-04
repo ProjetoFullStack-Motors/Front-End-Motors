@@ -16,7 +16,6 @@ const StyledSelect = styled.fieldset`
   select {
     height: 48px;
     max-width: 100%;
-    padding-inline: 0.6rem;
     box-sizing: border-box;
     border: 1.5px solid var(--grey-5);
     border-radius: var(--input-border);

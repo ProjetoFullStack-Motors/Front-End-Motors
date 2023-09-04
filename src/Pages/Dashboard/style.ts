@@ -41,6 +41,7 @@ const StyledDashboardPage = styled.main`
 
   .user-name-container {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
     gap: 10px;
   }

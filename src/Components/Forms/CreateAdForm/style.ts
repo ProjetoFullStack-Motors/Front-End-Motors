@@ -5,6 +5,7 @@ const StyledCreateAd = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1.5rem;
 
   h2 {
@@ -51,6 +52,10 @@ const StyledCreateAd = styled.div`
         font-size: var(--font-body-1);
         outline: none;
       }
+    }
+
+    button {
+      margin: 0 auto;
     }
   }
 `;
