@@ -11,7 +11,7 @@ import {
 import { ButtonContainerPosition, StyledHomePage } from "./style";
 import { createPortal } from "react-dom";
 import { useCarContext } from "../../Hooks";
-// import NoCars from "../../Components/MessageNoCars";
+import NoCars from "../../Components/MessageNoCars";
 
 const Home = () => {
   const { filterModal, setFilterModal, filteredCars, allCars } =
@@ -26,8 +26,7 @@ const Home = () => {
         <Banner />
 
         {allCars.length === 0 ? (
-          // <NoCars />
-          <p>Não existe carros</p>
+          <NoCars />
         ) : (
           <>
             <div className="home-container container">
@@ -48,7 +47,7 @@ const Home = () => {
 
             {filterModal && createPortal(<AsideMobile />, document.body)}
           </>
-        )}  
+        )}
 
         <Footer />
       </StyledHomePage>
