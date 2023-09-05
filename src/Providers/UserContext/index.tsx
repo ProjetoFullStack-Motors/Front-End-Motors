@@ -33,6 +33,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
   const [previousPage, setPreviousPage] = useState<string | null>(null);
   const [nextPage, setNextPage] = useState<string | null>(null);
   const [pagesAmount, setPagesAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const userLogin = async (data: TLoginData) => {
     try {
@@ -52,6 +53,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     } catch (error) {
       toast.error("E-mail ou senha inválido(s)!");
       console.log(error);
+    } finally {
+      console.clear();
     }
   };
 
@@ -67,6 +70,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     } catch (error) {
       toast.error("Cadastro inválido!");
       console.log(error);
+    } finally {
+      console.clear();
     }
   };
 
@@ -77,6 +82,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
   };
 
   const retrieveUser = async (id: string) => {
+    setLoading(true);
     try {
       const response = await api.get(`/salesAd/users/${id}`);
       setUserName({
@@ -97,6 +103,9 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
       toast.error(currentError.response?.data.message);
       logoutUser();
       console.log(error);
+    } finally {
+      setLoading(false);
+      console.clear();
     }
   };
 
@@ -105,6 +114,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     setState: React.Dispatch<React.SetStateAction<TUser | null>>,
     setState2: React.Dispatch<React.SetStateAction<TUserSales[]>>
   ) => {
+    setLoading(true);
+
     try {
       const response = await api.get(`/salesAd/users/${id}`);
       setState(response.data.user);
@@ -121,6 +132,9 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
       toast.error(currentError.response?.data.message);
 
       console.log(error);
+    } finally {
+      setLoading(false);
+      console.clear();
     }
   };
 
@@ -134,6 +148,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
       const currentError = error as AxiosError<TErrorResponse>;
       toast.error(currentError.response?.data.message);
       console.log(error);
+    } finally {
+      console.clear();
     }
   };
 
@@ -167,6 +183,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Não foi possível atualizar o endereço");
+    } finally {
+      console.clear();
     }
   };
 
@@ -186,7 +204,11 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
       if (count > 12) {
         setPagesAmount(Math.ceil(count / 12));
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    } finally {
+      console.clear();
+    }
   };
 
   const updateUserInformation = async (
@@ -210,6 +232,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Não foi possível atualizar o perfil");
+    } finally {
+      console.clear();
     }
   };
 
@@ -227,6 +251,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Não foi possível excluir sua conta");
+    } finally {
+      console.clear();
     }
   };
 
@@ -257,6 +283,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
         setUserSales,
         updateUserInformation,
         deleteUserProfile,
+        loading,
+        setLoading,
       }}>
       {children}
     </UserContext.Provider>

@@ -99,12 +99,12 @@ const StyledDashboardPage = styled.main`
       padding-left: 0;
       width: 90%;
       align-self: center;
-      min-height: 1800px;
 
       .sales-list-container {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100%;
         max-width: 1200px;
         margin: 0 auto;
       }

@@ -80,6 +80,8 @@ const EditAdForm = () => {
         setFipePrice(findModel!.value);
       } catch (error) {
         console.log(error);
+      } finally {
+        console.clear();
       }
     };
 
@@ -240,15 +242,17 @@ const EditAdForm = () => {
           placeholder="Ex: https://image.com"
         />
 
-        <Button
-          type="button"
-          $background="brand-4"
-          $color="brand-1"
-          $width={8}
-          onClick={() => append({ imageUrl: "" })}
-        >
-          Adicionar campo para imagem da galeria
-        </Button>
+        {fields.length < 3 && (
+          <Button
+            type="button"
+            $background="brand-4"
+            $color="brand-1"
+            $width={8}
+            onClick={() => append({ imageUrl: "" })}
+          >
+            Adicionar campo para imagem da galeria
+          </Button>
+        )}
 
         {fields.map((field, index) => {
           return (
