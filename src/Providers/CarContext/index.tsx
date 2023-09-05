@@ -21,6 +21,7 @@ import {
   TComment,
   TCreateComment,
 } from "../../Components/SaleComments/validator";
+import { useUserContext } from "../../Hooks";
 
 const CarContext = createContext({} as TCarContextProps);
 
@@ -47,13 +48,18 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     ISale | TUserSales | TSaleProps | null
   >(null);
 
+  const { setLoading } = useUserContext();
+
   useEffect(() => {
     const asideValues = async () => {
+      setLoading(true);
       try {
         const asideCars = await api.get<TAsideValues>("/salesAd/values");
         setAsideFilter(asideCars.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     asideValues();
@@ -61,6 +67,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
 
   useEffect(() => {
     const getAllCars = async () => {
+      setLoading(true);
+
       try {
         const getCars = await api.get("/salesAd");
 
@@ -75,6 +83,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         setNextPage(nextPage);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
 
