@@ -52,24 +52,21 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
 
   useEffect(() => {
     const asideValues = async () => {
-      setLoading(true);
       try {
         const asideCars = await api.get<TAsideValues>("/salesAd/values");
         setAsideFilter(asideCars.data);
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false);
         console.clear();
       }
     };
     asideValues();
-  }, []);
+  }, [allCars]);
 
   useEffect(() => {
     const getAllCars = async () => {
       setLoading(true);
-
       try {
         const getCars = await api.get("/salesAd");
 
@@ -85,8 +82,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false);
         console.clear();
+        setLoading(false);
       }
     };
 
@@ -127,9 +124,9 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     model: "",
     color: "",
     year: "",
-    price: [10000, 500000],
+    price: [0, 1000000],
     engine: "",
-    mileage: [0, 200000],
+    mileage: [0, 500000],
   };
 
   const [car, dispatch] = useReducer(carReducer, initialState);
@@ -205,6 +202,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         toast.warning("Não foi encontrado dados para essa busca");
         setCars([]);
       } else {
+        toast.success("Resultado(s) da pesquisa encontrado(s)");
         setCars(data);
       }
     } catch (error) {
@@ -219,9 +217,9 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     dispatch({ type: "model", payload: "" });
     dispatch({ type: "color", payload: "" });
     dispatch({ type: "year", payload: "" });
-    dispatch({ type: "price", payload: [10000, 500000] });
+    dispatch({ type: "price", payload: [0, 1000000] });
     dispatch({ type: "engine", payload: "" });
-    dispatch({ type: "mileage", payload: [0, 200000] });
+    dispatch({ type: "mileage", payload: [0, 500000] });
 
     setIsSearching(false);
     setChange(!change);
@@ -497,7 +495,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         setEditSale,
         deleteSalesAd,
         editASalesAd,
-      }}>
+      }}
+    >
       {children}
     </CarContext.Provider>
   );

@@ -15,14 +15,14 @@ const AllFilters = () => {
         stepValue={5000}
         itemKey="mileage"
         min={0}
-        max={200000}
+        max={500000}
       />
       <RangeSlide
         title="Preço"
         stepValue={2000}
         itemKey="price"
-        min={10000}
-        max={500000}
+        min={0}
+        max={1000000}
       />
     </StyledFilters>
   );
