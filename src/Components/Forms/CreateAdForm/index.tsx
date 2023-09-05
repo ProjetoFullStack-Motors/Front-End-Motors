@@ -188,14 +188,17 @@ const CreateAd = () => {
           placeholder="Ex: https://image.com"
         />
 
-        <Button
-          type="button"
-          $background="brand-4"
-          $color="brand-1"
-          $width={8}
-          onClick={() => append({ url: "" })}>
-          Adicionar campo para imagem da galeria
-        </Button>
+        {fields.length < 3 && (
+          <Button
+            type="button"
+            $background="brand-4"
+            $color="brand-1"
+            $width={8}
+            onClick={() => append({ url: "" })}
+          >
+            Adicionar campo para imagem da galeria
+          </Button>
+        )}
 
         {fields.map((field, index) => {
           return (
@@ -220,14 +223,16 @@ const CreateAd = () => {
             $background="grey-5"
             $color="grey-2"
             $width={7}
-            onClick={closeModal}>
+            onClick={closeModal}
+          >
             Cancelar
           </Button>
           <Button
             type="submit"
             $background="brand-1"
             $color="grey-9"
-            $width={7}>
+            $width={7}
+          >
             Salvar alterações
           </Button>
         </StyledInputContainer>

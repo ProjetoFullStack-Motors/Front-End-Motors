@@ -21,6 +21,7 @@ import {
   TComment,
   TCreateComment,
 } from "../../Components/SaleComments/validator";
+import { useUserContext } from "../../Hooks";
 
 const CarContext = createContext({} as TCarContextProps);
 
@@ -47,6 +48,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     ISale | TUserSales | TSaleProps | null
   >(null);
 
+  const { setLoading } = useUserContext();
+
   useEffect(() => {
     const asideValues = async () => {
       try {
@@ -59,10 +62,11 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
       }
     };
     asideValues();
-  }, []);
+  }, [allCars]);
 
   useEffect(() => {
     const getAllCars = async () => {
+      setLoading(true);
       try {
         const getCars = await api.get("/salesAd");
 
@@ -79,6 +83,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         console.log(error);
       } finally {
         console.clear();
+        setLoading(false);
       }
     };
 
@@ -114,26 +119,14 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     }
   };
 
-  const allPrices = allCars.map((item) => item.price);
-
-  const allMileages = allCars.map((item) => item.mileage);
-
-  const maxPrice = Math.max(...allPrices);
-
-  const minPrice = Math.min(...allPrices);
-
-  const maxMileage = Math.max(...allMileages);
-
-  const minMileage = Math.min(...allMileages);
-
   const initialState: TCarState = {
     brand: "",
     model: "",
     color: "",
     year: "",
-    price: [minPrice, maxPrice],
+    price: [0, 1000000],
     engine: "",
-    mileage: [minMileage, maxMileage],
+    mileage: [0, 500000],
   };
 
   const [car, dispatch] = useReducer(carReducer, initialState);
@@ -209,6 +202,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         toast.warning("Não foi encontrado dados para essa busca");
         setCars([]);
       } else {
+        toast.success("Resultado(s) da pesquisa encontrado(s)");
         setCars(data);
       }
     } catch (error) {
@@ -223,9 +217,9 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     dispatch({ type: "model", payload: "" });
     dispatch({ type: "color", payload: "" });
     dispatch({ type: "year", payload: "" });
-    dispatch({ type: "price", payload: [minPrice, maxPrice] });
+    dispatch({ type: "price", payload: [0, 1000000] });
     dispatch({ type: "engine", payload: "" });
-    dispatch({ type: "mileage", payload: [minMileage, maxMileage] });
+    dispatch({ type: "mileage", payload: [0, 500000] });
 
     setIsSearching(false);
     setChange(!change);
@@ -501,10 +495,6 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         setEditSale,
         deleteSalesAd,
         editASalesAd,
-        maxPrice,
-        minPrice,
-        maxMileage,
-        minMileage,
       }}
     >
       {children}

@@ -6,6 +6,8 @@ export const StyledSaleComments = styled.div`
   padding: 16px;
   gap: 40px;
 
+  margin-bottom: 32px;
+
   .comments-section {
     display: flex;
     flex-direction: column;

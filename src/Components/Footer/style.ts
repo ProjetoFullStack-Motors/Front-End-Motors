@@ -6,7 +6,7 @@ export const FooterStyled = styled.footer`
   justify-content: center;
   width: 100%;
   background-color: var(--grey-0);
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
   div {
     display: flex;
     flex-direction: column;

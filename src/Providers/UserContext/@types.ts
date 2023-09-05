@@ -36,6 +36,8 @@ type TUserContext = {
     data: TUpdateUserPartial
   ) => Promise<void>;
   deleteUserProfile: (id: string) => Promise<void>;
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 type TUserMail = {
