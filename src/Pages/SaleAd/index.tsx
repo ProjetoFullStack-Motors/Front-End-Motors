@@ -24,6 +24,7 @@ const Sale = () => {
         console.log(error);
       } finally {
         setLoading(false);
+        console.clear();
       }
     };
 

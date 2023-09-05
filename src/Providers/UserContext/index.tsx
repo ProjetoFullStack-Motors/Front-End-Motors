@@ -53,6 +53,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     } catch (error) {
       toast.error("E-mail ou senha inválido(s)!");
       console.log(error);
+    } finally {
+      console.clear();
     }
   };
 
@@ -68,6 +70,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     } catch (error) {
       toast.error("Cadastro inválido!");
       console.log(error);
+    } finally {
+      console.clear();
     }
   };
 
@@ -101,6 +105,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
       console.log(error);
     } finally {
       setLoading(false);
+      console.clear();
     }
   };
 
@@ -129,6 +134,7 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
       console.log(error);
     } finally {
       setLoading(false);
+      console.clear();
     }
   };
 
@@ -142,6 +148,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
       const currentError = error as AxiosError<TErrorResponse>;
       toast.error(currentError.response?.data.message);
       console.log(error);
+    } finally {
+      console.clear();
     }
   };
 
@@ -175,6 +183,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Não foi possível atualizar o endereço");
+    } finally {
+      console.clear();
     }
   };
 
@@ -194,7 +204,11 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
       if (count > 12) {
         setPagesAmount(Math.ceil(count / 12));
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    } finally {
+      console.clear();
+    }
   };
 
   const updateUserInformation = async (
@@ -218,6 +232,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Não foi possível atualizar o perfil");
+    } finally {
+      console.clear();
     }
   };
 
@@ -235,6 +251,8 @@ const UserProvider = ({ children }: TUserProvidersProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Não foi possível excluir sua conta");
+    } finally {
+      console.clear();
     }
   };
 

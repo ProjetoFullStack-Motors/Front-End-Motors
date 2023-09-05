@@ -60,6 +60,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         console.log(error);
       } finally {
         setLoading(false);
+        console.clear();
       }
     };
     asideValues();
@@ -85,6 +86,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         console.log(error);
       } finally {
         setLoading(false);
+        console.clear();
       }
     };
 
@@ -207,6 +209,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      console.clear();
     }
   };
 
@@ -238,7 +242,11 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
       if (count > 12) {
         setPagesAmount(Math.ceil(count / 12));
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    } finally {
+      console.clear();
+    }
   };
 
   const getBrandModels = async (brand: string) => {
@@ -247,6 +255,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
       setModels(allModels.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      console.clear();
     }
   };
 
@@ -261,6 +271,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         setSelectedBrand(allBrandsKeys[0]);
       } catch (error) {
         console.log(error);
+      } finally {
+        console.clear();
       }
     };
 
@@ -321,6 +333,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Nào foi possível criar um novo anúncio");
+    } finally {
+      console.clear();
     }
   };
 
@@ -347,6 +361,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Não foi possível realizar um comentário");
+    } finally {
+      console.clear();
     }
   };
 
@@ -365,6 +381,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Não foi possível editar o comentário");
+    } finally {
+      console.clear();
     }
   };
 
@@ -383,6 +401,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Não foi possível excluir o comentário");
+    } finally {
+      console.clear();
     }
   };
 
@@ -401,6 +421,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Não foi possível excluir o anúncio");
+    } finally {
+      console.clear();
     }
   };
 
@@ -419,6 +441,8 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Não foi possível atualizar o anúncio");
+    } finally {
+      console.clear();
     }
   };
 
