@@ -114,14 +114,26 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     }
   };
 
+  const allPrices = allCars.map((item) => item.price);
+
+  const allMileages = allCars.map((item) => item.mileage);
+
+  const maxPrice = Math.max(...allPrices);
+
+  const minPrice = Math.min(...allPrices);
+
+  const maxMileage = Math.max(...allMileages);
+
+  const minMileage = Math.min(...allMileages);
+
   const initialState: TCarState = {
     brand: "",
     model: "",
     color: "",
     year: "",
-    price: [10000, 500000],
+    price: [minPrice, maxPrice],
     engine: "",
-    mileage: [0, 200000],
+    mileage: [minMileage, maxMileage],
   };
 
   const [car, dispatch] = useReducer(carReducer, initialState);
@@ -211,9 +223,9 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
     dispatch({ type: "model", payload: "" });
     dispatch({ type: "color", payload: "" });
     dispatch({ type: "year", payload: "" });
-    dispatch({ type: "price", payload: [10000, 500000] });
+    dispatch({ type: "price", payload: [minPrice, maxPrice] });
     dispatch({ type: "engine", payload: "" });
-    dispatch({ type: "mileage", payload: [0, 200000] });
+    dispatch({ type: "mileage", payload: [minMileage, maxMileage] });
 
     setIsSearching(false);
     setChange(!change);
@@ -489,6 +501,10 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         setEditSale,
         deleteSalesAd,
         editASalesAd,
+        maxPrice,
+        minPrice,
+        maxMileage,
+        minMileage,
       }}
     >
       {children}

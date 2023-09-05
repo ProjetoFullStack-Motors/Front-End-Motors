@@ -136,6 +136,10 @@ type TCarContextProps = {
   >;
   deleteSalesAd: (id: string) => Promise<void>;
   editASalesAd: (id: string, data: TUpdateSalesAd) => Promise<void>;
+  maxPrice: number;
+  minPrice: number;
+  maxMileage: number;
+  minMileage: number;
 };
 
 type TPaginateSalesAdResponse = {

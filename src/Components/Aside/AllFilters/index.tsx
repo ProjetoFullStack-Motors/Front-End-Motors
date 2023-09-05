@@ -1,8 +1,10 @@
+import { useCarContext } from "../../../Hooks";
 import ListNav from "../ListNav";
 import RangeSlide from "../RangeSlide";
 import StyledFilters from "./style";
 
 const AllFilters = () => {
+  const { maxPrice, minPrice, maxMileage, minMileage } = useCarContext();
   return (
     <StyledFilters>
       <ListNav saleKey="brand" name="Marca" />
@@ -12,17 +14,17 @@ const AllFilters = () => {
       <ListNav saleKey="engine" name="Combustível" />
       <RangeSlide
         title="Km"
-        stepValue={5000}
+        stepValue={1000}
         itemKey="mileage"
-        min={0}
-        max={200000}
+        min={minMileage}
+        max={maxMileage}
       />
       <RangeSlide
         title="Preço"
         stepValue={2000}
         itemKey="price"
-        min={10000}
-        max={500000}
+        min={minPrice}
+        max={maxPrice}
       />
     </StyledFilters>
   );

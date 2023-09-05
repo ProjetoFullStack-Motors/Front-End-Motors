@@ -18,8 +18,16 @@ const RangeSlide = ({
     <StyledSlider>
       <h2>{title}</h2>
       <div>
-        <h3>{itemKey == "price" ? `R$ ${min}` : `${min} km`}</h3>
-        <h3>{itemKey == "price" ? `R$ ${max}` : `${max} km`}</h3>
+        <h3>
+          {itemKey == "price"
+            ? `R$ ${min.toLocaleString("pt-BR")}`
+            : `${min.toLocaleString("pt-BR")} km`}
+        </h3>
+        <h3>
+          {itemKey == "price"
+            ? `R$ ${max.toLocaleString("pt-BR")}`
+            : `${max.toLocaleString("pt-BR")} km`}
+        </h3>
       </div>
       <Slider
         value={sliderValue.map((number: number) => Number(number))}
