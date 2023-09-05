@@ -19,6 +19,8 @@ const Sale = () => {
         setSaleFounded(data);
       } catch (error) {
         console.log(error);
+      } finally {
+        console.clear();
       }
     };
 
@@ -29,7 +31,8 @@ const Sale = () => {
     <motion.div
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}>
+      transition={{ duration: 0.5 }}
+    >
       <Header />
 
       {saleFounded && (
