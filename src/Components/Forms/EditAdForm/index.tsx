@@ -80,6 +80,8 @@ const EditAdForm = () => {
         setFipePrice(findModel!.value);
       } catch (error) {
         console.log(error);
+      } finally {
+        console.clear();
       }
     };
 
