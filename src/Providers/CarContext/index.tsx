@@ -79,11 +79,11 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         setAllCars(data);
         setPreviousPage(prevPage);
         setNextPage(nextPage);
+        setLoading(false);
       } catch (error) {
         console.log(error);
       } finally {
         console.clear();
-        setLoading(false);
       }
     };
 

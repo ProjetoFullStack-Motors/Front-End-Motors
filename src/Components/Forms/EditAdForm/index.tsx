@@ -140,6 +140,7 @@ const EditAdForm = () => {
           title="Marca"
           {...register("brand")}
           callback={handleBrandSelect}
+          disabled
         />
 
         <Select
@@ -149,6 +150,7 @@ const EditAdForm = () => {
           {...register("model")}
           itemKey="name"
           callback={handleModelSelect}
+          disabled
         />
         <StyledInputContainer>
           <Input
