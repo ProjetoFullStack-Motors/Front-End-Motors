@@ -17,6 +17,12 @@ const StyledEditProfileForm = styled.div`
     flex-direction: column;
     gap: 1rem;
 
+    .btnSearchPass {
+        button {
+          top: 35%;
+        }
+    }
+
     fieldset {
       border: none;
       display: flex;
