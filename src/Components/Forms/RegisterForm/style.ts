@@ -17,7 +17,7 @@ const StyledDiv = styled.div`
     }
 
     button {
-      top: 35%;
+      top: 50%;
     }
   }
 
@@ -101,23 +101,25 @@ const StyledDiv = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
+    position: relative;
 
     fieldset {
-      width: 90%;
+      width: 100%;
       height: auto;
 
       input {
         height: 48px;
-        margin: 0;
+        margin-top: 10px;
       }
     }
 
     button {
       width: 10%;
-      height: 48px;
+      scale: 0.8;
+      position: absolute;
+      right: 5px;
+      padding-top: 10px;
 
-      padding: 0;
-      height: auto;
     }
   }
 
