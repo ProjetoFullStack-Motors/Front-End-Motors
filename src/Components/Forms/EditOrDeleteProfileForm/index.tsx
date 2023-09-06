@@ -59,6 +59,7 @@ const EditOrDeleteProfileForm = () => {
           placeholder={user?.email}
           errors={errors.email}
         />
+        <div className="btnSearchPass">
         <InputPass
           id="password"
           label="Mudar senha"
@@ -66,6 +67,7 @@ const EditOrDeleteProfileForm = () => {
           placeholder="Digite sua nova senha"
           errors={errors.password}
         />
+        </div>
         <Input
           id="cpf"
           label="CPF"
