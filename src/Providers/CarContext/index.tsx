@@ -82,6 +82,9 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         setLoading(false);
       } catch (error) {
         console.log(error);
+        toast.warning(
+          "O tempo de resposta do servidor se excedeu, por favor recarregue a página"
+        );
       } finally {
         console.clear();
       }
@@ -495,8 +498,7 @@ const CarProvider = ({ children }: TCarProvidersProps) => {
         setEditSale,
         deleteSalesAd,
         editASalesAd,
-      }}
-    >
+      }}>
       {children}
     </CarContext.Provider>
   );
